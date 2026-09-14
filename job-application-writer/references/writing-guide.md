@@ -26,7 +26,25 @@ Prioritize:
 - domain or audience familiarity that reduces onboarding time;
 - adjacent skills only when they strengthen a core match.
 
+Use domain labels only when the domain itself strengthens the match or explains a relevant constraint. Otherwise, describe the experience at the useful level of abstraction—such as `в продукте`, `в продуктовой команде`, or by interface type—and preserve the concrete action, artifact, scale, and outcome. Do not foreground a niche such as VR, fintech, or edtech when the employer is hiring for general product work and the niche adds no evidence of fit.
+
 Omit unrelated tools, full career chronology, generic responsibilities, and soft-skill labels such as `стрессоустойчивый`, `коммуникабельный`, or `ответственный`.
+
+## Evidence as a Story
+
+Do not compress several unrelated resume bullets or projects into one sentence. This creates a dense list of claims and may falsely imply that every metric belongs to the same project.
+
+Prefer one coherent evidence chain:
+
+1. Context — what kind of product or problem the candidate worked on.
+2. Action — what the candidate personally designed, researched, or changed.
+3. Result — one supported outcome or metric that explains why the work mattered.
+
+Use one strong example instead of several counts. Include a number only when it demonstrates scale or impact; do not use metrics merely to make the application sound impressive.
+
+Preserve the boundaries between projects. If two achievements come from different roles or products, separate them or choose the more relevant one.
+
+Avoid generic summaries such as `worked with developers and clients` when a concrete action can demonstrate the same ability. Never extend a resume claim: handing designs to development does not imply supporting them through release.
 
 ## Resume-Derived Signals
 

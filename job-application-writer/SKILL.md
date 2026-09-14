@@ -18,11 +18,13 @@ Portfolio: https://d1eruki.github.io/port-heaven/
 Telegram: https://t.me/d1eruki
 ```
 
+For Artem Treskov, do not name current or previous employers in the application body unless he explicitly asks. Present relevant experience through the work performed, product context, artifacts, and supported outcomes; treat employer names as source context only.
+
 ## Workflow
 
 1. Extract the role, seniority, core tasks, must-have skills, useful extras, product context, and tone from the vacancy.
 2. Extract only supported evidence from the resume: projects, responsibilities, tools, domain experience, outcomes, and work approach.
-3. Match the strongest two or three pieces of evidence to the employer's priorities. Prefer outcomes and completed actions over tool lists.
+3. Match the strongest one or two pieces of evidence to the employer's priorities. Present each as a coherent context → action → result chain. Prefer one relevant, understandable case over a dense list of skills, deliverables, and metrics.
 4. When current company information or a vacancy URL is available, inspect reliable public sources for one specific, verifiable motivation point. Never fabricate a product, culture, technology, project, or personal product usage. If research is impossible, ground motivation in the supplied vacancy and say nothing that implies external research.
 5. Handle a genuine gap briefly and positively only when it matters: state the actual level of exposure and readiness to learn. Do not apologize or claim rapid mastery as a fact.
 6. Draft two or three compact paragraphs in a clear sequence: introduction, relevant evidence, specific motivation, and invitation to continue the conversation. Follow with the contact block. Aim for roughly 20–30 seconds of reading time.
