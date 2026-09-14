@@ -1,0 +1,4 @@
+interface:
+  display_name: "Job Application Writer"
+  short_description: "Write tailored, concise job application letters"
+  default_prompt: "Use $job-application-writer to write a concise, tailored cover letter for this vacancy using my resume."

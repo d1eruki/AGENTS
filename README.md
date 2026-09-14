@@ -16,6 +16,7 @@ Skills помогают агентам работать предсказуемо
 | [`frontend-engineering`](./frontend-engineering/SKILL.md)                 | Применяет общие подходы к реализации и диагностике frontend-интерфейсов и подключает доступные технологические skills. |
 | [`frontend-maintenance`](./frontend-maintenance/SKILL.md)                 | Аудирует и безопасно обновляет runtime, зависимости и frontend-tooling как совместимую систему.                        |
 | [`frontend-verification`](./frontend-verification/SKILL.md)               | Проектирует долговечные frontend-тесты и выбирает пропорциональную проверку изменений.                                 |
+| [`job-application-writer`](./job-application-writer/SKILL.md)             | Создаёт краткие персонализированные отклики на вакансии на основе резюме и требований работодателя.                    |
 | [`repository-workflow`](./repository-workflow/SKILL.md)                   | Задаёт проверку репозитория, согласование scope, краткую коммуникацию и поддержку инструкций.                          |
 | [`tailwind-engineering`](./tailwind-engineering/SKILL.md)                 | Реализует и диагностирует Tailwind CSS через utilities, tokens, variants и обоснованные расширения.                    |
 | [`vue-engineering`](./vue-engineering/SKILL.md)                           | Реализует и диагностирует Vue-компоненты, реактивность, composables и владение состоянием.                             |
