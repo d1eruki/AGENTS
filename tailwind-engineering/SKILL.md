@@ -17,6 +17,10 @@ Implement layout, spacing, sizing, colors, typography, responsive behavior, bord
 
 Prefer whole numeric values in authored utilities and theme tokens. Avoid fractional values when whole values can express the intended design without meaningful loss. When a fractional value is genuinely necessary, use no more than one digit after the decimal point.
 
+Treat color utilities as foreground/background pairs. Before replacing or consolidating a semantic color token, inspect every consumer and its default and variant-driven surfaces. Preserve WCAG AA contrast: 4.5:1 for normal text, 3:1 for large text, and 3:1 for meaningful controls, focus indicators, icons, and graphical boundaries. Resolve opacity modifiers such as `text-*/70` against the computed surface, and ensure child colors change with parent `hover:`, `focus:`, `active:`, `selected`, or dark-mode backgrounds when needed.
+
+For text over images or gradients, use an overlay or local surface strong enough to guarantee the required contrast across the entire text area. Do not assume a utility is accessible merely because it uses a semantic token.
+
 When the project has a semantic color-token layer, consume its established utilities instead of raw palette classes or lower-level values. Keep state styling in the component through supported variants when possible.
 
 ## Centralize Semantic Typography

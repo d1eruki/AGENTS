@@ -110,6 +110,14 @@ Keep dependencies layered:
 
 Use one vocabulary across the chain. Paired colors should describe a surface and its content. Reserve `muted` for enabled low-priority content and `disabled` for unavailable controls or content. Do not bypass an established semantic token layer with raw palette values in application code.
 
+## Preserve Color Contrast
+
+Treat foreground and background colors as a paired contract. Before reusing, replacing, or removing a shared color token, trace every consumer against its actual surface and interaction states; a color that passes on a light surface may fail on a dark, branded, image, gradient, or translucent surface.
+
+Meet WCAG AA contrast at minimum: 4.5:1 for normal text, 3:1 for large text, and 3:1 for meaningful controls, focus indicators, icons, and graphical boundaries. Resolve transparent colors against the effective rendered background rather than comparing raw token values. For text over images or gradients, provide a sufficiently strong overlay or local surface that guarantees contrast across the complete content area.
+
+Check default, hover, active, focus, selected, disabled, and open states. When a parent changes its background on interaction, update every child foreground that no longer passes. Decorative low-contrast text or graphics must be excluded from accessibility semantics and must not carry required information.
+
 ## Preserve Accessibility and Localization
 
 Add appropriate accessibility attributes to icons and SVGs, including `aria-hidden` and `focusable` for decorative graphics. Give icon-only or ambiguous controls an accessible name, and keep image alternatives accurate.

@@ -39,4 +39,12 @@ For non-visual changes, skip visual review and run only relevant checks. Run a p
 
 Report unrelated or pre-existing failures separately and do not describe a suite as passing when relevant checks failed or were skipped.
 
+## Verify Color Contrast
+
+For new or changed colors, tokens, surfaces, images, gradients, opacity, or interaction styling, verify WCAG AA contrast on every affected page and component. Measure computed foreground colors against the effective rendered background, including alpha compositing. Use 4.5:1 for normal text, 3:1 for large text, and 3:1 for meaningful controls, focus indicators, icons, and graphical boundaries.
+
+Cover default, hover, active, focus, selected, disabled, and open states. Include responsive variants when they change colors, backgrounds, imagery, overlays, or navigation presentation. For text over images or gradients, verify the least favorable part of the text area; a sampled average or fallback CSS background is insufficient evidence.
+
+Separate genuine failures from decorative `aria-hidden` content and from tooling false positives caused by sibling images or overlays. Do not dismiss a failure until the effective rendered pair or guaranteed worst-case contrast has been established.
+
 Treat a batch as complete only when its observable acceptance checks, the user's required visual review, and relevant automated verification all pass. Until the user reports visual acceptance, describe automated verification as complete but visual verification as pending. When a relevant failure requires a file change, repeat the affected verification and request another user review when the visible result may have changed.
