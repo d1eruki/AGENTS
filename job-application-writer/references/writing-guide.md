@@ -1,122 +1,122 @@
-# Cover Letter Writing Guide
+# Руководство по написанию сопроводительного письма
 
-Read this reference when selecting evidence, adapting tone, or revising a draft.
+Читай этот справочник при отборе фактов, настройке тона и редактировании черновика.
 
-## Evidence Hierarchy
+## Иерархия источников
 
-1. The candidate's resume or portfolio supplied by the user.
-2. The vacancy text or official vacancy page.
-3. Official company sources: product pages, company site, newsroom, engineering or design blog, and verified social profiles.
-4. Reputable interviews, articles, case studies, and employee-review sources.
+1. Резюме или портфолио кандидата, предоставленные пользователем.
+2. Текст вакансии или её официальная страница.
+3. Официальные источники компании: страницы продуктов, сайт, новости, технический или дизайнерский блог и подтверждённые профили в соцсетях.
+4. Авторитетные интервью, статьи, разборы проектов и источники отзывов сотрудников.
 
-Use lower-ranked sources to understand context, not to override the resume or vacancy. Omit details that cannot be verified. Never turn a company claim into a claim about the candidate.
+Используй менее приоритетные источники для понимания контекста, а не для опровержения резюме или вакансии. Опускай непроверяемые детали. Никогда не превращай утверждение о компании в утверждение о кандидате.
 
-## Selecting Material
+## Отбор материала
 
-Build a compact match before drafting:
+До черновика составь краткое сопоставление:
 
-| Employer need | Candidate evidence | Strength | Use in letter |
+| Потребность работодателя | Подтверждение из опыта кандидата | Сила соответствия | Использование в письме |
 | --- | --- | --- | --- |
-| Core task or required skill | Specific project, action, tool, or result from the resume | Direct / adjacent / gap | Usually use direct evidence |
+| Основная задача или обязательный навык | Конкретный проект, действие, инструмент или результат из резюме | Прямое / смежное / пробел | Обычно используй прямое подтверждение |
 
-Prioritize:
+Отдавай приоритет:
 
-- work that closely resembles the vacancy's main tasks;
-- concrete projects, shipped work, research, systems, or measurable outcomes;
-- domain or audience familiarity that reduces onboarding time;
-- adjacent skills only when they strengthen a core match.
+- работе, похожей на основные задачи вакансии;
+- конкретным проектам, выпущенным результатам, исследованиям, системам и измеримому эффекту;
+- знакомству с предметной областью или аудиторией, которое сокращает время адаптации;
+- смежным навыкам только тогда, когда они усиливают главное соответствие.
 
-Use domain labels only when the domain itself strengthens the match or explains a relevant constraint. Otherwise, describe the experience at the useful level of abstraction—such as `в продукте`, `в продуктовой команде`, or by interface type—and preserve the concrete action, artifact, scale, and outcome. Do not foreground a niche such as VR, fintech, or edtech when the employer is hiring for general product work and the niche adds no evidence of fit.
+Называй отрасль, только если она усиливает соответствие или объясняет важное ограничение. Иначе описывай опыт на полезном уровне обобщения — например, `в продукте`, `в продуктовой команде` или через тип интерфейса — сохраняя конкретное действие, результат работы, масштаб и эффект. Не выдвигай на первый план узкую нишу вроде VR, финансовых или образовательных технологий, если работодатель ищет специалиста для общей продуктовой работы и ниша не доказывает соответствие.
 
-Omit unrelated tools, full career chronology, generic responsibilities, and soft-skill labels such as `стрессоустойчивый`, `коммуникабельный`, or `ответственный`.
+Опускай несвязанные инструменты, полную хронологию карьеры, общие обязанности и названия гибких навыков вроде `стрессоустойчивый`, `коммуникабельный` или `ответственный`.
 
-## Evidence as a Story
+## Факты как история
 
-Do not compress several unrelated resume bullets or projects into one sentence. This creates a dense list of claims and may falsely imply that every metric belongs to the same project.
+Не сжимай несколько несвязанных пунктов резюме или проектов в одно предложение. Получится плотный перечень утверждений и может возникнуть ложное впечатление, что все показатели относятся к одному проекту.
 
-Prefer one coherent evidence chain:
+Предпочитай одну связную цепочку:
 
-1. Context — what kind of product or problem the candidate worked on.
-2. Action — what the candidate personally designed, researched, or changed.
-3. Result — one supported outcome or metric that explains why the work mattered.
+1. Контекст — с каким продуктом или проблемой работал кандидат.
+2. Действие — что кандидат лично спроектировал, исследовал или изменил.
+3. Результат — один подтверждённый эффект или показатель, объясняющий ценность работы.
 
-Use one strong example instead of several counts. Include a number only when it demonstrates scale or impact; do not use metrics merely to make the application sound impressive.
+Используй один сильный пример вместо нескольких чисел. Включай показатель только если он показывает масштаб или влияние, а не просто делает отклик эффектнее.
 
-Preserve the boundaries between projects. If two achievements come from different roles or products, separate them or choose the more relevant one.
+Не смешивай проекты. Если два достижения относятся к разным ролям или продуктам, раздели их либо выбери более релевантное.
 
-Avoid generic summaries such as `worked with developers and clients` when a concrete action can demonstrate the same ability. Never extend a resume claim: handing designs to development does not imply supporting them through release.
+Избегай общих формулировок вроде «работал с разработчиками и клиентами», когда конкретное действие лучше показывает тот же навык. Не расширяй утверждения резюме: передача макетов в разработку не означает сопровождения до выпуска.
 
-## Resume-Derived Signals
+## Сигналы из резюме
 
-When interpreting or improving resume material for an application:
+При отборе и улучшении материала резюме для отклика:
 
-- Prefer a less formal presentation of the candidate's name; omit a patronymic unless the context requires it.
-- Do not mention desired salary in the letter unless the user explicitly wants to set a firm compensation floor.
-- Treat descriptions of what an employer does as context, not candidate evidence. Keep them only when the company name is otherwise ambiguous and the domain strengthens the match.
-- Rewrite vague outcomes into a specific action, artifact, scale, and result. Prefer a supported figure such as hours saved, number of interfaces, prototypes, pages, or components.
-- Give counts context: say what was designed, for whom or for which product, and why it mattered.
-- Exclude driving experience and recommendation contacts unless the vacancy makes them relevant.
-- Present hard skills as concrete methods, artifacts, and tools—for example `User Story`, `Human Interface Guidelines`, `UI-kit`, `CJM`, and `Wireframing`—without self-ratings such as `базовый уровень` or `уверенное владение`.
+- Предпочитай менее формальное представление имени кандидата; опускай отчество, если контекст его не требует.
+- Не упоминай желаемую зарплату в письме, если пользователь явно не хочет установить твёрдую нижнюю границу оплаты.
+- Считай описание деятельности работодателя контекстом, а не доказательством опыта кандидата. Оставляй его только если без него название компании неоднозначно и отрасль усиливает соответствие.
+- Превращай расплывчатые результаты в конкретные действие, результат работы, масштаб и эффект. Предпочитай подтверждённые цифры: сэкономленные часы, число интерфейсов, прототипов, страниц или компонентов.
+- Давай числам контекст: что было спроектировано, для кого или для какого продукта и почему это важно.
+- Убирай сведения о вождении и контакты рекомендателей, если вакансия не делает их релевантными.
+- Показывай профессиональные навыки через конкретные методы, материалы и инструменты — например, `User Story`, `Human Interface Guidelines`, `UI-kit`, `CJM` и `Wireframing` — без самооценок вроде `базовый уровень` или `уверенное владение`.
 
-These are selection and editing preferences, not permission to invent missing metrics or remove information from a live resume without the user's request.
+Это предпочтения по отбору и редактуре, а не разрешение выдумывать недостающие показатели или удалять сведения из действующего резюме без просьбы пользователя.
 
-## Recommended Shape
+## Рекомендуемая структура
 
-Compress the following into two or three small paragraphs rather than mechanically producing seven sections:
+Умести следующее в два-три небольших абзаца, не создавая механически семь разделов:
 
-1. Greeting and one-sentence introduction: candidate, specialization, and role.
-2. One or two sentences connecting the strongest evidence to the vacancy's needs.
-3. A specific reason for interest, an optional concise gap statement, and an invitation to talk.
-4. A separate contact block.
+1. Приветствие и представление одним предложением: кандидат, специализация и роль.
+2. Одно-два предложения, связывающие самый сильный опыт с потребностями вакансии.
+3. Конкретная причина интереса, при необходимости краткое объяснение пробела и приглашение к разговору.
+4. Отдельный блок контактов.
 
-The structure is a decision aid, not a fill-in template. Keep this order instead of jumping back and forth between skills, personal qualities, and closing remarks. Vary sentence rhythm and wording so applications do not look mass-produced.
+Структура помогает принять решение, а не служит шаблоном для заполнения. Соблюдай порядок, не перескакивая между навыками, личными качествами и заключением. Меняй ритм и формулировки, чтобы отклики не выглядели массовой рассылкой.
 
-## Motivation
+## Мотивация
 
-Name a real point of intersection, such as:
+Назови реальную точку пересечения, например:
 
-- the product and its users;
-- a specific problem space or kind of interface;
-- the company's stated working approach or mission;
-- a relevant project, technology, process, or design quality;
-- genuine prior use of the product, but only when the user or resume confirms it.
+- продукт и его пользователей;
+- конкретную область задач или тип интерфейса;
+- заявленный компанией подход к работе или миссию;
+- релевантный проект, технологию, процесс или качество дизайна;
+- реальный опыт использования продукта, но только если его подтверждает пользователь или резюме.
 
-Where possible, express motivation as a useful connection: a verified company detail or role challenge → relevant candidate experience → the work or outcome that experience could support. Avoid empty claims such as `компания мечты`, `очень заинтересовала вакансия`, or praise that could apply to any employer.
+По возможности выражай мотивацию через полезную связь: проверенная деталь о компании или задача роли → релевантный опыт кандидата → работа или результат, которым этот опыт может помочь. Избегай пустых утверждений вроде `компания мечты`, `очень заинтересовала вакансия` и похвалы, подходящей любому работодателю.
 
-## Gaps
+## Пробелы в опыте
 
-Mention a missing skill only if it is important enough that silence would be misleading or if the user asks to address it. Use a factual formulation:
+Упоминай отсутствующий навык, только если умолчание вводило бы в заблуждение или пользователь попросил обсудить его. Используй фактическую формулировку:
 
 > С Webflow работал ограниченно, но готов быстро освоить его под задачи команды.
 
-Do not apologize, overexplain, or promise expertise that has not been demonstrated.
+Не извиняйся, не оправдывайся подробно и не обещай неподтверждённую квалификацию.
 
-## Tone
+## Тон
 
-- Formal employer or corporation: precise, calm, professional.
-- Startup: direct, modern, energetic without slang.
-- Creative studio: warmer and freer, while remaining respectful.
-- Ambiguous tone: concise neutral professionalism.
+- Формальный работодатель или корпорация: точно, спокойно, профессионально.
+- Стартап: прямо, современно, энергично, без сленга.
+- Творческая студия: теплее и свободнее, но уважительно.
+- Неясный тон: краткая нейтральная профессиональность.
 
-Avoid familiarity, imitation of brand slang, exaggerated enthusiasm, emotional pressure, complaints, ultimatums, and career ambitions presented instead of employer value.
+Избегай фамильярности, подражания фирменному сленгу, чрезмерного восторга, эмоционального давления, жалоб, ультиматумов и рассказа о карьерных амбициях вместо пользы для работодателя.
 
-## Delivery Context
+## Способ отправки
 
-When preparing text for email or a messenger, put the application directly in the message body rather than creating a separate attachment. For a platform such as hh.ru, provide text suitable for its cover-letter field. Do not send or publish the application unless the user explicitly asks.
+Для письма или мессенджера помещай отклик прямо в текст сообщения, не создавая отдельное вложение. Для площадки вроде hh.ru подготовь текст, подходящий для её поля сопроводительного письма. Не отправляй и не публикуй отклик без явной просьбы пользователя.
 
-## Final Review
+## Итоговая проверка
 
-Before returning the letter, verify that:
+Перед выдачей письма проверь, что:
 
-- every candidate claim appears in the resume or user-provided facts;
-- the candidate name, recruiter name, company, and vacancy title match the supplied sources;
-- verbs, participles, and adjectives consistently use the candidate's grammatical gender when the language requires it;
-- the letter makes it obvious which vacancy it addresses;
-- at least one concrete experience match is visible;
-- motivation contains a specific, supportable detail connected to a plausible contribution;
-- no irrelevant experience or unsupported technology remains;
-- no sentence merely promises value without adding evidence or meaning;
-- spelling, punctuation, paragraph order, and forms of address are correct;
-- sentences are short, active, and easy to scan;
-- the body is normally two or three compact paragraphs;
-- the requested contact links appear as a complete separate final block with no placeholders.
+- каждое утверждение о кандидате подтверждается резюме или данными пользователя;
+- имена кандидата и рекрутера, компания и название вакансии совпадают с источниками;
+- глаголы, причастия и прилагательные согласованы с грамматическим родом кандидата, если этого требует язык;
+- из письма ясно, на какую вакансию оно отвечает;
+- показан хотя бы один конкретный подходящий пример опыта;
+- мотивация содержит конкретную подтверждаемую деталь, связанную с возможным вкладом;
+- не осталось нерелевантного опыта или неподтверждённых технологий;
+- ни одно предложение не обещает пользу без новых фактов или смысла;
+- орфография, пунктуация, порядок абзацев и обращения верны;
+- предложения короткие, активные и удобные для беглого чтения;
+- основной текст обычно состоит из двух-трёх коротких абзацев;
+- запрошенные ссылки на контакты приведены полным отдельным блоком без заглушек.

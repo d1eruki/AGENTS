@@ -1,36 +1,36 @@
-# macOS Foundations
+# Основы macOS
 
-## Platform Context
+## Контекст платформы
 
-Design for a spacious, high-resolution workspace that may span multiple displays. Assume people can spend hours in the app, keep several apps visible, and switch frequently between active and inactive contexts.
+Проектируй для просторной рабочей области высокого разрешения, которая может занимать несколько экранов. Учитывай, что люди могут проводить в приложении часы, держать видимыми несколько программ и часто переключаться между активным и неактивным контекстом.
 
-Mac input is combinational: keyboard, trackpad, mouse, game controls, accessibility technologies, and voice can coexist. Do not make a core workflow depend exclusively on touch-like gestures or pointer interaction.
+На Mac сочетаются разные способы ввода: клавиатура, трекпад, мышь, игровые контроллеры, вспомогательные технологии и голос. Не делай основной сценарий зависящим исключительно от сенсорных жестов или указателя.
 
-## Core Heuristics
+## Основные ориентиры
 
-- Show enough context to support deep work without overwhelming the screen.
-- Favor stable spatial organization so users can build muscle memory.
-- Keep persistent app structure distinct from transient task state.
-- Use familiar macOS terminology, symbols, control behavior, and command ordering.
-- Preserve user control over windows, views, data, and repeated workflows.
-- Allow quick tasks and sustained sessions to use the same coherent model.
-- Handle activation changes gracefully; do not discard selection, edits, or context merely because another app becomes active.
+- Показывай достаточно контекста для сосредоточенной работы, не перегружая экран.
+- Предпочитай устойчивое пространственное расположение, чтобы пользователь мог выработать привычку.
+- Отличай постоянную структуру приложения от временного состояния задачи.
+- Используй привычные для macOS термины, символы, поведение элементов и порядок команд.
+- Сохраняй управление пользователя окнами, видами, данными и повторяющимися процессами.
+- Поддерживай короткие задачи и длительные сеансы в одной согласованной модели.
+- Корректно обрабатывай смену активного приложения: не теряй выбор, правки и контекст лишь потому, что пользователь переключился.
 
-## Native Feel
+## Ощущение нативного приложения
 
-A native-feeling app is defined more by behavior than decoration. Prioritize system-consistent focus, selection, menus, keyboard navigation, window management, drag and drop, undo, copy and paste, state restoration, and accessibility before visual novelty.
+Нативность приложения в большей степени определяется поведением, а не декором. До визуальной новизны обеспечь согласованные с системой фокус, выбор, меню, клавиатурную навигацию, управление окнами, перетаскивание, отмену, копирование и вставку, восстановление состояния и доступность.
 
-Use system materials, typography, colors, controls, and symbols when appropriate. Custom presentation is acceptable when it clarifies the product's identity or domain, but custom controls must preserve expected semantics and states.
+По возможности используй системные материалы, типографику, цвета, элементы управления и символы. Собственное оформление допустимо, если раскрывает характер продукта или предметную область, но собственные элементы управления должны сохранять ожидаемые смысл и состояния.
 
-## Questions to Resolve
+## Вопросы для уточнения
 
-- What are the primary objects users create, open, select, edit, or organize?
-- Is the app document-based, library-based, utility-like, or a collection of independent workspaces?
-- Which information must remain visible while users act?
-- Which operations deserve direct manipulation, a toolbar item, a menu command, or an inspector?
-- What must survive relaunch, window closure, display changes, and activation changes?
-- Which workflows need keyboard-only completion?
+- Какие основные объекты пользователь создаёт, открывает, выбирает, редактирует и организует?
+- Приложение основано на документах, библиотеке, отдельной утилите или наборе независимых рабочих областей?
+- Какая информация должна оставаться видимой во время действий?
+- Какие операции требуют непосредственного управления, кнопки на панели инструментов, команды меню или инспектора?
+- Что должно сохраняться после перезапуска, закрытия окна, смены экрана и переключения активного приложения?
+- Какие сценарии необходимо полностью выполнять с клавиатуры?
 
-## Authority
+## Авторитетный источник
 
-Start with [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos). Recheck the official page for current platform changes before making time-sensitive claims.
+Начни с раздела [«Дизайн для macOS»](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos). Перед зависящими от времени утверждениями проверь актуальные изменения платформы на официальной странице.

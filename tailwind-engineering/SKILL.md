@@ -1,40 +1,40 @@
 ---
 name: tailwind-engineering
-description: Implement, review, or diagnose Tailwind CSS styling, including utilities, variants, theme tokens, responsive behavior, dynamic classes, and justified custom CSS. Use only when the target project actually uses Tailwind CSS.
+description: "Реализуй, проверяй и диагностируй оформление на Tailwind CSS: утилиты, варианты, токены темы, адаптивное поведение, динамические классы и обоснованный собственный CSS. Используй только если проект действительно применяет Tailwind CSS."
 ---
 
-# Tailwind Engineering
+# Разработка с Tailwind CSS
 
-## Establish the Active Tailwind Setup
+## Определи действующую конфигурацию Tailwind
 
-Inspect the installed Tailwind version, CSS entrypoints, configuration, plugins, theme definitions, and nearby templates before editing. Follow the project's active configuration style and do not assume that syntax or defaults from another Tailwind release apply.
+Перед правками изучи установленную версию Tailwind, входные CSS-файлы, конфигурацию, плагины, тему и соседние шаблоны. Следуй принятому в проекте способу настройки; не считай, что синтаксис и значения по умолчанию из другой версии Tailwind применимы здесь.
 
-## Prefer Utilities and Existing Tokens
+## Предпочитай утилиты и существующие токены
 
-Prefer built-in utilities, project theme tokens, CSS variables, and variants over custom CSS or hardcoded values. Use canonical utilities when Tailwind directly covers the requirement, and do not duplicate framework defaults for breakpoints, spacing, colors, typography, shadows, radii, transitions, or stacking values.
+Предпочитай встроенные утилиты, токены темы проекта, переменные CSS и варианты собственному CSS и жёстко заданным значениям. Если Tailwind уже решает задачу, используй стандартную утилиту. Не дублируй стандартные значения брейкпоинтов, отступов, цветов, типографики, теней, скруглений, переходов и порядка наложения.
 
-Implement layout, spacing, sizing, colors, typography, responsive behavior, borders, and shadows with utilities in templates when that is the established project approach. Use normal sizing, padding, flex, and grid before introducing complex arbitrary calculations.
+Если в проекте так принято, задавай компоновку, отступы, размеры, цвета, типографику, адаптивность, границы и тени утилитами прямо в шаблонах. Прежде чем вводить сложные произвольные вычисления, попробуй обычные размеры, внутренние отступы, flex и grid.
 
-Prefer whole numeric values in authored utilities and theme tokens. Avoid fractional values when whole values can express the intended design without meaningful loss. When a fractional value is genuinely necessary, use no more than one digit after the decimal point.
+Предпочитай целые числа в собственных утилитах и токенах темы. Избегай дробных значений, если целые передают задуманный дизайн без существенной потери. Если дробь действительно нужна, используй не более одного знака после запятой.
 
-Treat color utilities as foreground/background pairs. Before replacing or consolidating a semantic color token, inspect every consumer and its default and variant-driven surfaces. Preserve WCAG AA contrast: 4.5:1 for normal text, 3:1 for large text, and 3:1 for meaningful controls, focus indicators, icons, and graphical boundaries. Resolve opacity modifiers such as `text-*/70` against the computed surface, and ensure child colors change with parent `hover:`, `focus:`, `active:`, `selected`, or dark-mode backgrounds when needed.
+Рассматривай цветовые утилиты парами «передний план — фон». Перед заменой или объединением смыслового цветового токена проверь всех потребителей, их стандартные поверхности и варианты. Сохраняй контраст WCAG AA: 4,5:1 для обычного текста, 3:1 для крупного текста и 3:1 для значимых элементов управления, индикаторов фокуса, иконок и графических границ. Проверяй модификаторы прозрачности вроде `text-*/70` на фактическом фоне и при необходимости меняй цвет дочерних элементов вместе с фоном родителя в состояниях `hover:`, `focus:`, `active:`, `selected` и тёмной теме.
 
-For text over images or gradients, use an overlay or local surface strong enough to guarantee the required contrast across the entire text area. Do not assume a utility is accessible merely because it uses a semantic token.
+Для текста поверх изображений или градиентов используй подложку либо локальную поверхность, обеспечивающую нужный контраст по всей области текста. Смысловой токен сам по себе не доказывает доступность утилиты.
 
-When the project has a semantic color-token layer, consume its established utilities instead of raw palette classes or lower-level values. Keep state styling in the component through supported variants when possible.
+Если в проекте есть слой смысловых цветовых токенов, используй его утилиты вместо прямых классов палитры и низкоуровневых значений. По возможности задавай оформление состояний внутри компонента через поддерживаемые варианты.
 
-## Centralize Semantic Typography
+## Централизуй смысловую типографику
 
-When a Tailwind project has a defined typography system, expose its actual semantic roles as theme variables and utilities, such as `--text-h1` with `text-h1` or `--text-body` with `text-body`. Derive the names and number of roles from the design instead of requiring a fixed list.
+Если в проекте Tailwind определена система типографики, вырази её реальные смысловые роли переменными темы и утилитами, например `--text-h1` и `text-h1` либо `--text-body` и `text-body`. Названия и количество ролей выводи из дизайна, не навязывая фиксированный список.
 
-Use values from the active Tailwind type scale when they match the design. Keep responsive font-size changes in the shared token or theme layer so component markup consumes one semantic class rather than repeating combinations such as `text-*`, `sm:text-*`, and `wide:text-*`.
+Используй значения действующей шкалы шрифтов Tailwind, когда они совпадают с дизайном. Храни адаптивные изменения размера шрифта в общем токене или слое темы, чтобы разметка компонента применяла один смысловой класс вместо повторения комбинаций вроде `text-*`, `sm:text-*` и `wide:text-*`.
 
-Once semantic typography utilities exist, use them throughout components instead of direct size utilities. Change a shared size centrally. Do not create a new token or shrink text merely to compensate for an incorrect grid, container width, spacing, or wrapping behavior.
+После появления смысловых типографических утилит используй их во всех компонентах вместо прямых классов размера. Общий размер меняй централизованно. Не создавай новый токен и не уменьшай текст только ради компенсации неверной сетки, ширины контейнера, отступов или переноса строк.
 
-## Keep Classes Discoverable
+## Обеспечь обнаружение классов
 
-Use complete class names in source or explicit mappings recognized by the project's Tailwind build. Do not construct class fragments dynamically when that prevents the compiler from discovering the resulting utilities; use an established safelist only when explicit mappings are insufficient.
+Пиши полные имена классов в исходниках или явных сопоставлениях, которые распознаёт сборка Tailwind проекта. Не собирай фрагменты классов динамически, если из-за этого компилятор не видит итоговые утилиты; используй принятый список разрешённых классов только когда явных сопоставлений недостаточно.
 
-## Justify Custom Extensions
+## Обосновывай собственные расширения
 
-Add an arbitrary value, custom utility, theme token, plugin, or component-specific selector only when built-in utilities and existing project tokens cannot express the requirement. Identify the missing Tailwind capability, keep the exception local, and avoid extending custom CSS when variants or utilities already cover the affected state.
+Добавляй произвольное значение, собственную утилиту, токен темы, плагин или селектор конкретного компонента только если встроенные утилиты и существующие токены проекта не выражают требование. Укажи, какой возможности Tailwind не хватает, сохрани исключение локальным и не расширяй собственный CSS, когда нужное состояние уже покрывают варианты или утилиты.

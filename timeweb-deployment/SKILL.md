@@ -1,35 +1,35 @@
 ---
 name: timeweb-deployment
-description: Deploy or migrate a website to Timeweb shared hosting, or set up domain mail on Timeweb Mail. Covers GitHub Actions delivery, DNS and mailbox migration, SSL, redirects, and verification. Do not use for Timeweb Cloud or VDS server administration.
+description: Развёртывай или переноси сайт на виртуальный хостинг Timeweb либо настраивай доменную почту Timeweb. Охватывает доставку через GitHub Actions, перенос DNS и почты, SSL, перенаправления и проверку. Не используй для администрирования Timeweb Cloud или VDS.
 ---
 
-# Timeweb Deployment
+# Развёртывание на Timeweb
 
-Deploy from GitHub Actions by pushing built artifacts to Timeweb. Keep the client-owned Timeweb account independent from the source repository: the hosting account receives compiled files and a public deployment key, while GitHub stores the private key and performs the build.
+Развёртывай сайт из GitHub Actions, загружая на Timeweb собранные файлы. Сохраняй независимость аккаунта Timeweb клиента от репозитория с исходным кодом: на хостинг попадают готовые файлы и открытый ключ развёртывания, а закрытый ключ хранится в GitHub, где выполняется сборка.
 
-Read [references/step-by-step.md](references/step-by-step.md) before configuring a new deployment, moving a production domain, rotating credentials, or removing an old host.
+Прочитай [references/step-by-step.md](references/step-by-step.md), прежде чем настраивать новое развёртывание, переносить рабочий домен, менять учётные данные или отключать старый хостинг.
 
-When the domain's mail is being moved to Timeweb, or a site form must send to a Timeweb mailbox, also read [references/mail.md](references/mail.md). Moving website hosting alone does not require moving mail.
+Если доменная почта переносится на Timeweb или форма сайта должна отправлять письма в ящик Timeweb, также прочитай [references/mail.md](references/mail.md). Один лишь перенос сайта не требует переноса почты.
 
-## Preserve Access Boundaries
+## Сохраняй границы доступа
 
-- Create a unique Ed25519 key for each client project. Never reuse one deployment key across customers or hosting accounts.
-- Store only the public key in the Timeweb account and only the private key in the relevant GitHub Actions secret.
-- Never place a GitHub token, repository deploy key, `.git` directory, source checkout, or the private deployment key on the client server.
-- Treat repository write access as deployment access because a writer can change a workflow that consumes repository secrets.
-- Verify the SSH host key independently before saving `known_hosts`. Stop on an unexplained fingerprint change.
-- Remove superseded public keys from `~/.ssh/authorized_keys`, delete obsolete local key files, and replace the GitHub secret when rotating access.
+- Создавай отдельный ключ Ed25519 для каждого клиентского проекта. Не используй один ключ развёртывания для разных клиентов или аккаунтов хостинга.
+- Храни в аккаунте Timeweb только открытый ключ, а закрытый — только в соответствующем секрете GitHub Actions.
+- Никогда не размещай на сервере клиента токен GitHub, ключ доступа к репозиторию, каталог `.git`, копию исходного репозитория или закрытый ключ развёртывания.
+- Считай право записи в репозиторий правом на развёртывание: пользователь с таким доступом может изменить процесс, использующий секреты репозитория.
+- Независимо проверь ключ SSH-сервера, прежде чем сохранять его в `known_hosts`. При необъяснимой смене отпечатка остановись.
+- При смене доступа убери прежние открытые ключи из `~/.ssh/authorized_keys`, удали устаревшие локальные файлы ключей и замени секрет GitHub.
 
-## Preserve Existing Services
+## Сохраняй действующие сервисы
 
-Before changing nameservers, inventory the live zone. Recreate all required website, mail, verification, and security records at Timeweb before the cutover. In particular, preserve MX, SPF, DKIM, DMARC, and provider-verification TXT records when domain mail is in use.
+Перед сменой серверов имён проверь действующую DNS-зону. До переключения создай в Timeweb все нужные записи для сайта, почты, подтверждения владения и безопасности. Если используется доменная почта, особенно важно сохранить MX, SPF, DKIM, DMARC и TXT-записи для подтверждения у провайдеров.
 
-Keep exactly one SPF record for the domain. Merge authorized senders into that record. When the website sends mail through Timeweb while user mail remains at another provider, include both providers according to their current documentation.
+Оставляй ровно одну SPF-запись для домена и объединяй в ней разрешённых отправителей. Если сайт отправляет почту через Timeweb, а пользовательская почта остаётся у другого провайдера, включи обоих по их актуальной документации.
 
-Do not assume a green deployment run proves that the public domain, HTTPS, forms, mail, redirects, or error statuses work. Verify each separately after DNS propagation.
+Успешное выполнение развёртывания не доказывает работу публичного домена, HTTPS, форм, почты, перенаправлений или кодов ошибок. Проверь каждый пункт отдельно после распространения DNS.
 
-## Deploy Conservatively
+## Развёртывай осторожно
 
-Build for the production domain root and upload the build output rather than the repository. Start without destructive mirroring flags such as `rsync --delete`. Remove only identified provider placeholder files after confirming the uploaded entry point exists.
+Собирай сайт для корня рабочего домена и загружай результат сборки, а не репозиторий. Начинай без разрушительных флагов синхронизации вроде `rsync --delete`. Удаляй только точно определённые файлы-заглушки провайдера и лишь убедившись, что загружена входная страница сайта.
 
-Retain the old hosting service until authoritative DNS, common public resolvers, HTTPS, mail, forms, redirects, and required SEO endpoints have been verified on the new host.
+Сохраняй старый хостинг, пока на новом не будут проверены авторитетный DNS и распространённые публичные DNS-серверы, HTTPS, почта, формы, перенаправления и необходимые для SEO адреса.

@@ -1,172 +1,172 @@
 ---
 name: figma-design-system-refactor
-description: Audit, create, refactor, and roll out design systems inside existing Figma files. Use when Codex must identify repeated UI patterns, trace component usage across pages, safely retire unused masters or documentation, convert raw layers into reusable components and variants, replace screen elements with instances, normalize variables and styles, consolidate icons, typography, colors, spacing, radii, Auto Layout, system UI, naming, or build and document a Design System page while preserving existing screens, content, overrides, interactions, and visual appearance.
+description: Проверяй, создавай, перерабатывай и внедряй дизайн-системы в существующих файлах Figma. Используй для поиска повторяющихся интерфейсных паттернов, отслеживания компонентов на страницах, безопасного удаления неиспользуемых мастер-компонентов и документации, превращения слоёв в компоненты и варианты, замены элементов экрана экземплярами, упорядочивания переменных, стилей, иконок, типографики, цветов, отступов, скруглений, автоматической компоновки, системных элементов, названий и страницы дизайн-системы с сохранением экранов, содержимого, переопределений, взаимодействий и внешнего вида.
 ---
 
-# Figma Design System Refactor
+# Рефакторинг дизайн-системы Figma
 
-Systematize an existing Figma design without treating the component library and the screens as separate deliverables. Build the system from real patterns, then apply it back to the real consumers.
+Систематизируй существующий дизайн Figma, не разделяя библиотеку компонентов и экраны на независимые результаты. Строй систему на основе реальных паттернов и затем применяй её к настоящим потребителям.
 
-## Required reference
+## Обязательный справочник
 
-Before auditing or changing Figma, read [references/workflow.md](references/workflow.md) completely. Treat it as the governing workflow and quality standard for this skill.
+Перед аудитом или изменением Figma полностью прочитай [references/workflow.md](references/workflow.md). Это основной порядок работы и стандарт качества для данного скилла.
 
-Do not begin Figma operations after reading only this summary. The reference contains the required rules for source-of-truth resolution, invariants, discovery, pilot changes, batch replacement, overrides, error recovery, and final verification.
+Не начинай действия в Figma, прочитав только это краткое описание. Справочник содержит обязательные правила определения источника истины, сохранения инвариантов, поиска, пробных правок, массовой замены, переопределений, восстановления после ошибок и итоговой проверки.
 
-## Establish the project profile
+## Определи профиль проекта
 
-Resolve or ask for only the missing information that materially affects the work:
+Выясни самостоятельно или запроси только недостающие сведения, существенно влияющие на работу:
 
-- exact Figma file, branch, or copy authorized for editing;
-- pages containing source screens and the Design System;
-- target platform or platforms;
-- local and subscribed component libraries;
-- icon and platform-system libraries;
-- current variables, styles, fonts, and naming conventions;
-- requested scope and protected areas.
+- точный файл Figma, ветку или копию, разрешённые для редактирования;
+- страницы с исходными экранами и дизайн-системой;
+- целевую платформу или платформы;
+- локальные и подключённые библиотеки компонентов;
+- библиотеки иконок и системных элементов платформы;
+- действующие переменные, стили, шрифты и правила названий;
+- запрошенный объём работы и защищённые области.
 
-Inspect discoverable context before asking the user. Do not invent project-specific values.
+Прежде чем спрашивать пользователя, изучи доступный контекст. Не выдумывай значения, специфичные для проекта.
 
-## Select the work mode
+## Выбери режим работы
 
-Interpret the user's wording literally:
+Буквально учитывай формулировку пользователя:
 
-- For “audit,” “check,” “find,” “plan,” or “do not edit,” perform read-only inspection and report findings.
-- For “how did you understand it?”, restate the intended scope and wait.
-- For “do it,” “go,” “replace,” or another explicit implementation request, make the changes and verify them.
-- Never convert a read-only request into a write operation.
+- На просьбы «проведи аудит», «проверь», «найди», «составь план» или «не редактируй» отвечай проверкой без изменений и сообщением о результатах.
+- На вопрос «как ты понял?» изложи предполагаемый объём работ и дождись ответа.
+- На просьбы «делай», «го», «замени» или другой явный запрос реализации внеси изменения и проверь их.
+- Никогда не превращай запрос на просмотр в операцию записи.
 
-## Execute the workflow
+## Выполни рабочий процесс
 
-Follow this order:
+Соблюдай такой порядок:
 
-1. Resolve the linked node's actual type and role. If it is an instance, follow `mainComponent` to the variant and Component Set instead of treating the linked placement as the master. Re-resolve current page names and node IDs, then inventory existing components, instances, variables, styles, libraries, and repeated raw elements.
-2. Convert the user's wording into an explicit eligibility filter. Run both an exact relationship search and a broader semantic or visual search, but report and change only candidates that pass that filter.
-3. Classify matches before changing them. Separate true reusable patterns from visually similar but semantically different entities.
-4. Define component boundaries, properties, variants, slots, token roles, and coupled content rules from actual consumers.
-5. Snapshot the pilot's content, overrides, parent index, sizing, and geometry before inserting anything into its Auto Layout parent. Immediately before the write, re-read the live node and assert that the assumptions still hold; stop if the file drifted.
-6. Verify structure, layout, content, overrides, interactions, and visual parity.
-7. Stop and diagnose if the pilot drifts visually.
-8. Batch-apply only the verified pattern. Re-read each candidate before mutation rather than relying on an old discovery snapshot.
-9. Repeat the original searches, reconcile the final per-variant distribution with real current content, include hidden states when the result may authorize deletion, and visually inspect every affected screen, master, and documentation container.
-10. Report completed work, counts, exceptions, and remaining risks.
+1. Определи фактический тип и роль узла по ссылке. Если это экземпляр, проследи `mainComponent` до варианта и набора компонентов, не принимая размещённый экземпляр за мастер-компонент. Снова определи текущие имена страниц и ID узлов, затем составь перечень компонентов, экземпляров, переменных, стилей, библиотек и повторяющихся обычных элементов.
+2. Преврати слова пользователя в явный критерий отбора. Проведи и точный поиск по связям, и более широкий смысловой или визуальный поиск; сообщай и меняй только то, что проходит критерий.
+3. Классифицируй совпадения до правок. Отделяй действительно повторно используемые паттерны от похожих внешне, но разных по смыслу элементов.
+4. Определи границы компонентов, свойства, варианты, слоты, роли токенов и правила связанных значений на основе реальных потребителей.
+5. Сохрани состояние содержимого, переопределений, индекса у родителя, размеров и геометрии пробного элемента до вставки чего-либо в его родителя с автоматической компоновкой. Непосредственно перед записью перечитай текущий узел и убедись, что предположения ещё верны; при изменении файла остановись.
+6. Проверь структуру, компоновку, содержимое, переопределения, взаимодействия и соответствие внешнего вида.
+7. Если внешность пробного элемента изменилась нежелательным образом, остановись и выясни причину.
+8. Массово применяй только проверенный паттерн. Перед изменением каждого кандидата перечитай его текущее состояние, а не полагайся на старый снимок поиска.
+9. Повтори первоначальные поиски, сверь итоговое распределение по вариантам с текущим содержимым, учитывай скрытые состояния, если результат может обосновать удаление, и визуально проверь каждый затронутый экран, мастер-компонент и контейнер документации.
+10. Сообщи о сделанном, количестве элементов, исключениях и оставшихся рисках.
 
-## Preserve invariants
+## Сохраняй инварианты
 
-Unless the user explicitly authorizes a redesign, preserve:
+Если пользователь явно не разрешил редизайн, сохраняй:
 
-- visible text and user content exactly; never paraphrase a label while performing a structural refactor;
-- hierarchy and intended semantics;
-- dimensions, spacing, radii, and alignment;
-- visual appearance;
-- instance overrides and nested instance choices;
-- visibility states;
-- prototype interactions;
-- touch or click areas;
-- library linkage for library-owned elements.
+- видимый текст и пользовательское содержимое в точности; при структурном рефакторинге никогда не перефразируй подпись;
+- иерархию и задуманный смысл;
+- размеры, отступы, скругления и выравнивание;
+- внешний вид;
+- переопределения экземпляров и выбор вложенных экземпляров;
+- состояния видимости;
+- взаимодействия прототипа;
+- области касания и нажатия;
+- связи с библиотекой для принадлежащих ей элементов.
 
-Use instances rather than detached copies. Do not detach subscribed-library instances to make editing easier.
+Используй экземпляры, а не отсоединённые копии. Не отсоединяй экземпляры подключённой библиотеки ради удобства редактирования.
 
-## Make components from evidence
+## Создавай компоненты на основе фактов
 
-Create variants only for genuine state, hierarchy, size, or configuration differences. Use:
+Создавай варианты только для реальных различий состояния, иерархии, размера или конфигурации. Используй:
 
-- text properties for editable labels;
-- boolean properties for optional elements;
-- instance-swap properties for icons or replaceable nested content;
-- explicit slots for structurally variable content;
-- Auto Layout for normal content flow.
+- текстовые свойства для редактируемых подписей;
+- логические свойства для необязательных элементов;
+- свойства замены экземпляра для иконок и сменного вложенного содержимого;
+- явные слоты для содержимого с изменяемой структурой;
+- автоматическую компоновку для обычного потока содержимого.
 
-Avoid encoding unrelated concepts into one component set. Do not create a component merely because two layers look similar.
+Не объединяй несвязанные понятия в один набор компонентов. Не создавай компонент только потому, что два слоя похожи.
 
-When two editable values must remain synchronized, do not expose only one of them. For example, an address and its QR code, a label and its status asset, or a payment method and its logo may require paired properties, a nested instance swap, a slot, or a variant that prevents invalid combinations.
+Если два редактируемых значения должны оставаться согласованными, не предоставляй для изменения только одно из них. Например, адрес и его QR-код, подпись и связанный с ней значок статуса либо способ оплаты и логотип могут требовать парных свойств, замены вложенного экземпляра, слота или варианта, исключающего неправильные сочетания.
 
-When two components share the same structural and sizing contract and differ only by a stable hierarchy or appearance axis, prefer extending the existing component set over creating a parallel public component. Migrate all confirmed consumers before retiring the old master.
+Если два компонента имеют одинаковую структуру и правила размеров и отличаются лишь устойчивым уровнем иерархии или оформлением, лучше расширить существующий набор, чем создавать отдельный публичный компонент. До вывода старого мастер-компонента перенеси всех подтверждённых потребителей.
 
-Treat a repeated composite as a data matrix, not a single visual sample. Before replacing a list, timeline, status stack, or multi-row control, record its item count, order, text, per-item state, and visibility for every consumer. The migration must preserve that matrix; never collapse several old items into one new instance merely because the new visual is compact.
+Рассматривай повторяющийся составной элемент как матрицу данных, а не один визуальный образец. Перед заменой списка, хронологии, набора статусов или многострочного элемента управления запиши для каждого потребителя количество элементов, порядок, текст, состояние и видимость каждого. При переносе сохрани эту матрицу; не своди несколько старых элементов к одному новому экземпляру только потому, что новый вид компактнее.
 
-When changing an existing master, audit all consumers first and preserve their overrides. Retain a recoverable path until the new set has been validated.
+Перед изменением существующего мастер-компонента проверь всех его потребителей и сохрани их переопределения. Оставь возможность восстановления, пока новый набор не будет проверен.
 
-Represent progress, stepper, and multi-stage states from the full consumer matrix. Do not collapse distinct active steps into one generic visual. Keep only combinations that exist or are explicitly required; if a universal set creates many irrelevant properties or invalid combinations, split the API or use a nested component.
+Представляй прогресс, пошаговые индикаторы и многоэтапные состояния на основе полной матрицы потребителей. Не объединяй разные активные шаги в один общий вид. Оставляй только существующие или явно необходимые сочетания; если универсальный набор создаёт много лишних свойств или недопустимых комбинаций, раздели API либо используй вложенный компонент.
 
-## Audit usage before retirement
+## Проверь использование перед удалением
 
-Do not infer a linked node's role from its name or appearance. A link may target a documentation wrapper, preview frame, master component, component set, variant, instance, or raw copy. Resolve its type, ancestors, material descendants, and source relationship first.
+Не определяй роль узла по ссылке только по его названию или виду. Ссылка может вести на обёртку документации, фрейм предпросмотра, мастер-компонент, набор компонентов, вариант, экземпляр или обычную копию. Сначала установи тип узла, его предков, значимых потомков и связь с источником.
 
-Count actual consumers by master ID or component key, not by layer name. Audit every page in scope and distinguish:
+Считай реальных потребителей по ID мастер-компонента или ключу компонента, а не по имени слоя. Проверь каждую страницу в пределах задачи и различай:
 
-- source master placement;
-- documentation preview;
-- direct product instances;
-- nested instances inside other masters;
-- hidden instances or states;
-- detached or raw lookalikes.
+- размещение исходного мастер-компонента;
+- предпросмотр в документации;
+- непосредственные экземпляры в продукте;
+- экземпляры внутри других мастер-компонентов;
+- скрытые экземпляры и состояния;
+- отсоединённые или обычные похожие элементы.
 
-A fast scan that skips invisible instance children is not sufficient evidence for deletion. Repeat the exact audit without that optimization before declaring a master unused.
+Быстрый поиск, пропускающий невидимые дочерние экземпляры, не даёт достаточных оснований для удаления. Прежде чем признать мастер-компонент неиспользуемым, повтори точную проверку без этого упрощения.
 
-No instances in the current file does not prove that a published library component has no consumers in other files. Check publish status and state this limitation before deletion.
+Отсутствие экземпляров в текущем файле не доказывает, что у опубликованного библиотечного компонента нет потребителей в других файлах. Перед удалением проверь статус публикации и укажи это ограничение.
 
-Before deleting a wrapper that contains a master, name every material object that will be removed. After deletion, verify the old IDs no longer resolve, repeat the broad search, and inspect the parent layout for gaps or unintended reflow.
+Перед удалением обёртки с мастер-компонентом перечисли все значимые объекты, которые будут удалены. После удаления убедись, что старые ID больше не находятся, повтори широкий поиск и проверь родительскую компоновку на пробелы или нежелательную перестройку.
 
-## Normalize foundations
+## Упорядочь основы
 
-Reuse existing variables and styles where their semantics fit. Create new tokens only for a real reusable role, not to mirror every raw value.
+Повторно используй существующие переменные и стили, если их смысл подходит. Создавай токены только для реальной повторно используемой роли, а не для копирования каждого исходного значения.
 
-For each token decision:
+Для каждого решения о токене:
 
-- distinguish primitives from semantic roles;
-- bind the semantic role at the consumer;
-- include interaction or state in the role when it changes meaning, such as static, interactive, selected, disabled, or overlay;
-- avoid mapping visibly different colors only because their purpose sounds similar;
-- keep exceptional brand, QR, illustration, or system graphics explicit;
-- prefer coherent spacing, radius, typography, and icon-size scales;
-- document intentional exceptions.
+- отличай базовые значения от смысловых ролей;
+- привязывай смысловую роль у потребителя;
+- учитывай взаимодействие или состояние в роли, когда оно меняет смысл: обычное, интерактивное, выбранное, недоступное, наложенное;
+- не объединяй заметно разные цвета лишь потому, что их назначение звучит похоже;
+- оставляй особые фирменные, QR-, иллюстративные и системные изображения явно обозначенными;
+- предпочитай согласованные шкалы отступов, скруглений, типографики и размеров иконок;
+- документируй намеренные исключения.
 
-## Keep geometry robust
+## Сохраняй устойчивую геометрию
 
-Prefer Auto Layout and content-driven sizing. Use absolute positioning only for genuine overlays, decoration, or geometry that must be independent of content flow.
+Предпочитай автоматическую компоновку и размеры по содержимому. Абсолютное позиционирование используй только для настоящих наложений, декора или геометрии, которая должна быть независима от потока содержимого.
 
-Record the source state before inserting a replacement into an Auto Layout parent. Insertion can immediately reflow the source, making post-insertion coordinates invalid as “before” evidence.
+Зафиксируй исходное состояние до вставки замены в родителя с автоматической компоновкой. Вставка может сразу перестроить исходный элемент, и координаты после неё уже нельзя считать свидетельством состояния «до».
 
-Moving or cloning a source into Auto Layout documentation can also change the future master before it is combined as a variant. Normalize every variant's `FILL`/`HUG`/`FIXED` behavior and exact dimensions after reparenting, then validate the entire set rather than only the first child.
+Перемещение или копирование исходного элемента в документацию с автоматической компоновкой тоже может изменить будущий мастер-компонент до объединения в вариант. После смены родителя приведи к единому правилу поведение `FILL`/`HUG`/`FIXED` и точные размеры каждого варианта, затем проверь весь набор, а не только первый дочерний элемент.
 
-Normalize fractional values only on editable UI layout geometry. Do not round library internals, vector path data, QR or barcode geometry, masks, or negligible floating-point artifacts inside imported graphics.
+Округляй дробные значения только в редактируемой геометрии интерфейсного макета. Не округляй внутреннюю структуру библиотеки, данные векторных контуров, геометрию QR- и штрихкодов, маски и несущественные погрешности чисел с плавающей точкой внутри импортированной графики.
 
-Remove wrappers only when they no longer provide layout, clipping, styling, semantics, interaction, or a stable component boundary. Repeat the audit after wrapper removal because hidden raw matches may become visible.
+Удаляй обёртки, только если они больше не обеспечивают компоновку, обрезку, оформление, смысл, взаимодействие или устойчивую границу компонента. После удаления повтори аудит: ранее скрытые обычные совпадения могут стать видимыми.
 
-Classify small graphics before an icon-library rollout. Interchangeable glyphs, state indicators, progress rings, status dots, logos, system graphics, and decoration are different families. Replace only the families explicitly in scope; preserving a local state indicator can be correct when it is not an interchangeable icon.
+До внедрения библиотеки иконок классифицируй мелкую графику. Взаимозаменяемые пиктограммы, индикаторы состояния, кольца прогресса, точки статуса, логотипы, системная графика и декор — разные семейства. Меняй только явно включённые в задачу семейства; локальный индикатор состояния может правильно остаться на месте, если это не взаимозаменяемая иконка.
 
-## Verify rather than infer
+## Проверяй, а не предполагай
 
-After every meaningful batch:
+После каждой значимой группы правок:
 
-- inspect the changed node structure;
-- compare before and after visually;
-- test long and short content where relevant;
-- check instances, properties, and bindings;
-- confirm that the search producing the original candidates is now clear within the declared scope;
-- classify every remaining match as an exception or unfinished work.
+- изучи структуру изменённых узлов;
+- визуально сравни состояния до и после;
+- при необходимости проверь длинное и короткое содержимое;
+- проверь экземпляры, свойства и привязки;
+- убедись, что поиск первоначальных кандидатов больше не находит лишнего в заданных пределах;
+- отнеси каждое оставшееся совпадение к исключению или незавершённой работе.
 
-Treat the Figma file as live state. If a late read disagrees with an earlier count, size, variant, title, or visibility, inspect the outlier and current content before correcting it. The expected count is not a source of truth.
+Считай файл Figma изменяемым в реальном времени. Если поздняя проверка расходится с прежним количеством, размером, вариантом, названием или видимостью, сначала изучи расхождение и текущее содержимое. Ожидаемое количество — не источник истины.
 
-For visual QA, prefer an opaque outer screen or consumer. An isolated transparent component can render on a dark checkerboard or black background and hide dark text, producing a false failure or false pass.
+Для визуальной проверки предпочитай непрозрачный внешний экран или потребителя. Отдельный прозрачный компонент может отображаться на тёмной шахматной или чёрной подложке и скрывать тёмный текст, создавая ложную ошибку или ложное подтверждение.
 
-If pages, sections, or layers were renamed during the task, refresh the page inventory and resolve the current structure again before claiming completion. Treat IDs as stable references only while they still resolve; replacement or deletion can invalidate the original link.
+Если в ходе задачи переименованы страницы, секции или слои, обнови их перечень и снова определи текущую структуру, прежде чем заявлять о завершении. Считай ID устойчивыми ссылками только пока они разрешаются: замена или удаление может сделать исходную ссылку недействительной.
 
-When claiming that a rollout is complete, rerun both the exact relationship search and the broad structural or visual search over the entire agreed page or page set. A clean instance count does not prove that raw lookalikes are gone.
+Прежде чем заявлять о полном внедрении, повтори и точный поиск по связям, и широкий структурный либо визуальный поиск по всей согласованной странице или набору страниц. Правильное количество экземпляров не доказывает отсутствия обычных похожих элементов.
 
-Never claim a count, zero-result audit, or completed rollout without checking the exact scope.
+Не заявляй количество, отсутствие совпадений или завершённое внедрение без проверки точных границ задачи.
 
-Organize Design System documentation by semantic domain and component role, not by shared words alone. Move documentation wrappers rather than recreating masters, preserve component IDs, use Auto Layout for the category, and verify parent reflow plus broken instances.
+Организуй документацию дизайн-системы по смысловым областям и ролям компонентов, а не только по совпадающим словам. Перемещай обёртки документации вместо пересоздания мастер-компонентов, сохраняй ID компонентов, используй автоматическую компоновку для категории и проверяй перестройку родителя и сломанные экземпляры.
 
-## Communicate
+## Сообщай о ходе и результате
 
-Lead with concrete results. During longer work, provide concise progress updates and surface unexpected visual changes immediately.
+Начинай с конкретного результата. Во время длительной работы кратко сообщай о ходе и сразу предупреждай о неожиданных изменениях внешнего вида.
 
-In the final report include:
+В итоговом отчёте укажи:
 
-1. components, variants, properties, variables, and styles created or updated;
-2. screens or sections affected;
-3. number of candidates found, replaced, and intentionally excluded;
-4. repeat-audit and visual-QA results;
-5. remaining risks or decisions requiring the user.
+1. созданные или обновлённые компоненты, варианты, свойства, переменные и стили;
+2. затронутые экраны или секции;
+3. количество найденных, заменённых и намеренно исключённых кандидатов;
+4. результаты повторного аудита и визуальной проверки;
+5. оставшиеся риски или решения, требующие участия пользователя.

@@ -1,4 +1,4 @@
 interface:
   display_name: "Timeweb Deployment"
-  short_description: "Deploy sites safely to Timeweb hosting"
-  default_prompt: "Use $timeweb-deployment to deploy this site from GitHub Actions to Timeweb shared hosting."
+  short_description: "Безопасное развёртывание сайтов на Timeweb"
+  default_prompt: "Используй $timeweb-deployment, чтобы развернуть этот сайт через GitHub Actions на виртуальном хостинге Timeweb."

@@ -1,48 +1,48 @@
-# Windows and Layout
+# Окна и компоновка
 
-## Window Model
+## Модель окон
 
-Choose the window model from the product's objects and workflows, not from visual preference.
+Выбирай модель окон по объектам и сценариям продукта, а не по визуальным предпочтениям.
 
-- Use independent windows when users benefit from arranging or comparing separate documents, workspaces, or content views.
-- Use auxiliary panels or inspectors for controls that need to remain available while the main content stays interactive.
-- Use sheets for focused tasks tied to a specific window.
-- Use app-modal presentation only when proceeding elsewhere would be unsafe or meaningless.
+- Используй независимые окна, когда пользователям полезно располагать рядом или сравнивать документы, рабочие области и представления содержимого.
+- Используй вспомогательные панели или инспекторы для элементов управления, которые должны оставаться доступными во время работы с основным содержимым.
+- Используй листы для сосредоточенных задач, привязанных к конкретному окну.
+- Применяй модальность для всего приложения, только когда продолжать работу в другом месте небезопасно или бессмысленно.
 
-Support resizing across a useful range. Define intentional behavior for minimum size, expanded layouts, split views, sidebars, inspectors, toolbars, and content overflow. Avoid layouts that merely stretch empty space or clip essential controls.
+Поддерживай изменение размера в полезном диапазоне. Продумай поведение при минимальном размере, расширенной компоновке, разделённых областях, боковых панелях, инспекторах, панелях инструментов и переполнении содержимого. Избегай макетов, которые лишь растягивают пустоту или обрезают важные элементы управления.
 
-Restore meaningful window size, placement, visibility, and view state when appropriate. Account for removed displays and changed resolutions rather than restoring windows offscreen.
+При необходимости восстанавливай значимые размер и положение окна, его видимость и состояние представления. Учитывай отключённые экраны и изменившееся разрешение, чтобы не восстановить окно за пределами экрана.
 
-## Information Architecture
+## Информационная архитектура
 
-- Use the available display area to reduce unnecessary hierarchy and modality.
-- Keep primary content dominant and supporting navigation or inspectors visually subordinate.
-- Prefer sidebars for persistent top-level destinations or collections when that structure matches the app.
-- Prefer inspectors for properties of the current selection or document.
-- Keep controls near the content they affect, while placing global commands in predictable app-level locations.
-- Make empty, loading, unavailable, and no-selection states informative and actionable.
+- Используй доступную площадь экрана, чтобы сократить лишнюю вложенность и модальность.
+- Делай основное содержимое главным, а вспомогательную навигацию и инспекторы — визуально второстепенными.
+- Предпочитай боковые панели для постоянных разделов или коллекций верхнего уровня, когда такая структура подходит приложению.
+- Предпочитай инспекторы для свойств текущего выбранного объекта или документа.
+- Держи элементы управления рядом с содержимым, на которое они влияют, а глобальные команды — в предсказуемых местах приложения.
+- Делай пустые, загружающиеся и недоступные состояния, а также отсутствие выбора понятными и полезными.
 
-## Toolbars
+## Панели инструментов
 
-Use a toolbar for frequent, window-relevant actions and modes. Keep all commands discoverable through menus even when duplicated in the toolbar. Support customization when users have varied recurring workflows and the underlying framework permits it.
+Используй панель инструментов для частых действий и режимов, относящихся к окну. Все команды должны находиться через меню, даже если они продублированы на панели. Поддерживай настройку панели, когда у пользователей разные повторяющиеся сценарии и фреймворк это допускает.
 
-Avoid filling the toolbar with every available action. Group related items, maintain stable placement, use clear labels or recognizable symbols, and show state for toggles or modes.
+Не заполняй панель всеми доступными действиями. Группируй связанные элементы, сохраняй устойчивое расположение, используй ясные подписи или узнаваемые символы и показывай состояние переключателей и режимов.
 
-## Full Screen and Multiple Displays
+## Полный экран и несколько дисплеев
 
-Support full screen when it creates a useful focused workspace. Do not rely on full screen to compensate for a layout that fails at ordinary window sizes. Preserve access to essential commands and make transitions reversible and state-preserving.
+Поддерживай полноэкранный режим, когда он создаёт полезное пространство для сосредоточенной работы. Не используй его как оправдание макета, который не работает при обычных размерах окна. Сохраняй доступ к важным командам и делай переходы обратимыми с сохранением состояния.
 
-Test windows across multiple displays, display scaling settings, and changes in the available screen configuration.
+Проверяй окна на нескольких дисплеях, при разных настройках масштабирования и после изменения конфигурации экранов.
 
-## Review Checks
+## Вопросы для проверки
 
-- Can users resize and arrange the workspace to match their task?
-- Does content reflow rather than simply scale or clip?
-- Is modality limited and scoped to the correct window?
-- Are toolbar actions frequent and window-relevant?
-- Are navigation, content, and inspection roles visually clear?
-- Does the app recover safely from display changes?
+- Могут ли пользователи менять размер и расположение рабочего пространства под свою задачу?
+- Перестраивается ли содержимое, а не просто масштабируется или обрезается?
+- Ограничена ли модальность и относится ли она к нужному окну?
+- Часто ли нужны действия панели инструментов и относятся ли они к окну?
+- Ясно ли визуально различаются навигация, содержимое и инспектор?
+- Корректно ли приложение восстанавливается после изменения конфигурации дисплеев?
 
-## Related Apple Guidance
+## Связанные рекомендации Apple
 
-Consult the current HIG pages linked from [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos), especially full-screen behavior and relevant component guidance.
+Сверяйся с актуальными страницами HIG из раздела [«Дизайн для macOS»](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos), особенно о полноэкранном режиме и соответствующих компонентах.

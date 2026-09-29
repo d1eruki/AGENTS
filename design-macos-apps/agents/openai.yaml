@@ -1,4 +1,4 @@
 interface:
   display_name: "Design macOS Apps"
-  short_description: "Design and review native macOS experiences"
-  default_prompt: "Use $design-macos-apps to design or review this macOS interface against Apple Human Interface Guidelines."
+  short_description: "Проектирование и проверка интерфейсов macOS"
+  default_prompt: "Используй $design-macos-apps, чтобы спроектировать или проверить этот интерфейс macOS по рекомендациям Apple Human Interface Guidelines."

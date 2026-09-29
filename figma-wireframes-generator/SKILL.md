@@ -1,160 +1,160 @@
 ---
 name: figma-wireframes-generator
-description: Generate desktop low-fidelity landing page wireframes and supporting pages in the currently open Figma file. Use when the user asks the agent to create, draw, build, or generate Figma wireframes for landing pages from supplied text structure, headings, sections, page copy, or related page outlines, including requests to match an existing landing page style or make a page consistent with a reference page. Trigger for landing wireframes only, including main landing pages, policy pages, pricing/detail pages, thank-you pages, and other landing-adjacent pages; do not use for mobile screens, dashboards, web apps, diagrams, or pixel-perfect visual design.
+description: Создавай десктопные низкодетализированные вайрфреймы лендингов и связанных страниц в открытом файле Figma. Используй, когда пользователь просит собрать вайрфрейм по структуре текста, заголовкам, секциям или содержимому страницы, в том числе в стиле существующей страницы. Подходит для основных лендингов, страниц правил, цен и подробностей, благодарности и других связанных страниц; не используй для мобильных экранов, панелей управления, веб-приложений, диаграмм и точного визуального дизайна.
 ---
 
-# Figma Wireframes Generator
+# Генератор вайрфреймов Figma
 
-Create strict desktop landing-page wireframes in Figma from user-supplied text. Keep the output low-fidelity: gray blocks, real copy, clear hierarchy, reusable components, auto layout, and a 1280 px desktop frame.
+Создавай в Figma строго десктопные вайрфреймы лендингов по тексту пользователя. Сохраняй низкую детализацию: серые блоки, настоящий текст, ясную иерархию, повторно используемые компоненты, автоматическую компоновку и десктопный фрейм шириной 1280 пикселей.
 
-## Required Skills And Tools
+## Необходимые скиллы и инструменты
 
-- Use the available Figma MCP write tool for generation:
-  - Codex/OpenAI: load `figma:figma-use` before every `use_figma` write call.
-  - Claude Code: use the configured Figma MCP write tool equivalent to `use_figma`.
-- If no Figma MCP write tool is available, ask the user to connect/configure Figma MCP instead of generating non-Figma artifacts.
-- Do not call `generate_diagram`, `generate_deck`, or `generate_figma_design` for this skill.
-- Work in the open or user-provided Figma file. Do not create a new Figma file unless the user explicitly asks for one.
-- For Figma API implementation patterns, read `references/figma-wireframe-api.md` only when preparing JavaScript for the Figma MCP write tool.
-- If the user asks to make a page "in the style of", "like", "consistent with", "as the main page", or "based on" an existing page, treat that page as a strict visual reference. Measure its visual values before generating; do not use it as loose inspiration.
+- Для создания используй доступный инструмент записи Figma MCP:
+  - В Codex/OpenAI загружай `figma:figma-use` перед каждым вызовом записи `use_figma`.
+  - В Claude Code используй настроенный инструмент записи Figma MCP, аналогичный `use_figma`.
+- Если инструмент записи Figma MCP недоступен, попроси пользователя подключить или настроить его, а не создавай результат вне Figma.
+- Не вызывай `generate_diagram`, `generate_deck` или `generate_figma_design` для этого скилла.
+- Работай в открытом или предоставленном пользователем файле Figma. Не создавай новый файл без явной просьбы.
+- Читай `references/figma-wireframe-api.md` только при подготовке JavaScript для инструмента записи Figma MCP.
+- Если пользователь просит страницу «в стиле», «как», «в соответствии с», «как главная» или «на основе» существующей, считай её строгим визуальным образцом. Измерь её визуальные параметры до создания; не используй её лишь как свободное вдохновение.
 
-## Runtime Support
+## Поддерживаемые среды
 
-This skill supports both Codex/OpenAI and Claude Code. Keep the workflow, constraints, component rules, and `references/figma-wireframe-api.md` shared across both runtimes.
+Скилл поддерживает Codex/OpenAI и Claude Code. Порядок работы, ограничения, правила компонентов и `references/figma-wireframe-api.md` общие для обеих сред.
 
-`agents/openai.yaml` is OpenAI/Codex UI metadata only. Claude Code does not require a separate `agents/claude.yaml`; its skill metadata is the YAML frontmatter in `SKILL.md`.
+`agents/openai.yaml` содержит только метаданные интерфейса OpenAI/Codex. Для Claude Code отдельный `agents/claude.yaml` не нужен: его метаданные скилла находятся во вводном блоке YAML файла `SKILL.md`.
 
-## Intake
+## Сбор исходных данных
 
-Before generating anything, run a fixed 5-question intake as a step-by-step questionnaire.
+До создания чего-либо проведи обязательный опрос из пяти вопросов по шагам.
 
-Ask one question at a time, wait for the user's answer, then ask the next question. Do not ask all 5 questions in one message.
+Задавай по одному вопросу, дожидайся ответа пользователя и только затем переходи к следующему. Не задавай все пять в одном сообщении.
 
-Use the native interactive questionnaire tool when it is available, such as `request_user_input` or `ask_user_question`. Do not simulate the questionnaire as a plain text list when a native UI question tool is available.
+При наличии встроенного интерактивного инструмента опроса, например `request_user_input` или `ask_user_question`, используй его. Не заменяй опрос обычным текстовым списком, если доступен инструмент интерфейса.
 
-For each native UI question:
+Для каждого вопроса во встроенном интерфейсе:
 
-- ask exactly one question per tool call
-- provide 2-3 concise mutually exclusive options
-- put the recommended/default option first when there is a sensible default
-- rely on the tool's built-in custom/Other answer field when available
+- задавай ровно один вопрос за вызов инструмента;
+- предлагай 2–3 коротких взаимоисключающих варианта;
+- ставь рекомендуемый вариант первым, если есть разумный выбор по умолчанию;
+- используй встроенное поле для собственного ответа, если оно доступно.
 
-If no native UI question tool is available in the current environment, explain briefly that the interactive questionnaire UI is unavailable and ask whether to continue with plain text questions.
+Если в текущей среде нет встроенного инструмента вопросов, кратко объясни это и спроси, продолжать ли текстовыми вопросами.
 
-Use these 5 questions, adapting the options to the user's supplied brief:
+Задай эти пять вопросов, подстроив варианты под задание пользователя:
 
-1. Mode: ask whether this is a new wireframe, a page that must match a reference wireframe/page, or an update/extension of an existing wireframe.
-2. Source/reference: if reference mode, ask which frame/page is the strict visual reference; if new mode, confirm whether to use only the supplied text structure; if update mode, ask what must be preserved.
-3. Conversion goal: confirm the primary CTA/outcome, using options derived from the supplied brief.
-4. Language: ask only for new wireframes. If reference mode, infer language from the reference page and ask only if the reference language conflicts with the supplied text. If update mode, preserve the existing page language unless the user asks otherwise.
-5. Content/editing permission: confirm whether the agent must use supplied copy exactly, may lightly restructure only, or may expand/rewrite copy.
+1. **Режим:** это новый вайрфрейм, страница по строгому образцу или обновление/расширение существующего вайрфрейма?
+2. **Источник/образец:** при работе по образцу уточни конкретный фрейм или страницу; при создании нового подтверди, что нужна только предоставленная текстовая структура; при обновлении спроси, что сохранить.
+3. **Цель конверсии:** подтверди основное целевое действие или результат вариантами из задания.
+4. **Язык:** спрашивай только для нового вайрфрейма. При работе по образцу определи язык по странице и спрашивай, лишь если он противоречит предоставленному тексту. При обновлении сохраняй язык страницы, если пользователь не просит иначе.
+5. **Разрешение на правку текста:** уточни, нужно ли использовать предоставленный текст дословно, разрешено ли слегка перестроить его или можно дополнять и переписывать.
 
-If the user already supplied enough information, the questions should be confirmation-style rather than abstract. Act as a competent UX designer, but do not silently invent core product content.
+Если пользователь уже дал достаточно сведений, формулируй вопросы как подтверждение, а не абстрактный опрос. Действуй как компетентный UX-дизайнер, но не выдумывай молча основное содержание продукта.
 
-Example native questionnaire content:
+Пример вопроса во встроенном интерфейсе:
 
 ```text
-Header: Goal
-Question: What is the primary conversion goal for this landing page?
-Options:
-- Lead form submission
-- Book a call
-- Learn more
-Custom answer: handled by the UI's Other field
+Заголовок: Цель
+Вопрос: Какое главное целевое действие у этого лендинга?
+Варианты:
+- Отправить заявку
+- Записаться на звонок
+- Узнать больше
+Свой ответ: через встроенное поле интерфейса
 ```
 
-## Copy Rules
+## Правила работы с текстом
 
-- Use only the headings, body copy, CTA labels, and page text supplied by the user.
-- Do not add generic marketing copy, placeholder benefits, invented slogans, or filler text.
-- Preserve the user's text intent and meaning.
-- It is acceptable to improve structure, hierarchy, grouping, and section order when doing so follows UX best practices.
-- For Russian copy, avoid dangling short prepositions, conjunctions, and particles at line ends when possible by keeping them with the following word.
-- For English copy, avoid dangling short articles, prepositions, and conjunctions at line ends when possible by keeping them with the following word.
-- Do not insert manual line breaks into supplied text for visual composition. Let text wrap naturally from container width; preserve user-provided line breaks and use non-breaking spaces only to prevent dangling short words.
-- If the user explicitly asks to add, expand, rewrite, complete, or improve the copy, ignore the no-added-copy rule for that request and provide the requested copy support.
-- If a UI element needs text but the user did not supply it, ask for it unless it is a purely structural label such as "Header", "Footer", or an internal layer name.
+- Используй только заголовки, основной текст, подписи целевых действий и текст страниц, предоставленные пользователем.
+- Не добавляй типовой рекламный текст, выдуманные преимущества и лозунги или текст-заполнитель.
+- Сохраняй замысел и смысл текста пользователя.
+- Можно улучшать структуру, иерархию, группировку и порядок секций, если это соответствует лучшим практикам UX.
+- В русском тексте по возможности не оставляй короткие предлоги, союзы и частицы в конце строки: удерживай их со следующим словом.
+- В английском тексте по возможности не оставляй короткие артикли, предлоги и союзы в конце строки: удерживай их со следующим словом.
+- Не вставляй ручные переносы строк в предоставленный текст ради композиции. Пусть строки переносятся естественно по ширине контейнера; сохраняй переносы пользователя и используй неразрывные пробелы только против висячих коротких слов.
+- Если пользователь явно просит дополнить, расширить, переписать, завершить или улучшить текст, ограничение на новые тексты для этого запроса не действует: окажи нужную помощь.
+- Если элементу интерфейса нужен текст, которого пользователь не дал, спроси его, если это не чисто структурная подпись вроде «Шапка», «Подвал» или внутреннего имени слоя.
 
-## Wireframe Specification
+## Требования к вайрфрейму
 
-Always create desktop wireframes only.
+Всегда создавай только десктопные вайрфреймы.
 
-Mode priorities:
+Приоритеты режимов:
 
-- New wireframe: use the default low-fidelity gray wireframe style.
-- Reference mode: strict reference style matching overrides the default gray-only look, but never overrides integer-only values, supplied-copy rules, or semantic typographic hierarchy.
-- Update mode: preserve existing page patterns and components unless the user explicitly asks to replace them.
+- Новый вайрфрейм: используй стандартный серый стиль низкой детализации.
+- По образцу: строгое соответствие стилю образца важнее стандартного серого вида, но не отменяет целых числовых значений, правил текста и смысловой типографической иерархии.
+- Обновление: сохраняй существующие паттерны и компоненты страницы, если пользователь явно не просит их заменить.
 
-- Frame width: `1280`
-- Desktop grid constants: `columns = 12`, `margin = 60`, `gutter = 20`
-- Content width: `1160`
-- Apply a visual layout grid to every wireframe page using these fixed constants.
-- Center page content inside each frame.
-- Constrain main section content to `1160`.
-- Every page section must be width `1280`, with horizontal padding `60`, inner content width `1160`, and auto height based on content.
-- Use auto layout for frames, sections, component internals, and repeated structures.
-- Calculate content width recursively at every nesting level as `parent.width - parent.paddingLeft - parent.paddingRight`; constrain children to the parent content area, not the parent frame width.
-- Use real Figma Auto Layout grids for repeated card groups with predictable columns. Recreate grid containers from scratch when changing row or column structure.
-- In auto-layout containers, content text should use `layoutSizingHorizontal = "FILL"`, `textAutoResize = "HEIGHT"`, and `layoutSizingVertical = "HUG"` instead of ending as manually fixed-width text.
-- Preserve typographic hierarchy by role: hero `H1` is usually largest, then `H2`, `H3`, `H4`, `H5` decrease by level; body text must not be smaller than `16px`, and captions must be `12-14px`.
-- Do not wrap individual text nodes in meaningless one-text frames. Let the parent auto-layout container handle spacing and alignment.
-- Normalize generated sizes after building components and pages so auto-layout frames do not collapse to height `1`.
-- Never generate fractional numeric layout values. Round all computed positions, sizes, gaps, padding, and typography values to whole pixels before applying them in Figma.
-- Keep UI language consistent. Do not randomly mix Russian and English labels; preserve product terms when appropriate.
-- When matching an existing reference page, copy visual values literally by role and pattern: colors, strokes, radii, spacing, typography, buttons, cards, forms, placeholders, header, and footer.
-- In reference mode, reuse matching full-section patterns from the reference/main page for common blocks such as FAQ, contact forms, final CTA sections, and repeated conversion blocks instead of rebuilding them from scratch.
-- Even in reference mode, round fractional reference values before generating. If fractional values are found in the reference, mention them in the final message when practical so the user can fix the source file.
-- Use restrained layer names: clear enough for a designer, not obsessively detailed.
-- Use gray-scale fills and strokes only in new-wireframe mode unless the user explicitly asks for visual styling. In reference or update mode, follow the reference/existing page styles instead.
-- Do not create final UI polish, brand styling, illustrations, photos, or decorative visual design.
+- Ширина фрейма: `1280`.
+- Постоянные десктопной сетки: `columns = 12`, `margin = 60`, `gutter = 20`.
+- Ширина содержимого: `1160`.
+- Применяй визуальную сетку к каждой странице вайрфрейма с этими фиксированными значениями.
+- Центрируй содержимое страницы внутри каждого фрейма.
+- Ограничивай основное содержимое секций шириной `1160`.
+- Ширина каждой секции страницы — `1280`, горизонтальный отступ — `60`, внутренняя ширина — `1160`, высота зависит от содержимого.
+- Используй автоматическую компоновку для фреймов, секций, внутренностей компонентов и повторяющихся структур.
+- Рассчитывай ширину содержимого рекурсивно на каждом уровне вложенности как `parent.width - parent.paddingLeft - parent.paddingRight`; ограничивай дочерние элементы областью содержимого родителя, а не всей шириной его фрейма.
+- Для повторяющихся групп карточек с предсказуемыми колонками используй настоящие сетки Figma Auto Layout. При изменении структуры строк или колонок создавай контейнер сетки заново.
+- В контейнерах с автоматической компоновкой задавай тексту содержимого `layoutSizingHorizontal = "FILL"`, `textAutoResize = "HEIGHT"` и `layoutSizingVertical = "HUG"`, а не фиксируй ширину вручную.
+- Сохраняй типографическую иерархию по ролям: главный `H1` обычно самый крупный, затем размеры `H2`, `H3`, `H4`, `H5` уменьшаются по уровням; основной текст — не менее `16px`, подписи — `12-14px`.
+- Не оборачивай одиночные текстовые узлы в бессмысленные фреймы с одним текстом. Отступами и выравниванием должен управлять родительский контейнер с автоматической компоновкой.
+- После создания компонентов и страниц приведи размеры к норме, чтобы фреймы с автоматической компоновкой не схлопнулись до высоты `1`.
+- Не создавай дробные числовые значения макета. Перед применением в Figma округляй все вычисленные позиции, размеры, промежутки, отступы и значения типографики до целых пикселей.
+- Сохраняй единый язык интерфейса. Не смешивай случайно русские и английские подписи; при необходимости сохраняй термины продукта.
+- При работе по существующей странице буквально переноси визуальные значения соответствующих ролей и паттернов: цвета, обводки, скругления, отступы, типографику, кнопки, карточки, формы, заглушки, шапку и подвал.
+- В режиме образца повторно используй соответствующие целые секции исходной или главной страницы для типовых блоков вроде FAQ, контактных форм, финального целевого действия и повторяющихся конверсионных блоков вместо пересборки с нуля.
+- Даже в режиме образца округляй дробные значения до создания. Если в образце есть дробные значения, по возможности упомяни их в итоге, чтобы пользователь мог исправить исходный файл.
+- Называй слои сдержанно: достаточно ясно для дизайнера, без чрезмерной детализации.
+- Используй только серые заливки и обводки в режиме нового вайрфрейма, если пользователь явно не просит визуальное оформление. В режиме образца или обновления следуй стилям образца либо существующей страницы.
+- Не создавай итоговую полировку интерфейса, фирменное оформление, иллюстрации, фотографии или декоративный дизайн.
 
-## Component Rules
+## Правила компонентов
 
-Component behavior depends on the generation mode.
+Работа с компонентами зависит от режима создания.
 
-In new-wireframe mode, create reusable components beside the page frames before composing pages:
+В режиме нового вайрфрейма до сборки страниц создай рядом с фреймами страниц повторно используемые компоненты:
 
-- Header component
-- Footer component
-- Button component, with variants only if the supplied structure requires distinct button types
+- Компонент шапки
+- Компонент подвала
+- Компонент кнопки; варианты нужны только если предоставленная структура требует разных типов кнопок
 
-Use instances of those components in every landing page and supporting page. Do not leave non-component headers, footers, or buttons inside the wireframe pages. This applies recursively to every button-like element, including form submit buttons, modal buttons, secondary buttons, and styled text buttons.
+Используй экземпляры этих компонентов на каждом лендинге и связанной странице. Не оставляй в вайрфреймах шапки, подвалы или кнопки, не являющиеся компонентами. Правило касается всех похожих на кнопки элементов, в том числе отправки форм, кнопок модальных окон, второстепенных и оформленных текстовых кнопок.
 
-In reference mode, do not create new Header, Footer, or Button components when matching components or component instances exist in the reference page. Reuse the reference components by creating instances from the same main components. If the reference contains detached frames instead of components, componentize the reference pattern once and use instances of that component.
+В режиме образца не создавай новые компоненты шапки, подвала или кнопки, если на странице-образце уже есть соответствующие компоненты или экземпляры. Используй их, создавая экземпляры от тех же мастер-компонентов. Если образец содержит отсоединённые фреймы вместо компонентов, один раз преврати паттерн в компонент и затем используй его экземпляры.
 
-In update mode, preserve and reuse existing components from the page/file unless the user explicitly asks to replace them.
+В режиме обновления сохраняй и повторно используй компоненты страницы или файла, если пользователь явно не просит их заменить.
 
-In new-wireframe mode, header, footer, and button components may use simple gray containers, text, and spacing.
+В режиме нового вайрфрейма компоненты шапки, подвала и кнопки могут состоять из простых серых контейнеров, текста и отступов.
 
-## Generation Workflow
+## Порядок создания
 
-1. Parse the user's supplied structure into pages, sections, headings, body text, CTAs, and repeated elements.
-2. Ask exactly 5 fixed intake questions as a sequential questionnaire, one question per user turn.
-3. Summarize the planned pages and section order briefly.
-4. Use the available Figma MCP write tool: `use_figma` in Codex/OpenAI after loading `figma:figma-use`, or the configured equivalent in Claude Code.
-5. If a reference page is requested, inspect it first, extract a style inventory, and create a content-role to reference-style role map.
-6. Create or update the wireframes in the current Figma file.
-7. Apply the desktop visual layout grid. Create a new component set only in new-wireframe mode; in reference/update mode, reuse components from the reference or existing file.
-8. Build each page as a 1280 px wide auto-layout frame with the grid applied.
-9. Build repeated card groups as fresh `layoutMode = "GRID"` containers when the column structure is predictable.
-10. Insert header, footer, and button instances instead of detached copies.
-11. Use the supplied text exactly unless the user asked for copy expansion.
-12. Run a final sizing pass: fit standalone components first, then page sections, then root page frames.
-13. Run a Figma-side validation for section widths, recursive content widths, layout sizing modes, grid row counts, overflow, text sizing, and detached header/footer/button structures.
-14. Run a final text audit for mixed-language UI labels.
-15. If matching a reference page, run a visual parity check against the reference before answering.
-16. For visual QA, use Figma MCP `get_screenshot`. If shell networking is restricted, do not require `curl`; request an inline/base64 screenshot when visual inspection is needed, or combine the MCP screenshot metadata with Figma-side structural checks.
+1. Разбери структуру пользователя на страницы, секции, заголовки, основной текст, целевые действия и повторяющиеся элементы.
+2. Задай ровно пять обязательных вопросов последовательно, по одному за ответ пользователя.
+3. Кратко изложи запланированные страницы и порядок секций.
+4. Используй доступный инструмент записи Figma MCP: `use_figma` в Codex/OpenAI после загрузки `figma:figma-use` либо настроенный аналог в Claude Code.
+5. Если нужен образец, сначала изучи его, составь перечень стилей и сопоставление ролей содержимого с ролями стилей образца.
+6. Создай или обнови вайрфреймы в текущем файле Figma.
+7. Примени десктопную визуальную сетку. Новый набор компонентов создавай только для нового вайрфрейма; в режиме образца или обновления используй компоненты образца либо существующего файла.
+8. Собери каждую страницу как фрейм с автоматической компоновкой шириной 1280 пикселей и применённой сеткой.
+9. Собирай повторяющиеся группы карточек в новых контейнерах `layoutMode = "GRID"`, когда структура колонок предсказуема.
+10. Вставляй экземпляры шапки, подвала и кнопок вместо отсоединённых копий.
+11. Используй предоставленный текст дословно, если пользователь не просил его расширить.
+12. В конце проверь размеры: сначала отдельные компоненты, затем секции страниц и в последнюю очередь корневые фреймы страниц.
+13. Проведи проверку внутри Figma: ширина секций и вложенного содержимого, режимы размеров, количество строк сетки, переполнение, размеры текста и отсоединённые структуры шапки, подвала и кнопок.
+14. Проверь тексты интерфейса на смешение языков.
+15. Если работаешь по образцу, до ответа проверь визуальное соответствие ему.
+16. Для визуальной проверки используй Figma MCP `get_screenshot`. Если сеть оболочки ограничена, не требуй `curl`; при необходимости запроси снимок прямо в ответе или в формате base64 либо совмести метаданные снимка MCP со структурными проверками внутри Figma.
 
-## UX Guidance
+## Рекомендации по UX
 
-Use landing-page UX best practices to shape layout without inventing content:
+Формируй макет по лучшим практикам UX лендингов, не выдумывая содержимое:
 
-- Put the primary offer, value proposition, or product subject first if the supplied content identifies it.
-- Keep section order legible: hero, supporting proof or explanation, benefits/features, process/details, conversion block, footer.
-- Create supporting pages with simpler hierarchy and the same reusable header/footer.
-- Prefer clear scanning, sufficient whitespace, and predictable CTA placement.
-- If the supplied structure conflicts with usability, preserve the text but improve grouping and order, then mention the adjustment.
+- Ставь главное предложение, ценность или тему продукта первыми, если они обозначены в предоставленном содержимом.
+- Сохраняй понятный порядок секций: первый экран, подтверждение или объяснение, преимущества и возможности, процесс и подробности, блок целевого действия, подвал.
+- Делай связанные страницы с более простой иерархией и теми же повторно используемыми шапкой и подвалом.
+- Предпочитай удобное сканирование, достаточно свободного пространства и предсказуемое размещение целевых действий.
+- Если предоставленная структура мешает удобству использования, сохрани текст, но улучши группировку и порядок; затем сообщи об изменении.
 
-## Deliverable
+## Результат
 
-Return only a short completion note and the Figma file/page context when available. Do not produce extra artifacts such as user flows, diagrams, journey maps, notes boards, or documentation unless the user explicitly asks.
+Верни только короткое сообщение о завершении и указание файла или страницы Figma, если оно доступно. Не создавай дополнительные материалы — схемы пользовательских потоков, диаграммы, карты пути, доски заметок или документацию — без явной просьбы пользователя.

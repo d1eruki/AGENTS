@@ -1,4 +1,4 @@
 interface:
   display_name: "Figma Wireframes Generator"
-  short_description: "Generate structured Figma landing wireframes"
-  default_prompt: "Use $figma-wireframes-generator to create a desktop landing page wireframe in the currently open Figma file from my supplied page text."
+  short_description: "Вайрфреймы лендингов в Figma"
+  default_prompt: "Используй $figma-wireframes-generator, чтобы создать в открытом файле Figma десктопный вайрфрейм лендинга по предоставленному мной тексту."

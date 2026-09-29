@@ -1,41 +1,41 @@
-# Commands and Input
+# Команды и ввод
 
-## Menu Bar
+## Строка меню
 
-Treat the menu bar as the complete, stable command map for the app. Place commands in conventional menus and ordering when established macOS conventions exist. Keep menu titles and command names concise, specific, and consistent with labels elsewhere.
+Считай строку меню полной и устойчивой картой команд приложения. Когда в macOS есть сложившиеся правила, размещай команды в привычных меню и порядке. Делай названия меню и команд краткими, конкретными и согласованными с подписями в других местах.
 
-Reflect context in command availability and state. Disable unavailable commands when their presence remains informative; hide commands only when they are irrelevant or would create confusion. Show standard keyboard shortcuts in menus.
+Отражай контекст в доступности и состоянии команд. Оставляй недоступные команды видимыми, но выключенными, если их наличие полезно; скрывай только неуместные или сбивающие с толку команды. Показывай стандартные сочетания клавиш в меню.
 
-## Keyboard
+## Клавиатура
 
-- Provide shortcuts for frequent and conventional actions.
-- Preserve standard shortcuts unless the product has an exceptional, well-tested reason to override them.
-- Support keyboard navigation, focus movement, selection, activation, cancellation, and confirmation.
-- Make focus visible without relying solely on color.
-- Avoid requiring memorized shortcuts for discoverability; expose commands through menus and controls too.
-- Ensure text editing respects standard selection, copy, paste, undo, redo, and deletion behavior.
+- Предоставляй сочетания клавиш для частых и привычных действий.
+- Сохраняй стандартные сочетания, если у продукта нет исключительной и проверенной причины их изменить.
+- Поддерживай клавиатурную навигацию, перемещение фокуса, выбор, активацию, отмену и подтверждение.
+- Делай фокус заметным не только за счёт цвета.
+- Не заставляй запоминать сочетания: команды должны быть доступны и через меню и элементы управления.
+- При редактировании текста соблюдай привычное поведение выделения, копирования, вставки, отмены, повтора и удаления.
 
-## Pointer and Precision
+## Указатель и точность
 
-Assume a high-precision pointer. Provide appropriate hover, selection, resize, drag, drop, contextual menu, and cursor feedback. Make targets comfortable without imitating oversized touch interfaces throughout the app.
+Исходи из высокой точности указателя. Предоставляй подходящую обратную связь при наведении, выборе, изменении размера, перетаскивании, помещении объекта, вызове контекстного меню и смене курсора. Делай области нажатия удобными, не превращая всё приложение в интерфейс с чрезмерно крупными сенсорными элементами.
 
-For direct manipulation, clarify what is selectable, draggable, editable, and droppable. Preserve precise control and offer keyboard modifiers only when they complement a discoverable base interaction.
+При непосредственном управлении показывай, что можно выбирать, перетаскивать, редактировать и куда можно помещать объекты. Сохраняй точность управления; клавиатурные модификаторы предлагай только как дополнение к понятному основному действию.
 
-## Command Consistency
+## Согласованность команд
 
-The same operation may appear in a menu, toolbar, contextual menu, Touch Bar replacement surface, or inline control. Keep its name, symbol, enabled state, destructive character, shortcut, and result consistent across locations.
+Одна операция может встречаться в меню, панели инструментов, контекстном меню, поверхности вместо Touch Bar или встроенном элементе. Сохраняй одинаковыми её название, символ, доступность, разрушительный характер, сочетание клавиш и результат во всех местах.
 
-Support undo and redo for user-authored changes whenever technically and conceptually feasible. Before irreversible destructive actions, prefer recovery mechanisms or clear confirmation proportional to the risk.
+Поддерживай отмену и повтор пользовательских изменений, когда это технически и смыслово возможно. Перед необратимым разрушительным действием предпочитай возможность восстановления или ясное подтверждение, соразмерное риску.
 
-## Review Checks
+## Вопросы для проверки
 
-- Can every important command be found in the menu bar?
-- Can primary workflows be completed without a pointer?
-- Do standard shortcuts behave as Mac users expect?
-- Are focus, hover, selection, drag, drop, and disabled states clear?
-- Are contextual commands scoped to the current object or selection?
-- Are destructive and reversible operations distinguished correctly?
+- Все ли важные команды можно найти в строке меню?
+- Можно ли выполнить основные сценарии без указателя?
+- Работают ли стандартные сочетания так, как ожидают пользователи Mac?
+- Ясны ли фокус, наведение, выбор, перетаскивание, помещение объекта и недоступное состояние?
+- Относятся ли контекстные команды к текущему объекту или выбору?
+- Правильно ли различаются разрушительные и обратимые операции?
 
-## Related Apple Guidance
+## Связанные рекомендации Apple
 
-Use the current [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos) links for menu bar, keyboards, pointing devices, file management, and Dock menus.
+Используй актуальные ссылки раздела [«Дизайн для macOS»](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos) о строке меню, клавиатуре, указателях, файлах и меню Dock.

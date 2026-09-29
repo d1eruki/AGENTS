@@ -1,32 +1,32 @@
-# Implementation Guidance
+# Рекомендации по реализации
 
-## Framework Choice
+## Выбор фреймворка
 
-- Follow the framework already established by the project unless migration is part of the task.
-- Use SwiftUI for declarative composition and system adaptation where its APIs satisfy the required behavior.
-- Use AppKit when the app needs mature document architecture, advanced text, precise window control, complex tables or outlines, or behavior unavailable in SwiftUI.
-- Bridge frameworks deliberately and keep ownership of state, focus, commands, and lifecycle clear.
+- Используй уже принятый в проекте фреймворк, если миграция не входит в задачу.
+- Используй SwiftUI для декларативной композиции и адаптации к системе, когда его API обеспечивают нужное поведение.
+- Используй AppKit, если приложению нужны развитая архитектура документов, сложная работа с текстом, точное управление окнами, сложные таблицы или иерархии либо недоступное в SwiftUI поведение.
+- Соединяй фреймворки осознанно и сохраняй ясное владение состоянием, фокусом, командами и жизненным циклом.
 
-## Map Design to System APIs
+## Перенос дизайна в системные API
 
-- Represent app commands with the framework command and menu APIs rather than custom in-window replicas.
-- Use scene and window APIs for multiwindow behavior, restoration, Settings, and document workflows.
-- Use system panels for open, save, print, color, font, and sharing tasks.
-- Use semantic controls and accessibility modifiers before custom drawing.
-- Use system materials, text styles, symbols, focus, keyboard shortcuts, drag and drop, undo management, and pasteboard APIs.
+- Реализуй команды приложения через API команд и меню фреймворка, а не через самодельные копии внутри окна.
+- Используй API сцен и окон для нескольких окон, восстановления состояния, настроек и работы с документами.
+- Используй системные панели открытия, сохранения, печати, выбора цвета и шрифта и общего доступа.
+- Предпочитай смысловые элементы управления и модификаторы доступности собственному рисованию.
+- Используй системные материалы, стили текста, символы, фокус, сочетания клавиш, перетаскивание, управление отменой и API буфера обмена.
 
-## Implementation Review
+## Проверка реализации
 
-- Check minimum deployment targets and API availability before recommending a current design-system feature.
-- Verify that menu enabled state, toolbar state, selection, focus, and model state share one source of truth.
-- Avoid fixed frame assumptions that fail under window resizing, localization, accessibility, or differing content.
-- Persist user-facing workspace preferences separately from transient UI state.
-- Test inactive windows, reopened documents, multiple scenes, multiple displays, denied permissions, offline behavior, and interrupted tasks.
+- Перед рекомендацией новой возможности дизайн-системы проверь минимальные поддерживаемые версии платформы и доступность API.
+- Убедись, что доступность команд меню, состояние панели инструментов, выбор, фокус и состояние модели опираются на один источник истины.
+- Избегай предположений о фиксированном размере фрейма, которые ломаются при изменении окна, локализации, настройках доступности или разном содержимом.
+- Храни пользовательские настройки рабочего пространства отдельно от временного состояния интерфейса.
+- Проверяй неактивные окна, повторно открытые документы, несколько сцен и экранов, отказ в разрешениях, работу без сети и прерванные задачи.
 
 ## Mac Catalyst
 
-Audit Catalyst apps for mobile assumptions: oversized controls, missing menu commands, single-window constraints, hidden hover state, absent contextual menus, touch-only gestures, and navigation bars used where Mac sidebars or toolbars fit better.
+Проверяй приложения Catalyst на мобильные допущения: чрезмерно крупные элементы управления, отсутствующие команды меню, ограничение одним окном, незаметное наведение, отсутствие контекстных меню, жесты, требующие сенсорного ввода, и навигационные панели там, где лучше подходят боковая панель или панель инструментов Mac.
 
-## Source Checks
+## Проверка источников
 
-Use current SwiftUI, AppKit, and Mac Catalyst developer documentation alongside HIG. Do not infer API availability from HIG illustrations alone.
+Используй актуальную документацию разработчика по SwiftUI, AppKit и Mac Catalyst вместе с HIG. Не делай вывод о доступности API только по иллюстрациям HIG.

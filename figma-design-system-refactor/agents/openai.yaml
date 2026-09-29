@@ -1,4 +1,4 @@
 interface:
   display_name: "Figma Design System Refactor"
   short_description: "Аудит и систематизация макетов в Figma"
-  default_prompt: "Use $figma-design-system-refactor to audit and systematize this Figma design."
+  default_prompt: "Используй $figma-design-system-refactor, чтобы провести аудит и систематизировать этот дизайн в Figma."

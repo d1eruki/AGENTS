@@ -1,50 +1,50 @@
-# Visual Foundations
+# Визуальные основы
 
-Use current system styling as a behavioral and semantic system, not as decoration to imitate manually.
+Используй актуальное системное оформление как систему поведения и смысла, а не как декор, который нужно вручную копировать.
 
-## Color and Appearance
+## Цвет и оформление
 
-- Use semantic system colors so appearance, contrast, vibrancy, and accessibility settings can adapt automatically.
-- Verify light and dark appearances independently; do not derive one by mechanically inverting the other.
-- Reserve accent color for emphasis, selection, and interactive meaning. Do not use it as the only status signal.
-- Test increased contrast, reduced transparency, inactive windows, disabled controls, and different wallpapers behind translucent materials.
+- Используй смысловые системные цвета, чтобы оформление, контраст, полупрозрачность и настройки доступности менялись автоматически.
+- Проверяй светлый и тёмный варианты отдельно; не получай один механическим инвертированием другого.
+- Применяй акцентный цвет для выделения, выбора и интерактивного смысла. Не делай его единственным сигналом состояния.
+- Проверяй усиленный контраст, уменьшенную прозрачность, неактивные окна, недоступные элементы управления и разные обои за полупрозрачными материалами.
 
-## Materials and Liquid Glass
+## Материалы и Liquid Glass
 
-- Prefer framework-provided materials and controls. Do not recreate Liquid Glass or vibrancy with static blur, gradients, borders, and shadows.
-- Use translucent or glass-like surfaces to establish hierarchy and preserve context, not behind dense reading or editing content when it harms legibility.
-- Keep content visually primary. Avoid stacking multiple decorative materials that compete for attention.
-- Recheck current Apple guidance and deployment-target behavior before specifying new design-system APIs.
+- Предпочитай материалы и элементы управления фреймворка. Не воссоздавай Liquid Glass или системную полупрозрачность статическим размытием, градиентами, границами и тенями.
+- Используй полупрозрачные или стеклянные поверхности для иерархии и сохранения контекста, но не под плотным текстом для чтения или редактирования, если это вредит разборчивости.
+- Содержимое должно оставаться главным визуально. Не наслаивай несколько декоративных материалов, спорящих за внимание.
+- Перед рекомендацией новых API дизайн-системы повторно проверь актуальные указания Apple и поведение на минимальной поддерживаемой платформе.
 
-## Typography and Writing
+## Типографика и тексты
 
-- Prefer system text styles and native font behavior. Support localization, text expansion, accessibility settings, and font substitution where users can choose fonts.
-- Build hierarchy through role, weight, spacing, and placement rather than many arbitrary sizes.
-- Use sentence-style capitalization unless a standard macOS label requires otherwise.
-- Write concise action labels that describe the result. Avoid vague labels such as `OK` when a specific verb is clearer.
-- Keep terminology consistent across controls, menus, help, and documentation.
+- Предпочитай системные стили текста и нативное поведение шрифтов. Поддерживай локализацию, увеличение длины текста, настройки доступности и замену шрифтов там, где пользователь может их выбирать.
+- Строй иерархию через роль, насыщенность, отступы и расположение, а не множество произвольных размеров.
+- Пиши названия с заглавной буквы как обычные предложения, если стандартная подпись macOS не требует иного.
+- Делай подписи действий краткими и описывающими результат. Избегай расплывчатого `OK`, если конкретный глагол яснее.
+- Сохраняй единую терминологию в элементах управления, меню, справке и документации.
 
-## Icons, SF Symbols, and Imagery
+## Иконки, SF Symbols и изображения
 
-- Prefer SF Symbols for familiar system actions and statuses. Match symbol variant, weight, scale, and rendering mode to its context.
-- Pair unfamiliar symbols with labels. Do not repurpose a conventional symbol for an unrelated action.
-- Keep app icons distinctive, simple at small sizes, and consistent with current macOS icon templates and export requirements.
-- Provide image alternatives and avoid embedding important text in images.
+- Предпочитай SF Symbols для знакомых системных действий и состояний. Подбирай вариант, насыщенность, масштаб и режим отображения символа по контексту.
+- Сопровождай незнакомые символы подписями. Не используй общепринятый символ для несвязанного действия.
+- Делай иконку приложения узнаваемой, простой в малом размере и соответствующей актуальным шаблонам macOS и требованиям экспорта.
+- Предоставляй альтернативы изображениям и не встраивай важный текст в картинки.
 
-## Motion
+## Движение
 
-- Use motion to explain causality, continuity, hierarchy, or state change.
-- Keep frequent transitions restrained and interruptible.
-- Respect Reduce Motion. Replace large spatial movement with fades or simpler state changes when needed.
-- Do not delay access to content merely to complete an animation.
+- Используй движение для объяснения причинности, непрерывности, иерархии и смены состояния.
+- Делай частые переходы сдержанными и прерываемыми.
+- Учитывай настройку уменьшения анимации. При необходимости заменяй крупные перемещения затуханием или более простой сменой состояния.
+- Не задерживай доступ к содержимому лишь ради окончания анимации.
 
-## Review Questions
+## Вопросы для проверки
 
-- Are semantic colors and materials used instead of fixed appearance values?
-- Is text legible over every material and window state?
-- Do symbols communicate standard meanings and remain understandable without color?
-- Does motion clarify an interaction and adapt to reduced-motion preferences?
+- Используются ли смысловые цвета и материалы вместо жёстко заданных значений?
+- Читается ли текст на каждом материале и при каждом состоянии окна?
+- Передают ли символы стандартный смысл и понятны ли без цвета?
+- Проясняет ли движение взаимодействие и учитывает ли настройку уменьшения анимации?
 
-## Apple Topics
+## Разделы Apple
 
-[Color](https://developer.apple.com/design/human-interface-guidelines/color), [Dark Mode](https://developer.apple.com/design/human-interface-guidelines/dark-mode), [Materials](https://developer.apple.com/design/human-interface-guidelines/materials), [Typography](https://developer.apple.com/design/human-interface-guidelines/typography), [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols), [Icons](https://developer.apple.com/design/human-interface-guidelines/icons), [Images](https://developer.apple.com/design/human-interface-guidelines/images), [Motion](https://developer.apple.com/design/human-interface-guidelines/motion), and [Writing](https://developer.apple.com/design/human-interface-guidelines/writing).
+[Цвет](https://developer.apple.com/design/human-interface-guidelines/color), [тёмный режим](https://developer.apple.com/design/human-interface-guidelines/dark-mode), [материалы](https://developer.apple.com/design/human-interface-guidelines/materials), [типографика](https://developer.apple.com/design/human-interface-guidelines/typography), [SF Symbols](https://developer.apple.com/design/human-interface-guidelines/sf-symbols), [иконки](https://developer.apple.com/design/human-interface-guidelines/icons), [изображения](https://developer.apple.com/design/human-interface-guidelines/images), [движение](https://developer.apple.com/design/human-interface-guidelines/motion) и [тексты](https://developer.apple.com/design/human-interface-guidelines/writing).

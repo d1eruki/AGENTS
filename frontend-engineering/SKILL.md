@@ -1,127 +1,127 @@
 ---
 name: frontend-engineering
-description: Plan or diagnose cross-cutting frontend systems whose behavior spans application state, browser runtime behavior, styling, or shared interface conventions. Use for multi-layer incidents and system-wide interface changes; do not use for ordinary framework, Tailwind, or verification work covered by specialized skills.
+description: Планируй и диагностируй сквозные фронтенд-системы, поведение которых охватывает состояние приложения, браузер, оформление и общие правила интерфейса. Используй для многоуровневых неполадок и системных изменений интерфейса; не используй для обычной работы с фреймворком, Tailwind или проверками, покрытой специализированными скиллами.
 ---
 
-# Frontend Engineering
+# Фронтенд-инженерия
 
-## Apply Cross-Cutting Scope
+## Определи сквозной характер задачи
 
-Use this skill when no technology-specific skill alone owns the task or when the requested outcome spans multiple frontend concerns. Keep framework-specific implementation, styling-tool usage, and verification in their specialized skills.
+Используй этот скилл, когда ни один технологический скилл не покрывает задачу целиком или нужный результат затрагивает несколько областей фронтенда. Реализацию на конкретном фреймворке, работу с инструментами оформления и проверку оставляй специализированным скиллам.
 
-Use a technology-specific skill alongside this one only when the task independently requires both sets of guidance. Do not load another skill solely because this skill is active.
+Подключай технологический скилл вместе с этим, только если задача независимо требует обоих наборов рекомендаций. Не загружай другой скилл лишь из-за активности этого.
 
-## Reuse Before Inventing
+## Повторно используй, прежде чем создавать новое
 
-Before introducing or changing any interface element, search the active project for an equivalent or closely related pattern. Inspect components, nearby templates, shared styles, design tokens, icons, assets, and existing interaction states. This check is required for controls, links, cards, navigation, typography, spacing, responsive behavior, animation, hover and focus behavior, and other visible or interactive conventions.
+Перед добавлением или изменением элемента интерфейса найди в проекте такой же или близкий образец. Изучи компоненты, соседние шаблоны, общие стили, токены дизайна, иконки, ресурсы и существующие состояния взаимодействия. Эта проверка нужна для элементов управления, ссылок, карточек, навигации, типографики, отступов, адаптивности, анимации, поведения при наведении и фокусе и других видимых или интерактивных правил.
 
-When a suitable pattern exists:
+Если подходящий образец найден:
 
-- Reuse the complete relevant pattern, including its markup, dimensions, tokens, iconography, states, transitions, accessibility behavior, and responsive rules.
-- Extend or compose the existing implementation when multiple consumers should share ownership. Do not create a parallel visual or behavioral variant merely for convenience.
-- Adapt only the properties required by the new context, such as contrast, available space, or semantic labeling. Preserve the established interaction contract and explain any material deviation.
+- Используй весь относящийся к задаче образец: разметку, размеры, токены, иконки, состояния, переходы, доступность и адаптивные правила.
+- Расширяй или компонуй существующую реализацию, когда несколько потребителей должны разделять владение. Не создавай параллельный визуальный или поведенческий вариант лишь ради удобства.
+- Меняй только свойства, необходимые в новом контексте, например контраст, доступное пространство или смысловую подпись. Сохраняй принятый контракт взаимодействия и объясняй существенное отклонение.
 
-Create a new pattern only after the project search shows that no existing implementation satisfies the requirement or that reusing one would break a concrete constraint. Identify that missing capability before designing the replacement. Do not improvise new icons, motion, control behavior, component shapes, or layout conventions while a project equivalent is available.
+Создавай новый образец лишь после того, как поиск покажет: существующие реализации не выполняют требование либо их повторное использование нарушит конкретное ограничение. Назови недостающую возможность до проектирования замены. Не придумывай новые иконки, движение, поведение элементов управления, формы компонентов или правила компоновки, пока в проекте есть эквивалент.
 
-## Diagnose Active Runtime Behavior
+## Диагностируй фактическое поведение приложения
 
-When observed behavior contradicts the expected code path, confirm the active runtime source instead of relying on static inspection alone. Treat visually similar CSS, browser, and JavaScript effects as separate hypotheses.
+Если наблюдаемое поведение противоречит ожидаемому пути выполнения кода, установи реально действующий источник поведения, а не полагайся только на статический просмотр. Внешне похожие эффекты CSS, браузера и JavaScript рассматривай как отдельные гипотезы.
 
-Where practical, verify:
+По возможности проверь:
 
-- Active state classes, attributes, media-query results, and feature-detection results.
-- Activated conditional branches and dynamic imports.
-- The code or stylesheet controlling the relevant DOM property, CSS variable, inline style, or computed style.
-- Whether the behavior is owned by a library, the browser, or project code.
+- Действующие классы и атрибуты состояния, результаты медиазапросов и обнаружения возможностей.
+- Выполненные условные ветки и динамические импорты.
+- Код или таблицу стилей, управляющие соответствующим свойством DOM, переменной CSS, встроенным или вычисленным стилем.
+- Принадлежит ли поведение библиотеке, браузеру или коду проекта.
 
-For capability-gated behavior, trace the path from detection through resolved application state and initialization to the final observable result. Keep independent causes separate during diagnosis, while making consumers depend on one resolved state when they require identical behavior. Clearly distinguish confirmed causes from unverified hypotheses.
+Если поведение зависит от наличия возможности, проследи путь от её обнаружения через итоговое состояние приложения и инициализацию до наблюдаемого результата. При диагностике разделяй независимые причины; если потребителям нужно одинаковое поведение, опирай их на одно установленное состояние. Чётко отделяй подтверждённые причины от непроверенных гипотез.
 
-## Reuse Existing Application Mechanics
+## Повторно используй механизмы приложения
 
-Before creating state flow, persistence, routing, data loading, or another shared mechanic, search for an equivalent helper, state module, service, or established lifecycle and reuse or extend it when its contract fits.
+Прежде чем создавать поток состояния, сохранение данных, маршрутизацию, загрузку данных или другой общий механизм, найди аналогичный помощник, модуль состояния, сервис или принятый жизненный цикл и используй либо расширь его, если контракт подходит.
 
-Identify the smallest existing property or mechanism that directly controls the requested result and change that first. Expand the structure, state, or implementation scope only after confirming that the smaller adjustment cannot satisfy the requirement.
+Определи минимальное существующее свойство или механизм, непосредственно управляющий нужным результатом, и сначала измени его. Расширяй структуру, состояние или объём реализации только убедившись, что меньшая правка не решает задачу.
 
-Do not duplicate state synchronization, persistence, routing, data loading, or other shared behavior when an existing mechanism can own the same contract and lifecycle. Reuse or extract equivalent multi-line logic, but do not introduce an abstraction solely to eliminate intentionally similar declarative markup or data.
+Не дублируй синхронизацию состояния, сохранение данных, маршрутизацию, загрузку данных и другое общее поведение, если существующий механизм может владеть тем же контрактом и жизненным циклом. Повторно используй или выделяй одинаковую многострочную логику, но не вводи абстракцию только ради устранения намеренно похожей декларативной разметки или данных.
 
-## Build Deliberate Typography Systems
+## Строй осмысленную систему типографики
 
-Before assigning font sizes, identify the text roles that actually exist in the design and define one coherent semantic typography system for them. Do not give individual elements one-off sizes when they share the same role.
+Прежде чем задавать размеры шрифта, определи реальные роли текста в дизайне и создай для них единую согласованную смысловую систему типографики. Не назначай отдельным элементам уникальные размеры, если их роль одинакова.
 
-Use heading roles from H1 through H5 only when the interface needs those hierarchy levels. Heading semantics do not by themselves require either different or identical visual sizes: follow the design when deciding whether two levels share a size.
+Используй уровни заголовков от H1 до H5 только если интерфейсу нужна такая иерархия. Смысл заголовка сам по себе не требует ни разных, ни одинаковых визуальных размеров: решай по дизайну, могут ли два уровня иметь общий размер.
 
-Define non-heading roles only when they are present, such as body text, lead text, labels, button text, captions, or overlines. Keep the set reasonably small, but do not impose an arbitrary maximum when the design has a justified additional role.
+Определяй роли обычного текста только когда они действительно есть: основной текст, вводный текст, подписи полей, текст кнопок, подписи к изображениям или надзаголовки. Держи набор умеренным, но не вводи произвольный максимум, если дизайн обоснованно требует ещё одной роли.
 
-When a semantic typography system exists, make components consume its roles or tokens instead of raw size values. Change shared sizes centrally. If text does not fit, inspect the grid, container width, spacing, and wrapping before changing the font size or adding another typography role.
+Если смысловая система типографики уже существует, используй её роли и токены в компонентах вместо прямых значений размеров. Общие размеры меняй централизованно. Если текст не помещается, сначала проверь сетку, ширину контейнера, отступы и перенос строк, а уже потом меняй размер шрифта или добавляй новую роль.
 
-## Manage Cross-Cutting Changes
+## Управляй сквозными изменениями
 
-When replacing a shared mechanism or changing coupled behavior, first confirm that a direct local adjustment is insufficient. Then map only the affected path before proposing edits: current baseline, target contract, responsible mechanism, inputs and lifecycle, consumers and interactions, invariants, relevant states or environments, and observable acceptance checks.
+Перед заменой общего механизма или изменением взаимосвязанного поведения сначала убедись, что прямая локальная правка недостаточна. Затем, прежде чем предлагать изменения, опиши только затронутый путь: исходное состояние, целевой контракт, ответственный механизм, входные данные и жизненный цикл, потребителей и взаимодействия, неизменяемые условия, нужные состояния и окружения, а также наблюдаемые критерии приёмки.
 
-Give each behavior one responsible mechanism. Do not let old and new implementations control the same outcome simultaneously unless an explicitly approved migration requires it. Keep connected changes atomic when splitting them would create an invalid intermediate state.
+Назначай каждому поведению один ответственный механизм. Не позволяй старой и новой реализациям одновременно управлять одним результатом, если этого не требует явно одобренная миграция. Выполняй связанные правки единым блоком, если их разделение создаст некорректное промежуточное состояние.
 
-If the same acceptance check remains broken after two local fixes, or a fix regresses another mapped behavior, stop symptom-level patching and return to read-only diagnosis. Update the behavior map before changing the responsible mechanism, files, or scope.
+Если одна и та же проверка приёмки не проходит после двух локальных исправлений либо исправление ломает другое описанное поведение, прекрати правки симптомов и вернись к диагностике без изменений. Обнови схему поведения, прежде чем менять ответственный механизм, файлы или объём работ.
 
-## Derive Responsive Layouts
+## Выводи адаптивное поведение из структуры макета
 
-Derive responsive behavior from layout topology rather than treating each breakpoint as an isolated design.
+Выводи адаптивное поведение из структуры макета, а не считай каждый брейкпоинт отдельным дизайном.
 
-When cards share a horizontal row:
+Когда карточки стоят в одном горизонтальном ряду:
 
-- Keep outer heights equal when the design calls for a uniform row.
-- Align corresponding headings, prices, dividers, lists, and actions.
-- Let flexible content regions absorb differences in content length.
+- Делай внешнюю высоту одинаковой, если дизайн предполагает ровный ряд.
+- Выравнивай соответствующие заголовки, цены, разделители, списки и действия.
+- Позволяй гибким областям содержимого компенсировать различия в объёме текста.
 
-When cards stack vertically:
+Когда карточки выстроены вертикально:
 
-- Size each card by its own content.
-- Remove equal-height constraints and unnecessary empty space.
-- Preserve consistent external spacing.
+- Определяй высоту каждой карточки по её содержимому.
+- Убирай принудительную одинаковую высоту и лишнюю пустоту.
+- Сохраняй согласованные внешние отступы.
 
-Equal outer heights are insufficient when corresponding internal sections remain misaligned.
+Одинаковой внешней высоты недостаточно, если соответствующие внутренние части не выровнены.
 
-## Calculate Nested Corners
+## Рассчитывай вложенные скругления
 
-Calculate an inner radius as `max(0, outer radius - distance between contours)`. When horizontal and vertical insets differ, calculate each radius axis separately. Include padding, gap, and border thickness in the contour distance. Use an existing radius token when it exactly matches the result.
+Рассчитывай внутренний радиус как `max(0, внешний радиус - расстояние между контурами)`. Если горизонтальные и вертикальные отступы различаются, рассчитывай каждую ось радиуса отдельно. Учитывай внутренние отступы, промежуток и толщину границы в расстоянии между контурами. Используй существующий токен радиуса, если он точно совпадает с результатом.
 
-## Prefer Framework and Library Primitives
+## Предпочитай возможности фреймворка и библиотеки
 
-Use a framework's documented APIs and established project patterns before custom workarounds.
+Прежде чем создавать обходное решение, используй документированные API фреймворка и принятые в проекте подходы.
 
-Reimplement or bypass baseline library behavior only when it is insufficient for the requirement and explain the concrete limitation before introducing the workaround.
+Переопределяй или обходи стандартное поведение библиотеки, только если оно не выполняет требование; перед этим объясни конкретное ограничение.
 
-## Maintain Layered Color Systems
+## Поддерживай многоуровневую систему цветов
 
-Treat a color change as a change to one connected system. When the project uses layered color tokens, audit the affected path with these columns before proposing a cross-cutting change:
+Рассматривай изменение цвета как изменение единой связанной системы. Если проект использует несколько уровней цветовых токенов, перед сквозной правкой проверь затронутую цепочку по следующим столбцам:
 
 ```text
-role | light | dark | semantic token | component token | utility | consumers | states | background
+роль | светлая тема | тёмная тема | смысловой токен | токен компонента | утилита | потребители | состояния | фон
 ```
 
-Trace affected values from palette primitives through semantic and component tokens to their consumers. Check supported themes and existing default, hover, active, focus, and disabled states. Mark unverified assumptions and identify direct primitives, layer bypasses, mixed terminology, stale aliases, unused tokens, and colors evaluated against the wrong background.
+Проследи затронутые значения от базовой палитры через смысловые токены и токены компонентов до потребителей. Проверь поддерживаемые темы и существующие обычные состояния, наведение, нажатие, фокус и недоступность. Отмечай непроверенные предположения и выявляй прямое использование базовой палитры, обход слоёв, смешение терминов, устаревшие псевдонимы, неиспользуемые токены и цвета, проверенные на неверном фоне.
 
-Keep dependencies layered:
+Сохраняй слои зависимостей:
 
-- Define semantic tokens from palette primitives.
-- Name semantic tokens for reusable visual roles rather than concrete colors or page locations.
-- Define component tokens from semantic tokens when a component-specific role is needed.
-- Consume established component tokens instead of bypassing them with lower-level values.
-- Keep reusable component states inside the component; expose a prop or variant when a parent must select them.
+- Определяй смысловые токены через базовую палитру.
+- Называй смысловые токены по повторно используемым визуальным ролям, а не по конкретным цветам или местам на странице.
+- Определяй токены компонентов через смысловые токены, если нужна роль конкретного компонента.
+- Используй существующие токены компонентов, не обходя их низкоуровневыми значениями.
+- Храни повторно используемые состояния внутри компонента; предоставляй свойство или вариант, когда родитель должен их выбирать.
 
-Use one vocabulary across the chain. Paired colors should describe a surface and its content. Reserve `muted` for enabled low-priority content and `disabled` for unavailable controls or content. Do not bypass an established semantic token layer with raw palette values in application code.
+Используй единую терминологию по всей цепочке. Парные цвета должны описывать поверхность и содержимое на ней. Оставь `muted` для доступного, но второстепенного содержимого, а `disabled` — для недоступных элементов управления и содержимого. Не обходи слой смысловых токенов прямыми цветами палитры в коде приложения.
 
-## Preserve Color Contrast
+## Сохраняй контраст цветов
 
-Treat foreground and background colors as a paired contract. Before reusing, replacing, or removing a shared color token, trace every consumer against its actual surface and interaction states; a color that passes on a light surface may fail on a dark, branded, image, gradient, or translucent surface.
+Считай цвета переднего плана и фона единым контрактом. Прежде чем повторно использовать, заменить или удалить общий цветовой токен, проверь каждого потребителя на его фактической поверхности и во всех состояниях взаимодействия: цвет, подходящий для светлой поверхности, может не подойти для тёмной, фирменной, прозрачной, градиентной поверхности или изображения.
 
-Meet WCAG AA contrast at minimum: 4.5:1 for normal text, 3:1 for large text, and 3:1 for meaningful controls, focus indicators, icons, and graphical boundaries. Resolve transparent colors against the effective rendered background rather than comparing raw token values. For text over images or gradients, provide a sufficiently strong overlay or local surface that guarantees contrast across the complete content area.
+Соблюдай минимум контраста WCAG AA: 4,5:1 для обычного текста, 3:1 для крупного текста и 3:1 для значимых элементов управления, индикаторов фокуса, иконок и графических границ. Сравнивай прозрачные цвета с фактически отображаемым фоном, а не исходные значения токенов. Для текста поверх изображений или градиентов обеспечь достаточно плотную подложку либо локальную поверхность с гарантированным контрастом по всей области содержимого.
 
-Check default, hover, active, focus, selected, disabled, and open states. When a parent changes its background on interaction, update every child foreground that no longer passes. Decorative low-contrast text or graphics must be excluded from accessibility semantics and must not carry required information.
+Проверь обычное состояние, наведение, нажатие, фокус, выбор, недоступность и раскрытие. Если фон родителя меняется при взаимодействии, обнови цвета всех дочерних элементов, утративших нужный контраст. Декоративный малоконтрастный текст или графику исключай из семантики доступности; они не должны передавать обязательную информацию.
 
-## Preserve Accessibility and Localization
+## Сохраняй доступность и локализацию
 
-Add appropriate accessibility attributes to icons and SVGs, including `aria-hidden` and `focusable` for decorative graphics. Give icon-only or ambiguous controls an accessible name, and keep image alternatives accurate.
+Добавляй иконкам и SVG подходящие атрибуты доступности, в том числе `aria-hidden` и `focusable` для декоративной графики. Давай элементам управления без текста или с неоднозначным смыслом доступное имя и точно описывай изображения альтернативным текстом.
 
-Write toggle labels as the action or alternative state applied after activation rather than merely repeating the current state.
+Подписывай переключатели действием или альтернативным состоянием после активации, а не просто повторяй текущее состояние.
 
-Keep equivalent interface copy consistent across locales unless a language-specific convention requires a difference. When adding or changing a localization key or variable, update every supported locale in the same change.
+Сохраняй единый смысл одинаковых текстов интерфейса во всех языковых версиях, если языковые нормы не требуют различия. При добавлении или изменении ключа либо переменной локализации обновляй все поддерживаемые языки в рамках той же правки.

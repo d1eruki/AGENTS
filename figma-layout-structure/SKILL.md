@@ -1,94 +1,94 @@
 ---
 name: figma-layout-structure
-description: Build and adapt Figma page layouts on a variable-driven grid, where every block spans the full canvas width and its content lives in a single centred container capped by a breakpoint variable. Use when the user asks to create a page block or screen in Figma, port an existing layout to another width (1920, 1440, tablet, mobile), set up or apply grid variables, or clean up a layout so blocks, margins and content columns follow one rule. Do not use for icon or illustration work, for component/variant library construction, or for one-off frames that carry no page grid.
+description: "Собирай и адаптируй страницы Figma на сетке с переменными: каждый блок занимает всю ширину холста, а содержимое находится в одном центрированном контейнере, ограниченном переменной брейкпоинта. Используй для создания блока или экрана, переноса макета на другую ширину (1920, 1440, планшет, телефон), настройки переменных сетки и приведения блоков, полей и колонок к единому правилу. Не используй для иконок, иллюстраций, библиотек компонентов и вариантов или отдельных фреймов без сетки страницы."
 ---
 
-# Figma Layout Structure
+# Структура макета в Figma
 
-Give every block in a Figma page the same skeleton: a full-width shell, a single centred container capped by the file's breakpoint variable, and backgrounds that bleed past the container. A layout built this way survives a breakpoint switch without manual repositioning.
+Строй каждый блок страницы Figma по одной схеме: оболочка на всю ширину, один центрированный контейнер, ограниченный переменной брейкпоинта файла, и фоны, выходящие за пределы контейнера. Такой макет переносит смену брейкпоинта без ручной перестановки элементов.
 
-## Required Skills And Tools
+## Необходимые скиллы и инструменты
 
-- Use the available Figma MCP write tool:
-  - Codex/OpenAI: load `figma:figma-use` before every `use_figma` write call.
-  - Claude Code: use the configured Figma MCP write tool equivalent to `use_figma`.
-- If no Figma MCP write tool is available, ask the user to connect Figma MCP instead of producing a non-Figma artifact.
-- Work in the open or user-provided file. Never create a new Figma file unless explicitly asked.
-- Read `references/structure-api.md` only when writing JavaScript for the write tool. It holds the API traps that break this structure.
+- Используй доступный инструмент записи Figma MCP:
+  - В Codex/OpenAI загружай `figma:figma-use` перед каждым вызовом записи `use_figma`.
+  - В Claude Code используй настроенный инструмент записи Figma MCP, аналогичный `use_figma`.
+- Если инструмент записи Figma MCP недоступен, попроси пользователя подключить его, а не создавай результат вне Figma.
+- Работай в открытом или предоставленном пользователем файле. Не создавай новый файл Figma без явной просьбы.
+- Читай `references/structure-api.md` только при написании JavaScript для инструмента записи: там описаны ловушки API, нарушающие эту структуру.
 
-## Runtime Support
+## Поддерживаемые среды
 
-Supports Codex/OpenAI and Claude Code. The structure contract, workflow and `references/structure-api.md` are shared. `agents/openai.yaml` is OpenAI/Codex UI metadata only; Claude Code reads the YAML frontmatter above.
+Скилл поддерживает Codex/OpenAI и Claude Code. Правила структуры, порядок работы и `references/structure-api.md` общие для обеих сред. `agents/openai.yaml` содержит только метаданные интерфейса OpenAI/Codex; Claude Code читает вводные метаданные YAML выше.
 
-## The Structure Contract
+## Правила структуры
 
-Every block, without exception:
+Каждый блок без исключений:
 
-1. **Block** — width spans the whole canvas (1920, 1440, 744, 393 — whatever the frame is). Auto layout. No left/right padding. Horizontal alignment centred. Vertical alignment chosen per block (top, centre or bottom).
-2. **Container** — exactly one per content group, a direct child of the block:
+1. **Блок** — занимает всю ширину холста (1920, 1440, 744, 393 или другую ширину фрейма). Автоматическая компоновка. Нет отступов слева и справа. Выравнивание по горизонтали — по центру; по вертикали — сверху, по центру или снизу в зависимости от блока.
+2. **Контейнер** — ровно один на группу содержимого, непосредственный дочерний элемент блока:
    - `layoutSizingHorizontal = "FILL"`
-   - `maxWidth` bound to the grid breakpoint variable
-   - `paddingLeft` / `paddingRight` bound to the grid margin variable
-3. **Content** — lives inside the container. Flow children when the block is a normal stack; absolutely positioned children when the block is a composition on a canvas, keeping the coordinates of the base design.
-4. **Backgrounds, patterns, art** — absolutely positioned at block level (`layoutPositioning = "ABSOLUTE"`), free to bleed past the container to the full canvas width.
+   - `maxWidth` привязан к переменной брейкпоинта сетки
+   - `paddingLeft` / `paddingRight` привязаны к переменной бокового поля сетки
+3. **Содержимое** — находится внутри контейнера. Для обычного стека дочерние элементы следуют потоком; для композиции на холсте используется абсолютное позиционирование с сохранением координат исходного дизайна.
+4. **Фоны, узоры, графика** — расположены абсолютно на уровне блока (`layoutPositioning = "ABSOLUTE"`) и могут выходить за контейнер на всю ширину холста.
 
-Consequences that are part of the contract, not suggestions:
+Обязательные следствия этих правил:
 
-- **One level of nesting.** A block holds containers, not a wrapper that holds a container. If an intermediate frame exists only to be a shell, remove it.
-- **No empty containers.** If a frame in the layout already sits where the container belongs, bind the variables to that frame instead of creating a new one.
-- **No hardcoded side padding.** Values like 60, 120, 240 in a block's `paddingLeft` mean the layout will not follow a breakpoint change. The only place a number is allowed is a variable's value.
-- **Column width comes from the variables,** never from the canvas width. On a 1920 canvas with a 1440 breakpoint and 60 margin, the working column is 1320 and the rest is empty margin. That is correct, not a bug to fill.
+- **Один уровень вложенности.** Блок содержит контейнеры, а не промежуточную обёртку с контейнером. Если фрейм-посредник нужен только как оболочка, удали его.
+- **Нет пустых контейнеров.** Если в макете уже есть фрейм на месте контейнера, привяжи переменные к нему, не создавая новый.
+- **Нет жёстко заданных боковых отступов.** Значения вроде 60, 120 или 240 в `paddingLeft` блока мешают смене брейкпоинта. Число допустимо только как значение переменной.
+- **Ширина колонки задаётся переменными,** а не шириной холста. При холсте 1920, брейкпоинте 1440 и поле 60 рабочая колонка составляет 1320; остальное — пустые поля. Это правильно, заполнять их не нужно.
 
-## Grid Variables
+## Переменные сетки
 
-Before touching geometry, read the file's variable collections and reuse what is there. A typical set, in a collection with one mode per breakpoint:
+До изменения геометрии изучи коллекции переменных файла и используй существующие. Типичный набор в коллекции с одним режимом на брейкпоинт:
 
-| Variable | desktop | tablet | mobile |
+| Переменная | desktop | tablet | mobile |
 | --- | --- | --- | --- |
 | `layout/grid/breakpoint` | 1440 | 744 | 393 |
 | `layout/grid/margin` | 60 | 24 | 12 |
 | `layout/grid/gutter` | 20 | 10 | 12 |
 | `layout/grid/columns` | 12 | 8 | 4 |
 
-Rules:
+Правила:
 
-- Names, values and mode names come from the file. The table above is a shape, not a standard to impose.
-- If the collection does not exist, propose it and wait for confirmation before creating variables.
-- A wider canvas does not need a new mode. A 1920 page still runs on the desktop mode; the container simply stops at the breakpoint.
-- Scope the variables when creating them: `WIDTH_HEIGHT` for the breakpoint, `GAP` for margin and gutter.
+- Имена, значения и названия режимов бери из файла. Таблица показывает пример структуры, а не обязательный стандарт.
+- Если коллекции нет, предложи её и дождись подтверждения, прежде чем создавать переменные.
+- Для более широкого холста не нужен новый режим. Страница 1920 по-прежнему использует десктопный режим; контейнер просто ограничивается брейкпоинтом.
+- При создании задавай области применения переменных: `WIDTH_HEIGHT` для брейкпоинта и `GAP` для поля и межколоночного интервала.
 
-## Building A New Block
+## Сборка нового блока
 
-1. Read a neighbouring block first and copy its conventions: naming, alignment, vertical rhythm, which frames already carry variables.
-2. Create the block shell: full width, auto layout, padding 0, centred.
-3. Create one container, set it to FILL, bind `maxWidth` and the two paddings.
-4. Put the content inside the container. Text nodes hug; related elements go into nested auto layouts; fixed sizes only where the design demands them.
-5. Put the background art in the block as an absolute child, sized to cover the full canvas width.
-6. Screenshot the block and check: content inside the column, art bleeding, nothing clipped, no horizontal overflow.
+1. Сначала изучи соседний блок и перенеси его правила: названия, выравнивание, вертикальный ритм, фреймы с привязанными переменными.
+2. Создай оболочку блока: вся ширина, автоматическая компоновка, отступы 0, выравнивание по центру.
+3. Создай один контейнер, установи FILL, привяжи `maxWidth` и оба боковых отступа.
+4. Помести содержимое внутрь контейнера. Размер текстовых узлов подстраивается под содержимое; связанные элементы входят во вложенные автоматические компоновки; фиксированные размеры используй только по требованию дизайна.
+5. Добавь фоновую графику в блок как абсолютно позиционированный дочерний элемент на всю ширину холста.
+6. Сделай снимок блока и проверь: содержимое внутри колонки, графика выходит за неё, ничего не обрезано и нет горизонтального переполнения.
 
-## Porting A Layout To Another Width
+## Перенос макета на другую ширину
 
-When an existing page must be reproduced at a different canvas width:
+Если существующую страницу нужно воспроизвести на холсте другой ширины:
 
-1. Duplicate the page frame and set the new width. Do not rescale the copy as a whole.
-2. Work **one block at a time**, verifying each with a screenshot before moving on. A single generic transform applied to every block will break compositions where elements are visually related.
-3. For each block:
-   - shell to the new width, height per the design's screen height for that breakpoint;
-   - content into the container at its original coordinates — the container is as wide as the base design's canvas, so the coordinates carry over unchanged;
-   - background art scaled to cover the new width uniformly (see `references/structure-api.md`), never stretched on one axis;
-   - clusters that belong together (an arrow next to a speaker, a caption under an image) move as one, never element by element.
-4. Do not rescale typography, buttons, form controls or component instances. In most files the type ramp is identical across breakpoints; the headline simply wraps onto more lines.
-5. Hidden alternates in the file (`… (скрыто)`, variant frames parked off-canvas) get the same treatment, so they are correct when switched on.
+1. Дублируй фрейм страницы и задай новую ширину. Не масштабируй копию целиком.
+2. Работай **по одному блоку**, проверяя каждый снимком экрана перед переходом дальше. Один общий трансформирующий приём для всех блоков сломает композиции со связанными элементами.
+3. Для каждого блока:
+   - задай оболочке новую ширину, а высоту — по высоте экрана в дизайне для этого брейкпоинта;
+   - помести содержимое в контейнер с исходными координатами: контейнер имеет ширину холста исходного дизайна, поэтому координаты сохраняются;
+   - равномерно масштабируй фоновую графику для покрытия новой ширины (см. `references/structure-api.md`), не растягивая по одной оси;
+   - перемещай связанные группы (стрелку рядом с выступающим, подпись под изображением) как единое целое, а не по одному элементу.
+4. Не масштабируй типографику, кнопки, поля формы и экземпляры компонентов. В большинстве файлов размеры шрифтов одинаковы на разных брейкпоинтах; заголовок лишь занимает больше строк.
+5. Так же обработай скрытые альтернативы в файле (`… (скрыто)`, фреймы вариантов за пределами холста), чтобы при включении они выглядели правильно.
 
-## Verification
+## Проверка
 
-- After each block: screenshot it, and confirm content sits inside the column and art bleeds correctly.
-- After the page: audit every text node's left/right edge against the expected column bounds and report the ones outside it. Nodes inside hidden frames are not errors — check visibility before flagging.
-- Report block sizes and the bound variables, not just "done".
+- После каждого блока сделай снимок и убедись, что содержимое внутри колонки, а графика правильно выходит за её границы.
+- После всей страницы сверь левый и правый края каждого текстового узла с ожидаемыми границами колонки и сообщи о выходящих за них. Узлы в скрытых фреймах не считаются ошибкой: перед замечанием проверь видимость.
+- Сообщи размеры блоков и привязанные переменные, а не только факт завершения.
 
-## Guardrails
+## Ограничения
 
-- "Look at it", "study this", "I made edits" means **read-only**. Inspect, report, and wait. Do not fix anything you noticed until the user says so.
-- Never overwrite a user's manual edits. When rebuilding a block from a source, re-apply their overrides or ask first.
-- Keep the source design untouched when producing an adapted copy; verify at the end that it was not modified.
-- Do not commit or push anything in the repository unless the user asks.
+- Просьбы «посмотри», «изучи» или «я внёс правки» означают **только чтение**. Изучи, сообщи и дождись указаний. Не исправляй найденное без просьбы пользователя.
+- Не перезаписывай ручные правки пользователя. При пересборке блока по исходнику повторно примени его изменения или сначала спроси.
+- При создании адаптированной копии не трогай исходный дизайн и в конце проверь, что он не изменён.
+- Не создавай коммит и не отправляй изменения в репозиторий без просьбы пользователя.

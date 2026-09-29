@@ -1,51 +1,51 @@
-# Components
+# Компоненты
 
-Choose a component from its behavior and information role, not its visual resemblance.
+Выбирай компонент по поведению и информационной роли, а не по внешнему сходству.
 
-## Layout and Navigation
+## Компоновка и навигация
 
-- Use a sidebar for persistent top-level collections or destinations.
-- Use split views for adjacent regions that users may resize or hide.
-- Use lists and tables for scannable structured data; support selection, sorting, disclosure, and keyboard navigation as appropriate.
-- Use outline or column views for hierarchy when parent-child context matters.
-- Use tabs for a small set of peer views, not as a substitute for deep navigation.
-- Use path controls when location within a file or hierarchy is actionable.
+- Используй боковую панель для постоянных коллекций или разделов верхнего уровня.
+- Используй разделённые области для соседних частей интерфейса, размер которых пользователь может менять или которые можно скрывать.
+- Используй списки и таблицы для удобного просмотра структурированных данных; по необходимости поддерживай выбор, сортировку, раскрытие и клавиатурную навигацию.
+- Используй иерархические или колоночные представления, когда важна связь родителя и потомка.
+- Используй вкладки для небольшого набора равноправных видов, а не вместо глубокой навигации.
+- Используй элементы пути, когда положение в файле или иерархии предполагает действия.
 
-## Actions and Menus
+## Действия и меню
 
-- Use buttons for immediate actions and clearly distinguish default, cancel, destructive, toggle, and disclosure behavior.
-- Use a pop-up button to choose one value from a menu; use a pull-down button to expose actions.
-- Keep contextual menus supplementary. Never hide an essential command exclusively in a contextual menu.
-- Use toolbar items for frequent window actions and preserve menu-bar access to commands.
+- Используй кнопки для немедленных действий и ясно различай действия по умолчанию, отмену, разрушение, переключение и раскрытие.
+- Используй всплывающую кнопку для выбора одного значения из меню, а раскрывающую — для показа действий.
+- Контекстные меню должны быть дополнительными. Не прячь важную команду исключительно в контекстном меню.
+- Размещай частые действия окна на панели инструментов, сохраняя доступ к командам через строку меню.
 
-## Presentation
+## Представление
 
-- Use windows for independent workspaces, sheets for window-scoped decisions, panels for persistent utilities, popovers for transient contextual content, and alerts for significant conditions.
-- Avoid action sheets and mobile presentation patterns when a standard macOS menu, popover, sheet, or alert is more appropriate.
-- Use scroll views without hiding essential controls or creating nested scrolling conflicts.
+- Используй окна для независимых рабочих областей, листы — для решений в рамках окна, панели — для постоянных инструментов, всплывающие панели — для временного контекстного содержимого, предупреждения — для значимых ситуаций.
+- Избегай мобильных панелей действий и других мобильных способов представления, когда лучше подходит обычное меню, всплывающая панель, лист или предупреждение macOS.
+- Используй прокручиваемые области, не скрывая важные элементы управления и не создавая конфликтов вложенной прокрутки.
 
-## Selection and Input
+## Выбор и ввод
 
-- Use text fields for editable text, combo boxes when entry and suggested values both matter, and token fields for discrete editable items.
-- Use checkboxes for independent options, radio-style choices for one item in a visible small set, and pop-up buttons for compact single selection.
-- Use segmented controls for a small number of closely related modes or views.
-- Use sliders for continuous or approximate values and steppers for small incremental changes. Provide direct entry when precision matters.
-- Use color and image wells for standard selection and drag-and-drop behavior rather than custom swatches without system semantics.
+- Используй текстовые поля для редактирования, комбинированные поля — когда важны и ввод, и подсказки, а поля токенов — для отдельных редактируемых элементов.
+- Используй флажки для независимых параметров, переключатели выбора — для одного элемента небольшого видимого набора, всплывающие кнопки — для компактного одиночного выбора.
+- Используй сегментированные элементы управления для небольшого числа тесно связанных режимов или видов.
+- Используй ползунки для непрерывных или приблизительных значений, а пошаговые элементы — для небольших приращений. Если важна точность, предоставь прямой ввод.
+- Используй системные области выбора цвета и изображения с привычным выбором и перетаскиванием вместо собственных образцов без системной семантики.
 
-## Content and Status
+## Содержимое и состояние
 
-- Use native text views for editing semantics, selection, spelling, substitutions, accessibility, and services.
-- Use progress indicators for ongoing work and reserve gauges or ratings for values their visual models accurately represent.
-- Design charts with labels, accessible descriptions, non-color differentiation, and interaction appropriate to precise pointer input.
+- Используй нативные текстовые представления ради правильного редактирования, выбора, проверки орфографии, замен, доступности и системных служб.
+- Показывай текущую работу индикаторами прогресса; шкалы и рейтинги оставляй для значений, которые их визуальная модель точно отражает.
+- Проектируй диаграммы с подписями, доступными описаниями, различиями не только по цвету и взаимодействием, подходящим для точного указателя.
 
-## Selection Procedure
+## Порядок выбора компонента
 
-1. Define the information or action model.
-2. Identify the closest standard macOS component.
-3. Check its current platform availability and behavior in the exact Apple HIG topic.
-4. Prefer the native component unless it cannot support a core requirement.
-5. If custom behavior is necessary, preserve semantics, focus, keyboard interaction, accessibility, and state communication.
+1. Определи модель информации или действия.
+2. Найди ближайший стандартный компонент macOS.
+3. Проверь его доступность и поведение на платформе в соответствующем разделе Apple HIG.
+4. Предпочитай нативный компонент, если он способен выполнить основное требование.
+5. Если нужно собственное поведение, сохрани семантику, фокус, клавиатурное взаимодействие, доступность и отображение состояния.
 
-## Apple Topics
+## Разделы Apple
 
-Start with [Components](https://developer.apple.com/design/human-interface-guidelines/components), then open the exact topic under content, layout and organization, menus and actions, navigation and search, presentation, selection and input, or status.
+Начни с [компонентов](https://developer.apple.com/design/human-interface-guidelines/components), затем открой нужный раздел о содержимом, компоновке и организации, меню и действиях, навигации и поиске, представлении, выборе и вводе или состоянии.

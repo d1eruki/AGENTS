@@ -1,70 +1,70 @@
 ---
 name: frontend-maintenance
-description: Audit and modernize a frontend project's runtime, dependencies, tooling, or custom mechanisms while preserving a coherent compatible stack. Use for explicit currency audits, dependency updates, compatibility reviews, or replacement research.
+description: Проверяй и обновляй среду выполнения, зависимости, инструменты и собственные механизмы фронтенд-проекта, сохраняя совместимость стека. Используй для аудита актуальности, обновления зависимостей, проверки совместимости и поиска замен.
 ---
 
-# Frontend Maintenance
+# Обслуживание фронтенда
 
-Treat maintenance as a compatibility problem across one connected system rather than a sequence of isolated package upgrades. Prefer the newest stable level the complete project can safely support within its selected runtime line.
+Рассматривай обслуживание как задачу совместимости единой системы, а не череду независимых обновлений пакетов. Предпочитай наиболее новую стабильную версию, которую весь проект безопасно поддерживает в выбранной ветке среды выполнения.
 
-## Select a Supported Runtime
+## Выбери поддерживаемую среду выполнения
 
-1. For runtimes with an LTS lifecycle, default to the newest active LTS major and latest stable patch supported by the complete stack.
-2. Do not select Current, nightly, prerelease, or experimental lines merely because they are newer. Use them only for an explicit product requirement.
-3. During a currency or support audit, check the selected runtime's lifecycle phase, maintenance date, end-of-life date, and the newest active LTS.
-4. For dependencies without LTS policy, prefer the latest mutually compatible stable release and exclude prerelease tags unless explicitly required.
+1. Для сред выполнения с циклом LTS по умолчанию выбирай наиболее новую действующую основную версию LTS и последний стабильный патч, поддерживаемые всем стеком.
+2. Не выбирай ветки Current, ночные, предварительные или экспериментальные сборки лишь потому, что они новее. Используй их только при явном требовании продукта.
+3. При проверке актуальности или поддержки выясни стадию жизненного цикла выбранной среды, дату перехода на сопровождение, дату окончания поддержки и самую новую действующую LTS.
+4. Для зависимостей без политики LTS предпочитай последние взаимно совместимые стабильные выпуски и исключай предварительные версии, если они явно не требуются.
 
-## Establish the Baseline
+## Зафиксируй исходное состояние
 
-1. Confirm the repository root and preserve unrelated worktree changes.
-2. Read the manifest, lockfile, runtime declarations, build and test configuration, CI or hosting configuration, and relevant dependency documentation.
-3. Record runtime and package-manager requirements, lockfile format, framework and bundler versions, deployment constraints, pins, and documented workarounds.
-4. Distinguish runtime, development, optional, and important transitive dependencies by actual responsibility. Libraries imported by browser application code and responsible for shipped behavior belong in runtime dependencies; build, lint, formatting, and test tools normally belong in development dependencies.
-5. Keep the audit read-only until the repository's approval policy permits changes.
+1. Подтверди корень репозитория и сохрани несвязанные изменения в рабочем дереве.
+2. Прочитай манифест, файл зафиксированных зависимостей, требования к среде выполнения, настройки сборки и тестов, конфигурацию непрерывной интеграции или хостинга и относящуюся к зависимостям документацию.
+3. Запиши требования к среде выполнения и менеджеру пакетов, формат файла зависимостей, версии фреймворка и сборщика, ограничения развёртывания, закреплённые версии и задокументированные обходные решения.
+4. Раздели рабочие, разработческие, необязательные и важные транзитивные зависимости по их реальной роли. Библиотеки, которые импортируются кодом браузерного приложения и определяют поставляемое поведение, относятся к рабочим зависимостям; инструменты сборки, линтинга, форматирования и тестирования обычно относятся к зависимостям разработки.
+5. До разрешения изменений правилами репозитория проводи аудит без правок.
 
-## Audit Currency and Maintenance
+## Проверь актуальность и сопровождение
 
-Use current primary sources because versions and compatibility policies change.
+Используй актуальные первичные источники: версии и правила совместимости меняются.
 
-1. Compare installed, declared, latest stable, and latest compatible versions. Inspect distribution tags instead of assuming `latest` is the intended line.
-2. Read official release notes, migration guides, engine requirements, peer ranges, deprecations, and breaking changes for proposed major updates.
-3. Inspect the connected chain around each update: runtime, package manager, framework, bundler, dev server, plugins, loaders, compilers, linters, and test runners.
-4. Check maintenance status, release recency, advisories, repository health, license, and replacement notices. Treat security findings separately from compatibility findings.
-5. Use package-manager commands as evidence, but do not treat one command as sufficient compatibility proof.
+1. Сравни установленные, объявленные, последние стабильные и последние совместимые версии. Проверяй теги публикации, не предполагая, что `latest` обозначает нужную ветку.
+2. Для предложенных крупных обновлений прочитай официальные заметки о выпуске, руководства по миграции, требования к среде, диапазоны совместимых зависимостей, уведомления об устаревании и несовместимые изменения.
+3. Изучи связанную цепочку каждого обновления: среду выполнения, менеджер пакетов, фреймворк, сборщик, сервер разработки, плагины, загрузчики, компиляторы, линтеры и тестовые раннеры.
+4. Проверь статус сопровождения, давность выпуска, предупреждения, состояние репозитория, лицензию и сообщения о заменах. Отделяй вопросы безопасности от совместимости.
+5. Используй команды менеджера пакетов как свидетельство, но не считай одну команду достаточным доказательством совместимости.
 
-For project-wide audits, account for every direct dependency. Map each package to confirmed imports, configuration, scripts, tests, documentation, or generated assets. Classify each as `keep`, `update`, `replace`, `remove`, or `defer`, and separate confirmed evidence from hypotheses.
+При аудите всего проекта учти каждую прямую зависимость. Сопоставь пакет с подтверждёнными импортами, конфигурацией, скриптами, тестами, документацией или создаваемыми ресурсами. Отнеси каждый к категориям `keep`, `update`, `replace`, `remove` или `defer` и отделяй подтверждённые сведения от предположений.
 
-Report totals for direct dependencies reviewed, confirmed consumers, unused candidates, compatible updates, major-version migrations, abandoned packages, maintenance risks, deprecated direct packages, and deprecated transitive packages found in the inspected paths. State explicitly when security advisory checking was not performed or could not be completed.
+Сообщи количество проверенных прямых зависимостей, подтверждённых потребителей, кандидатов на удаление, совместимых обновлений, миграций между основными версиями, заброшенных пакетов, рисков сопровождения, устаревших прямых и транзитивных пакетов в изученных путях. Явно укажи, если проверка предупреждений о безопасности не проводилась или не завершилась.
 
-## Evaluate Custom Mechanisms
+## Оцени собственные механизмы
 
-1. Map the mechanism's contract, lifecycle, consumers, edge cases, fallbacks, tests, and production constraints.
-2. Look first for a platform built-in, an API in an installed library, or an established project pattern. Consider a new dependency only when those are insufficient.
-3. Compare candidates by maintenance, compatibility, API fit, bundle and install cost, tree-shaking, accessibility, licensing, security history, migration effort, and future ownership.
-4. Recommend replacement only when it removes meaningful maintenance burden without losing required behavior or creating a larger integration surface.
-5. Record rejected candidates and their concrete mismatch.
+1. Опиши контракт механизма, жизненный цикл, потребителей, крайние случаи, запасные варианты, тесты и ограничения рабочей среды.
+2. Сначала ищи встроенную возможность платформы, API установленной библиотеки или принятый в проекте подход. Новую зависимость рассматривай, только если этого недостаточно.
+3. Сравни кандидатов по сопровождению, совместимости, соответствию API, цене установки и размеру сборки, удалению неиспользуемого кода, доступности, лицензии, истории безопасности, сложности миграции и дальнейшему владению.
+4. Рекомендуй замену, только если она существенно снижает трудоёмкость сопровождения без потери нужного поведения и без усложнения интеграции.
+5. Запиши отклонённые варианты и их конкретное несоответствие.
 
-## Derive a Compatible Target
+## Определи совместимую цель
 
-1. Build a compatibility graph for coupled upgrades and identify constraints from engines, peer dependencies, compiler APIs, plugin APIs, and lockfile behavior.
-2. Select the highest mutually supported stable target versions. State which newer versions remain blocked, why, and what would unblock them.
-3. Group coupled packages into one atomic batch. Do not independently upgrade parts of a framework, bundler, compiler, loader, or test-adapter chain when their compatibility is connected.
-4. Separate low-risk independent updates from major migrations.
-5. Define observable acceptance checks before editing: clean installation, dependency-tree validity, formatting, tests, browser checks, production build, and migration-specific behavior.
+1. Построй схему совместимости связанных обновлений и выясни ограничения сред выполнения, одноранговых зависимостей, API компиляторов и плагинов, а также поведения файла зафиксированных зависимостей.
+2. Выбери максимально новые взаимно поддерживаемые стабильные версии. Укажи, какие более новые версии пока недоступны, почему и что снимет ограничение.
+3. Объединяй связанные пакеты в одну неделимую группу. Не обновляй по отдельности части фреймворка, сборщика, компилятора, загрузчика или тестового адаптера, если их совместимость взаимосвязана.
+4. Отделяй независимые обновления с небольшим риском от крупных миграций.
+5. До правок определи наблюдаемые критерии приёмки: чистая установка, корректное дерево зависимостей, форматирование, тесты, браузерные проверки, рабочая сборка и поведение, важное для миграции.
 
-## Update Without Hiding Conflicts
+## Обновляй, не скрывая конфликты
 
-1. Modify manifests through the package manager where practical and let it regenerate the lockfile. Do not edit resolved lockfile entries manually.
-2. Require a clean frozen-lockfile installation using the declared runtime and normal settings as the installation acceptance check.
-3. Do not accept forced installs, ignored peer dependencies, broad overrides, or ignored engine checks as permanent fixes.
-4. When installation fails, identify exact conflicting ranges using package-manager explanation commands, tree inspection, lockfile evidence, and upstream documentation.
-5. Do not run forced automatic security upgrades. Determine whether an advisory affects production, development only, or an unreachable path, then resolve it compatibly.
-6. Request revised approval when conflict resolution changes approved files, dependency strategy, runtime target, or product behavior.
+1. По возможности меняй манифесты через менеджер пакетов и позволяй ему обновить файл зафиксированных зависимостей. Не редактируй разрешённые записи этого файла вручную.
+2. Критерием успешной установки считай чистую установку с неизменяемым файлом зависимостей, объявленной средой выполнения и обычными настройками.
+3. Не принимай принудительную установку, игнорирование одноранговых зависимостей, широкие переопределения или пропуск проверки среды выполнения как постоянное решение.
+4. Если установка не удалась, найди конкретные конфликтующие диапазоны через объяснения менеджера пакетов, дерево зависимостей, файл зафиксированных зависимостей и документацию авторов.
+5. Не запускай принудительные автоматические исправления уязвимостей. Определи, затрагивает ли предупреждение рабочую среду, только разработку или недостижимый путь, затем реши проблему совместимым способом.
+6. Запроси обновлённое одобрение, если решение конфликта меняет согласованные файлы, стратегию зависимостей, целевую среду выполнения или поведение продукта.
 
-## Verify and Report
+## Проверь и сообщи результат
 
-Use `$frontend-verification` for test design, visual review, and validation ordering when it is available in the target environment.
+Если в целевой среде доступен `$frontend-verification`, используй его для проектирования тестов, визуальной оценки и порядка проверок.
 
-Verify each approved compatibility batch once after implementation and include a production build whenever dependencies, build configuration, asset processing, or production-only behavior changes. Confirm both declared dependency validity and a clean installation.
+Проверяй каждую одобренную группу совместимых обновлений после её реализации. Добавляй рабочую сборку при изменении зависимостей, конфигурации сборки, обработки ресурсов или поведения только в рабочей среде. Подтверди корректность объявленных зависимостей и чистую установку.
 
-Report selected versions, skipped versions and blockers, removed and remaining workarounds, custom mechanisms retained or replaced, and intentionally deferred work with concrete revisit conditions.
+Сообщи выбранные версии, пропущенные версии и препятствия, удалённые и оставшиеся обходные решения, сохранённые или заменённые собственные механизмы и намеренно отложенную работу с конкретными условиями возврата к ней.

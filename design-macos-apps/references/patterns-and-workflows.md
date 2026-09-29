@@ -1,44 +1,44 @@
-# Patterns and Workflows
+# Паттерны и сценарии работы
 
-## Files and Documents
+## Файлы и документы
 
-- Use the system document model, open and save panels, recent items, autosave, versions, and file coordination where they fit the product.
-- Make unsaved state and destructive replacement clear without repeatedly interrupting normal work.
-- Preserve file identity when moving, renaming, duplicating, exporting, or sharing.
-- Support drag and drop for moving or importing content when the operation is natural and provide clear destination feedback.
+- Используй системную модель документов, панели открытия и сохранения, недавние файлы, автосохранение, версии и координацию файлов там, где это подходит продукту.
+- Ясно показывай несохранённые изменения и разрушительную замену, не прерывая постоянно обычную работу.
+- Сохраняй идентичность файла при перемещении, переименовании, дублировании, экспорте и общем доступе.
+- Поддерживай перетаскивание для перемещения или импорта, когда оно естественно, и ясно показывай место назначения.
 
-## Launching, Loading, and Feedback
+## Запуск, загрузка и обратная связь
 
-- Show useful content or structure quickly. Restore the prior workspace when that matches user intent.
-- Use determinate progress when duration or completion can be measured; otherwise use an indeterminate indicator without inventing precision.
-- Keep the app responsive, permit cancellation when feasible, and explain failures near the affected task.
-- Use notifications only for timely information that matters outside the current app context.
+- Быстро показывай полезное содержимое или структуру. Восстанавливай прежнее рабочее пространство, когда это соответствует намерению пользователя.
+- Показывай определённый прогресс, если длительность или готовность можно измерить; иначе используй неопределённый индикатор без выдуманной точности.
+- Сохраняй отзывчивость приложения, по возможности разрешай отмену и объясняй ошибки рядом с затронутой задачей.
+- Используй уведомления только для своевременной информации, важной вне текущего контекста приложения.
 
-## Search, Settings, Help, and Onboarding
+## Поиск, настройки, справка и знакомство с приложением
 
-- Make search scope and result state clear. Support keyboard initiation and useful empty-result recovery.
-- Put infrequent user preferences in a standard Settings experience; keep document-specific properties with the document or inspector.
-- Introduce only concepts people need before they can proceed. Prefer contextual guidance and sample content over long mandatory onboarding.
-- Offer task-oriented help with searchable language matching the interface.
+- Ясно показывай область поиска и состояние результатов. Поддерживай запуск с клавиатуры и полезный выход из пустой выдачи.
+- Редко меняемые предпочтения размещай в стандартных настройках; свойства конкретного документа держи рядом с документом или в инспекторе.
+- Объясняй перед началом работы только необходимые понятия. Предпочитай контекстные подсказки и примеры длинному обязательному знакомству с приложением.
+- Предлагай справку по задачам с доступным поиску языком, совпадающим с интерфейсом.
 
-## Accounts, Privacy, and Permissions
+## Учётные записи, приватность и разрешения
 
-- Delay sign-in until an account-dependent feature requires it unless the app cannot function without an account.
-- Explain the user benefit before requesting permission. Ask in context, request only necessary access, and provide recovery when access is denied.
-- Separate account removal, sign-out, subscription, and local-data deletion when they have different consequences.
+- Откладывай вход в учётную запись до функции, которой он нужен, если приложение не может работать без аккаунта.
+- До запроса разрешения объясни пользу. Спрашивай в контексте, запрашивай лишь необходимый доступ и дай путь восстановления при отказе.
+- Разделяй удаление аккаунта, выход, подписку и удаление локальных данных, если последствия различаются.
 
-## Undo, Destructive Actions, and Modality
+## Отмена, разрушительные действия и модальность
 
-- Support undo and redo for content changes and reversible organizational actions.
-- Prefer recovery over confirmation for low-risk mistakes. Confirm only consequential or irreversible actions.
-- Use sheets for window-scoped decisions, panels for persistent tools, popovers for transient focused choices, and alerts for important conditions requiring attention.
+- Поддерживай отмену и повтор изменений содержимого и обратимых действий по организации.
+- Для ошибок с небольшим риском предпочитай восстановление подтверждению. Подтверждай только значимые или необратимые действия.
+- Используй листы для решений в рамках окна, панели — для постоянных инструментов, всплывающие панели — для временного выбора, предупреждения — для важных ситуаций, требующих внимания.
 
-## Sharing, Collaboration, Printing, and Media
+## Общий доступ, совместная работа, печать и медиа
 
-- Use system sharing and collaboration facilities when they provide the expected identities, permissions, and destinations.
-- Respect standard print setup, preview, page range, and output behavior when printing is relevant.
-- Keep media controls familiar, provide captions and alternatives, respect system audio state, and preserve user control over playback.
+- Используй системные средства общего доступа и совместной работы, если они обеспечивают ожидаемые личности участников, права и места назначения.
+- При работе с печатью соблюдай привычную настройку, предварительный просмотр, диапазон страниц и вывод.
+- Делай управление медиа привычным, предоставляй субтитры и альтернативы, учитывай системное состояние звука и сохраняй управление воспроизведением за пользователем.
 
-## Apple Topics
+## Разделы Apple
 
-Consult [Patterns](https://developer.apple.com/design/human-interface-guidelines/patterns), especially file management, drag and drop, loading, feedback, modality, onboarding, searching, settings, undo and redo, collaboration and sharing, printing, notifications, and media playback.
+Сверяйся с разделом [«Паттерны»](https://developer.apple.com/design/human-interface-guidelines/patterns), особенно с темами файлов, перетаскивания, загрузки, обратной связи, модальности, знакомства с приложением, поиска, настроек, отмены и повтора, совместной работы, общего доступа, печати, уведомлений и воспроизведения медиа.

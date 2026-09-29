@@ -1,4 +1,4 @@
 interface:
   display_name: "Tailwind Engineering"
-  short_description: "Build consistent interfaces with Tailwind CSS"
-  default_prompt: "Use $tailwind-engineering to implement, review, or diagnose this Tailwind CSS change using the project's active setup."
+  short_description: "Согласованные интерфейсы на Tailwind CSS"
+  default_prompt: "Используй $tailwind-engineering, чтобы реализовать, проверить или диагностировать это изменение Tailwind CSS с учётом настроек проекта."

@@ -13,7 +13,7 @@ legacy_skill_home="${codex_home}/skills"
 mode="${1:-sync}"
 
 if [[ "${mode}" != "sync" && "${mode}" != "--check" ]]; then
-  echo "Usage: $0 [--check]" >&2
+  echo "Использование: $0 [--check]" >&2
   exit 2
 fi
 
@@ -28,7 +28,7 @@ if [[ "${mode}" == "sync" ]]; then
   mkdir -p "${skill_home}"
   mkdir -p "${codex_home}"
 elif [[ ! -d "${skill_home}" ]]; then
-  echo "Missing skill directory: ${skill_home}" >&2
+  echo "Каталог скиллов не найден: ${skill_home}" >&2
   exit 1
 fi
 
@@ -45,26 +45,26 @@ ensure_link() {
 
     existing_target="$(readlink "${link_path}")"
     if [[ "${existing_target}" != "${repo_root}" && "${existing_target}" != "${repo_root}/"* ]]; then
-      echo "Conflict: ${link_path} points outside this repository (${existing_target})" >&2
+      echo "Конфликт: ${link_path} указывает за пределы этого репозитория (${existing_target})" >&2
       exit 1
     fi
 
     if [[ "${mode}" == "--check" ]]; then
-      echo "Outdated link: ${link_path}" >&2
+      echo "Устаревшая ссылка: ${link_path}" >&2
       drift=1
     else
       ln -sfn "${source_path}" "${link_path}"
-      echo "Updated ${link_path}"
+      echo "Обновлена ссылка ${link_path}"
     fi
   elif [[ -e "${link_path}" ]]; then
-    echo "Conflict: ${link_path} exists and is not a managed symlink" >&2
+    echo "Конфликт: ${link_path} существует, но это не управляемый симлинк" >&2
     exit 1
   elif [[ "${mode}" == "--check" ]]; then
-    echo "Missing link: ${link_path}" >&2
+    echo "Отсутствует ссылка: ${link_path}" >&2
     drift=1
   else
     ln -s "${source_path}" "${link_path}"
-    echo "Created ${link_path}"
+    echo "Создана ссылка ${link_path}"
   fi
 }
 
@@ -86,26 +86,26 @@ while IFS= read -r skill_name; do
 
     existing_target="$(readlink "${link_path}")"
     if [[ "${existing_target}" != "${repo_root}/"* ]]; then
-      echo "Conflict: ${link_path} points outside this repository (${existing_target})" >&2
+      echo "Конфликт: ${link_path} указывает за пределы этого репозитория (${existing_target})" >&2
       exit 1
     fi
 
     if [[ "${mode}" == "--check" ]]; then
-      echo "Outdated link: ${link_path}" >&2
+      echo "Устаревшая ссылка: ${link_path}" >&2
       drift=1
     else
       ln -sfn "${source_dir}" "${link_path}"
-      echo "Updated ${link_path}"
+      echo "Обновлена ссылка ${link_path}"
     fi
   elif [[ -e "${link_path}" ]]; then
-    echo "Conflict: ${link_path} exists and is not a managed symlink" >&2
+    echo "Конфликт: ${link_path} существует, но это не управляемый симлинк" >&2
     exit 1
   elif [[ "${mode}" == "--check" ]]; then
-    echo "Missing link: ${link_path}" >&2
+    echo "Отсутствует ссылка: ${link_path}" >&2
     drift=1
   else
     ln -s "${source_dir}" "${link_path}"
-    echo "Created ${link_path}"
+    echo "Создана ссылка ${link_path}"
   fi
 done < "${desired_names}"
 
@@ -119,11 +119,11 @@ while IFS= read -r link_path; do
   fi
 
   if [[ "${mode}" == "--check" ]]; then
-    echo "Stale link: ${link_path}" >&2
+    echo "Лишняя ссылка: ${link_path}" >&2
     drift=1
   else
     rm "${link_path}"
-    echo "Removed ${link_path}"
+    echo "Удалена ссылка ${link_path}"
   fi
 done < <(find "${skill_home}" -mindepth 1 -maxdepth 1 -type l -print)
 
@@ -133,11 +133,11 @@ if [[ -z "${AGENT_SKILLS_HOME:-}" && -d "${legacy_skill_home}" ]]; then
     [[ "${existing_target}" == "${repo_root}/"* ]] || continue
 
     if [[ "${mode}" == "--check" ]]; then
-      echo "Legacy link: ${link_path}" >&2
+      echo "Устаревшая прежняя ссылка: ${link_path}" >&2
       drift=1
     else
       rm "${link_path}"
-      echo "Removed legacy link ${link_path}"
+      echo "Удалена прежняя ссылка ${link_path}"
     fi
   done < <(find "${legacy_skill_home}" -mindepth 1 -maxdepth 1 -type l -print)
 fi
@@ -149,5 +149,5 @@ fi
 if [[ "${mode}" == "sync" ]]; then
   "${BASH_SOURCE[0]}" --check
 else
-  echo "Skill links are synchronized."
+  echo "Ссылки на скиллы синхронизированы."
 fi

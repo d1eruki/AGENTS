@@ -1,4 +1,4 @@
 interface:
   display_name: "Frontend Engineering"
-  short_description: "Plan and diagnose cross-cutting frontend systems"
-  default_prompt: "Use $frontend-engineering to plan or diagnose this cross-cutting frontend system change across its responsible layers."
+  short_description: "Планирование и диагностика фронтенд-систем"
+  default_prompt: "Используй $frontend-engineering, чтобы спланировать или диагностировать это сквозное изменение фронтенд-системы на всех затронутых уровнях."

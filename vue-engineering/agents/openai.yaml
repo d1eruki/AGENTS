@@ -1,4 +1,4 @@
 interface:
   display_name: "Vue Engineering"
-  short_description: "Build and diagnose maintainable Vue applications"
-  default_prompt: "Use $vue-engineering to implement, review, or diagnose this Vue change using the project's active conventions."
+  short_description: "Разработка и диагностика приложений Vue"
+  default_prompt: "Используй $vue-engineering, чтобы реализовать, проверить или диагностировать это изменение Vue по принятым в проекте правилам."

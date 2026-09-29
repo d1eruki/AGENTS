@@ -1,50 +1,50 @@
 ---
 name: frontend-verification
-description: Plan or validate frontend changes and tests using durable behavioral checks, existing test infrastructure, user-led visual review, formatting, and proportional automated verification.
+description: Планируй и проверяй изменения фронтенда и тесты с помощью устойчивых поведенческих проверок, существующей тестовой инфраструктуры, визуальной оценки пользователем, форматирования и соразмерной автоматической проверки.
 ---
 
-# Frontend Verification
+# Проверка фронтенда
 
-## Reuse Test Infrastructure
+## Повторно используй тестовую инфраструктуру
 
-Before creating a test helper, fixture, source traversal, setup hook, parser, loader, matcher, or assertion utility, search the applicable test tree for an equivalent or extendable implementation. Reuse or extract a shared mechanism when it has the same contract and lifecycle.
+Прежде чем создавать тестовый помощник, фикстуру, обход исходников, хук настройки, парсер, загрузчик, сопоставитель или функцию проверки, найди в соответствующих тестах аналогичную или расширяемую реализацию. Повторно используй либо выдели общий механизм, если его контракт и жизненный цикл совпадают.
 
-When a repository requires change approval, include every affected test and shared helper in the plan. If duplication is necessary, explain the concrete incompatibility that prevents reuse.
+Если репозиторий требует одобрения изменений, включи в план каждый затронутый тест и общий помощник. Если дублирование необходимо, объясни конкретную несовместимость, мешающую повторному использованию.
 
-## Design Durable Tests
+## Проектируй устойчивые тесты
 
-Prefer tests for durable product guarantees and broad failure classes, including viewport containment, usable core controls, correct navigation, persisted critical preferences, and accessible state.
+Предпочитай тесты устойчивых гарантий продукта и широких классов ошибок: размещение в пределах видимой области, пригодность основных элементов управления, правильная навигация, сохранение важных настроек и доступность состояний.
 
-Do not add a test merely because code changed or a one-off bug was fixed. Add one when a critical guarantee is likely to regress and is not already covered. Prefer extending an existing broad test over creating a narrow test.
+Не добавляй тест только потому, что изменился код или исправлена единичная ошибка. Добавь его, когда важная гарантия может нарушиться снова и ещё не проверяется. Лучше расширить существующий общий тест, чем создавать узкий.
 
-Avoid assertions for a single CSS class, utility, `z-index`, font family, or exact pixel value unless that value is an explicit product contract. Generalize the assertion or leave visual judgment to visual review.
+Избегай проверок отдельного класса CSS, утилиты, `z-index`, семейства шрифта или точного значения в пикселях, если это не закреплено явным требованием продукта. Обобщи проверку или оставь оценку внешнего вида визуальному просмотру.
 
-Exercise behavior through real interactions and observable outcomes. Trigger hover in hover tests, resize the viewport in responsive tests, and verify usability or hit testing rather than implementation details.
+Проверяй поведение через реальные взаимодействия и наблюдаемые результаты. В тесте наведения действительно наводи указатель, в адаптивном тесте меняй размер окна и проверяй удобство использования либо попадание в элемент, а не детали реализации.
 
-## Verify Proportionally
+## Проверяй соразмерно
 
-Batch related edits and run the relevant verification set after the implementation batch instead of repeatedly rerunning the same checks after individual edits.
+Объединяй связанные правки и запускай нужные проверки после всей группы изменений, а не повторяй одни и те же проверки после каждой мелкой правки.
 
-Keep production behavior, diagnostics, and tests distinct. Diagnostics and test scaffolding must not change product behavior, conceal a regression, or substitute for a product fix; remove temporary instrumentation before handoff.
+Разделяй рабочее поведение продукта, диагностику и тесты. Диагностический и тестовый код не должен менять поведение продукта, скрывать регрессию или заменять исправление; перед сдачей удали временную инструментальную обвязку.
 
-For visual UI work:
+Для работы с внешним видом интерфейса:
 
-1. Complete the scoped implementation.
-2. Prepare the affected environments and states for the user to review, and clearly request their visual verification. Do not perform or claim visual approval on the user's behalf.
-3. Apply the user's visual feedback within scope and return the result for another user review until they accept it.
-4. Run the repository's formatter, relevant integrity or unit tests, and relevant browser tests.
-5. If a relevant failure requires a visually meaningful code change, treat verification as incomplete and return the affected states for another user review after repeating the relevant automated checks.
+1. Заверши реализацию в согласованных пределах.
+2. Подготовь затронутые окружения и состояния для просмотра пользователем и явно попроси его проверить внешний вид. Не утверждай, что пользователь одобрил результат, и не одобряй его от имени пользователя.
+3. Внеси замечания пользователя по внешнему виду в пределах задачи и снова покажи результат, пока он не будет принят.
+4. Запусти форматтер проекта, относящиеся к изменению проверки целостности или модульные тесты и браузерные тесты.
+5. Если обнаруженная ошибка требует заметного изменения внешнего вида в коде, считай проверку незавершённой и после повторного запуска нужных автоматических проверок снова покажи затронутые состояния пользователю.
 
-For non-visual changes, skip visual review and run only relevant checks. Run a production build when build configuration, dependencies, asset processing, or production-only behavior is affected, or at the end of a larger integration batch.
+Для изменений без визуального эффекта пропусти визуальную оценку и запускай только относящиеся к делу проверки. Запусти рабочую сборку, если затронуты конфигурация сборки, зависимости, обработка ресурсов или поведение, проявляющееся только в рабочей среде, а также после крупной группы интеграционных изменений.
 
-Report unrelated or pre-existing failures separately and do not describe a suite as passing when relevant checks failed or were skipped.
+Отдельно сообщай о несвязанных или уже существовавших ошибках. Не называй набор проверок успешным, если относящиеся к делу проверки завершились ошибкой или были пропущены.
 
-## Verify Color Contrast
+## Проверяй контраст цветов
 
-For new or changed colors, tokens, surfaces, images, gradients, opacity, or interaction styling, verify WCAG AA contrast on every affected page and component. Measure computed foreground colors against the effective rendered background, including alpha compositing. Use 4.5:1 for normal text, 3:1 for large text, and 3:1 for meaningful controls, focus indicators, icons, and graphical boundaries.
+Для новых или изменённых цветов, токенов, поверхностей, изображений, градиентов, прозрачности и оформления состояний проверь контраст WCAG AA на каждой затронутой странице и в каждом компоненте. Измеряй вычисленный цвет переднего плана относительно фактически отображаемого фона с учётом смешивания прозрачных слоёв. Используй 4,5:1 для обычного текста, 3:1 для крупного текста и 3:1 для значимых элементов управления, индикаторов фокуса, иконок и графических границ.
 
-Cover default, hover, active, focus, selected, disabled, and open states. Include responsive variants when they change colors, backgrounds, imagery, overlays, or navigation presentation. For text over images or gradients, verify the least favorable part of the text area; a sampled average or fallback CSS background is insufficient evidence.
+Охвати обычное состояние, наведение, нажатие, фокус, выбор, недоступность и раскрытие. Учитывай адаптивные варианты, если они меняют цвета, фоны, изображения, подложки или навигацию. Для текста поверх изображений и градиентов проверяй наименее благоприятный участок области текста; средний цвет выборки или запасной фон CSS не служит достаточным доказательством.
 
-Separate genuine failures from decorative `aria-hidden` content and from tooling false positives caused by sibling images or overlays. Do not dismiss a failure until the effective rendered pair or guaranteed worst-case contrast has been established.
+Отделяй реальные нарушения от декоративного содержимого с `aria-hidden` и ложных срабатываний инструментов из-за соседних изображений или подложек. Не отвергай ошибку, пока не установлена фактическая отображаемая пара цветов или гарантированный контраст в худшем случае.
 
-Treat a batch as complete only when its observable acceptance checks, the user's required visual review, and relevant automated verification all pass. Until the user reports visual acceptance, describe automated verification as complete but visual verification as pending. When a relevant failure requires a file change, repeat the affected verification and request another user review when the visible result may have changed.
+Считай группу изменений завершённой, только когда пройдены наблюдаемые критерии приёмки, обязательная визуальная оценка пользователя и относящиеся к делу автоматические проверки. Пока пользователь не подтвердил внешний вид, сообщай, что автоматическая проверка завершена, а визуальная ещё ожидается. Если относящаяся к делу ошибка требует изменения файла, повтори затронутые проверки и попроси пользователя оценить результат снова, если внешний вид мог измениться.

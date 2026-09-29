@@ -1,82 +1,82 @@
-# macOS HIG Review Checklist
+# Контрольный список проверки по macOS HIG
 
-Use this checklist as a reasoning aid, not as a claim of formal certification. Mark items as `pass`, `issue`, `not applicable`, or `not observable`.
+Используй список как помощь при оценке, а не как заявление о формальной сертификации. Отмечай пункты как `pass`, `issue`, `not applicable` или `not observable`.
 
-## Product Model
+## Модель продукта
 
-- Primary objects and tasks are identifiable.
-- Window and document behavior matches the product model.
-- Quick tasks and sustained workflows are both supported.
-- App state survives activation changes and expected relaunch scenarios.
+- Основные объекты и задачи понятны.
+- Поведение окон и документов соответствует модели продукта.
+- Поддерживаются и короткие задачи, и длительные сценарии.
+- Состояние приложения сохраняется при переключении активности и ожидаемых перезапусках.
 
-## Layout and Windows
+## Компоновка и окна
 
-- The hierarchy uses large displays effectively without excessive density.
-- Windows have useful minimum, default, and expanded layouts.
-- Resizing, multiple windows, full screen, and multiple displays behave intentionally.
-- Navigation, primary content, and inspectors have distinct roles.
-- Modality is limited and scoped correctly.
-- Empty, loading, error, and no-selection states are designed.
+- Иерархия эффективно использует большой экран без чрезмерной плотности.
+- Для окон продуманы минимальная, стандартная и расширенная компоновки.
+- Изменение размера, несколько окон, полный экран и несколько дисплеев работают предсказуемо.
+- Навигация, основное содержимое и инспекторы имеют разные роли.
+- Модальность ограничена и применена в правильных пределах.
+- Продуманы пустое состояние, загрузка, ошибка и отсутствие выбора.
 
-## Visual Foundations
+## Визуальные основы
 
-- Semantic colors, system materials, typography, and SF Symbols are used appropriately.
-- Light, dark, increased-contrast, and reduced-transparency appearances remain legible.
-- Liquid Glass or vibrancy is framework-provided and does not reduce content clarity.
-- Motion explains state and respects Reduce Motion.
-- Labels and writing are concise, consistent, and localizable.
+- Смысловые цвета, системные материалы, типографика и SF Symbols используются уместно.
+- Светлое, тёмное, высококонтрастное оформление и вариант с уменьшенной прозрачностью остаются читаемыми.
+- Liquid Glass или системная полупрозрачность предоставляются фреймворком и не ухудшают ясность содержимого.
+- Движение объясняет состояние и учитывает настройку уменьшения анимации.
+- Подписи и тексты кратки, согласованны и поддаются локализации.
 
-## Commands and Input
+## Команды и ввод
 
-- The menu bar exposes the complete command set.
-- Frequent window commands are appropriately available in the toolbar.
-- Standard shortcuts and editing behaviors are preserved.
-- Core workflows support keyboard-only operation.
-- Pointer interactions provide hover, focus, selection, drag, drop, and cursor feedback.
-- Commands remain consistent across menus, toolbars, contextual menus, and inline controls.
+- Строка меню содержит полный набор команд.
+- Частые команды окна уместно представлены на панели инструментов.
+- Сохранены стандартные сочетания клавиш и поведение редактирования.
+- Основные сценарии доступны только с клавиатуры.
+- При работе с указателем заметны наведение, фокус, выбор, перетаскивание, помещение объекта и изменение курсора.
+- Команды согласованы в меню, панелях инструментов, контекстных меню и встроенных элементах.
 
-## Personalization and State
+## Персонализация и состояния
 
-- Repeated-work preferences are preserved when appropriate.
-- Toolbar or workspace customization is supported when it has clear user value.
-- Active, inactive, focused, selected, disabled, and destructive states are distinguishable.
-- User-controlled window arrangement is respected.
+- При необходимости сохраняются настройки повторяющейся работы.
+- Настройка панели инструментов или рабочего пространства поддерживается, когда она явно полезна пользователю.
+- Активное, неактивное, сфокусированное, выбранное, недоступное и разрушительное состояния различимы.
+- Сохраняется выбранное пользователем расположение окон.
 
-## Patterns and Components
+## Паттерны и компоненты
 
-- Files, autosave, export, drag and drop, and undo follow expected system behavior where relevant.
-- Search, Settings, onboarding, help, accounts, and permission requests appear in the correct context.
-- Loading, progress, cancellation, errors, and recovery are communicated accurately.
-- Standard components are chosen by behavior rather than visual resemblance.
-- Alerts, sheets, panels, popovers, menus, and windows use appropriate scope and modality.
-- Sharing, collaboration, printing, notifications, and media use system facilities when relevant.
+- Файлы, автосохранение, экспорт, перетаскивание и отмена по необходимости ведут себя как в системе.
+- Поиск, настройки, знакомство с приложением, справка, аккаунты и запросы разрешений появляются в правильном контексте.
+- Загрузка, прогресс, отмена, ошибки и восстановление описаны точно.
+- Стандартные компоненты выбираются по поведению, а не внешнему сходству.
+- Предупреждения, листы, панели, всплывающие панели, меню и окна имеют подходящие границы и модальность.
+- Общий доступ, совместная работа, печать, уведомления и медиа по необходимости используют системные средства.
 
-## Accessibility and Adaptation
+## Доступность и адаптация
 
-- Controls expose semantic roles, names, values, and actions.
-- Focus order is logical and focus is visible.
-- Meaning is not conveyed by color alone.
-- Light and dark appearances remain legible.
-- Increased contrast, reduced motion, text expansion, and localization are considered.
-- VoiceOver and keyboard navigation are tested for primary workflows.
-- Localization, text expansion, and right-to-left behavior are tested where supported.
-- Sensitive data is minimized and protected in permissions, previews, notifications, and integrations.
+- Элементы управления предоставляют смысловые роли, имена, значения и действия.
+- Порядок фокуса логичен, а сам фокус видим.
+- Смысл не передаётся одним лишь цветом.
+- Светлое и тёмное оформление остаются читаемыми.
+- Учтены усиленный контраст, уменьшенная анимация, увеличение текста и локализация.
+- Для основных сценариев проверены VoiceOver и клавиатурная навигация.
+- Где поддерживается, проверены локализация, увеличение длины текста и письмо справа налево.
+- Конфиденциальных данных собирается минимум; они защищены в разрешениях, предпросмотре, уведомлениях и интеграциях.
 
-## System Integrations
+## Системные интеграции
 
-- Each integration solves a real workflow and uses standard system surfaces.
-- Signed-out, offline, denied, unavailable, expired, and conflict states are designed.
-- Payments, identity, synchronization, AI, sharing, widgets, and notifications communicate consequences clearly.
-- Mac Catalyst experiences add Mac-specific menus, windows, keyboard, pointer, and density behavior.
+- Каждая интеграция решает реальную задачу и использует стандартные системные интерфейсы.
+- Продуманы выход из аккаунта, отсутствие сети, отказ, недоступность, истечение срока и конфликт.
+- Оплата, идентификация, синхронизация, ИИ, общий доступ, виджеты и уведомления ясно показывают последствия.
+- В Mac Catalyst добавлены подходящие Mac меню, окна, работа с клавиатурой и указателем и плотность интерфейса.
 
-## Reporting Template
+## Шаблон отчёта
 
 ```text
-[priority] Short finding title
-Issue: Observable problem.
-Impact: User and workflow consequence.
-Recommendation: Specific macOS-native correction.
-Evidence: Artifact location and relevant Apple guidance.
+[приоритет] Краткое название замечания
+Проблема: наблюдаемый недостаток.
+Влияние: последствие для пользователя и его сценария.
+Рекомендация: конкретное исправление в духе macOS.
+Основание: расположение материала и относящиеся к делу рекомендации Apple.
 ```
 
-End the review with assumptions, unobservable areas, and the highest-risk test gaps.
+Заверши проверку предположениями, областями, которые нельзя было наблюдать, и самыми рискованными пробелами тестирования.

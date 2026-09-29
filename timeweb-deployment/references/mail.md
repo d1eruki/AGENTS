@@ -1,30 +1,30 @@
-# Domain mail on Timeweb shared hosting
+# Доменная почта на виртуальном хостинге Timeweb
 
-Use this procedure when the owner chooses Timeweb Mail for a domain, including when access to a former mail provider is unavailable. Check current Timeweb documentation and the live DNS zone before entering provider-specific values.
+Используй этот порядок, когда владелец выбирает почту Timeweb для домена, в том числе если доступ к прежнему почтовому провайдеру утрачен. Перед вводом значений провайдера проверь актуальную документацию Timeweb и действующую DNS-зону.
 
-## Establish control and create mailboxes
+## Подтверди управление и создай ящики
 
-- Confirm that the owner controls the domain's authoritative DNS and the intended Timeweb account. A mailbox name such as `info@example.com` can be recreated on Timeweb even if a former provider used the same address. This creates a new mailbox; it does not recover messages stored at the former provider.
-- In Timeweb, select the correct domain in **Почта** and use **Добавить ящик** for each required address. Store new passwords in the owner's password manager. Do not put passwords in source code, GitHub secrets meant for deployment, screenshots, or chat.
-- Decide which address receives each type of site request before changing forms. The visible address, form recipient, and `Reply-To` behavior are separate settings.
+- Убедись, что владелец управляет авторитетным DNS домена и нужным аккаунтом Timeweb. Адрес вроде `info@example.com` можно заново создать на Timeweb, даже если прежний провайдер использовал тот же адрес. Это создаст новый ящик, но не восстановит письма у прежнего провайдера.
+- В Timeweb выбери правильный домен в разделе **Почта** и нажми **Добавить ящик** для каждого нужного адреса. Храни новые пароли в менеджере паролей владельца. Не помещай их в исходный код, секреты GitHub для развёртывания, снимки экрана или чат.
+- До изменения форм реши, какой адрес принимает каждый вид заявок с сайта. Видимый адрес, получатель формы и поведение `Reply-To` настраиваются отдельно.
 
-## Switch DNS for the chosen mail provider
+## Переключи DNS на выбранного почтового провайдера
 
-1. Find the authoritative DNS editor. Editing a zone that is not authoritative will not change public delivery.
-2. Inventory the existing MX, SPF, DKIM, DMARC, verification TXT, and mail CNAME records. Keep website A/AAAA and `www` records out of this mail change.
-3. If mail is moving fully to Timeweb, replace the former provider's MX records with Timeweb's current MX pair. At the time of this guide, Timeweb documents `mx1.timeweb.ru` (priority 10) and `mx2.timeweb.ru` (priority 20). Use MX records from one mail provider only.
-4. Keep one SPF TXT record for the domain. Authorize every service that still sends mail as the domain, including the website if applicable; remove an old provider's SPF include only after confirming it no longer sends. Use Timeweb's current published SPF mechanism, not a value copied from another domain.
-5. Check the Timeweb DKIM record after creating a mailbox and sending the first message; Timeweb may create it automatically. Preserve a former provider's DKIM selector only while that provider still sends legitimate mail. Keep or configure DMARC deliberately. Remove obsolete verification TXT and mail CNAME records only after identifying their purpose.
-6. Query public DNS after the change. Cached records can continue sending some messages to the old provider until their TTL expires.
+1. Найди редактор авторитетной DNS-зоны. Изменение неавторитетной зоны не повлияет на публичную доставку.
+2. Составь перечень существующих MX, SPF, DKIM, DMARC, проверочных TXT и почтовых CNAME-записей. Не затрагивай в рамках изменения почты записи A/AAAA сайта и `www`.
+3. Если почта полностью переходит на Timeweb, замени MX прежнего провайдера актуальной парой MX Timeweb. На момент написания руководства Timeweb указывает `mx1.timeweb.ru` (приоритет 10) и `mx2.timeweb.ru` (приоритет 20). Используй MX только одного почтового провайдера.
+4. Оставь одну TXT-запись SPF для домена. Разреши в ней все службы, которые ещё отправляют почту от имени домена, включая сайт при необходимости; убирай прежнего провайдера из SPF только после подтверждения, что он больше не отправляет письма. Используй актуальный опубликованный механизм SPF Timeweb, а не значение, скопированное с другого домена.
+5. Проверь запись DKIM Timeweb после создания ящика и отправки первого письма: Timeweb может создать её автоматически. Сохраняй селектор DKIM прежнего провайдера только пока он отправляет настоящие письма. Осознанно сохрани или настрой DMARC. Удаляй устаревшие проверочные TXT и почтовые CNAME только после выяснения их назначения.
+6. После изменения проверь публичный DNS. Кешированные записи могут направлять часть писем прежнему провайдеру до истечения их TTL.
 
-Timeweb's [DNS record guide](https://timeweb.com/ru/docs/domeny/resursnye-zapisi-domena-dns-zapisi/nastrojka-dns-zapisej/) lists its current mail records and automatic DKIM/DMARC behavior. Its [mailbox guide](https://timeweb.com/ru/docs/pochta/osnovnye-voprosy-po-rabote-s-pochtoj/sozdanie-i-nastrojka-pochtovogo-yashchika/) shows the current panel flow.
+В [руководстве Timeweb по DNS-записям](https://timeweb.com/ru/docs/domeny/resursnye-zapisi-domena-dns-zapisi/nastrojka-dns-zapisej/) перечислены актуальные почтовые записи и поведение автоматической настройки DKIM/DMARC. [Руководство по ящикам](https://timeweb.com/ru/docs/pochta/osnovnye-voprosy-po-rabote-s-pochtoj/sozdanie-i-nastrojka-pochtovogo-yashchika/) показывает текущий порядок действий в панели.
 
-## Read and verify mail
+## Проверь получение и отправку почты
 
-- Open [Timeweb Mail](https://mail.timeweb.com/) and sign in with the full mailbox address and its new password. A desktop or mobile mail client is optional; use Timeweb's current IMAP/SMTP settings if one is needed.
-- Send a message from an unrelated external mailbox to every new address. Check that it arrives in the intended Timeweb inbox.
-- Reply from Timeweb to that external mailbox and check delivery and sender authentication. Test both directions; creating a mailbox and changing MX alone do not prove that sending works.
-- If a website form sends to the new address, submit it through the public site with distinctive test data and confirm the exact fields in the received message. A successful HTTP response or PHP `mail()` return value alone does not prove delivery. Inspect the browser request path and response when the form reports failure; a stale frontend endpoint can fail while direct PHP tests pass.
-- Verify all site forms separately when they use different recipients or handlers. Clean up only identified test messages after the checks.
+- Открой [почту Timeweb](https://mail.timeweb.com/) и войди с полным адресом ящика и новым паролем. Настольный или мобильный почтовый клиент необязателен; если он нужен, используй актуальные настройки IMAP/SMTP Timeweb.
+- Отправь письмо с независимого внешнего ящика на каждый новый адрес. Убедись, что оно пришло в нужный ящик Timeweb.
+- Ответь из Timeweb на внешний ящик и проверь доставку и подлинность отправителя. Испытай оба направления: создание ящика и смена MX сами по себе не доказывают работу отправки.
+- Если форма сайта отправляет на новый адрес, отправь её через публичный сайт с узнаваемыми тестовыми данными и проверь точные поля полученного письма. Успешный HTTP-ответ или возвращаемое значение PHP `mail()` сами по себе не доказывают доставку. Если форма сообщает об ошибке, изучи путь и ответ браузерного запроса: устаревший адрес обработки на фронтенде может ломаться, хотя прямые тесты PHP проходят.
+- Проверяй формы сайта отдельно, если у них разные получатели или обработчики. После проверок удаляй только точно известные тестовые письма.
 
-If a former provider or administrator still controls an old mailbox, switching authoritative MX stops new mail from being routed there after DNS caches expire. It does not revoke that person's access to old stored messages or to any other credentials they still hold. Rotate those credentials through their respective owners and providers.
+Если прежний провайдер или администратор всё ещё управляет старым ящиком, смена авторитетных MX прекратит доставку туда новых писем после истечения DNS-кешей. Она не отзовёт доступ этого человека к старым письмам или другим имеющимся у него учётным данным. Меняй такие учётные данные через соответствующих владельцев и провайдеров.

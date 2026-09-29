@@ -1,4 +1,4 @@
 interface:
   display_name: "Frontend Maintenance"
-  short_description: "Audit and safely modernize frontend dependencies"
-  default_prompt: "Use $frontend-maintenance to audit this frontend stack and derive compatible maintenance changes."
+  short_description: "Аудит и безопасное обновление зависимостей"
+  default_prompt: "Используй $frontend-maintenance, чтобы проверить этот фронтенд-стек и определить совместимые обновления."

@@ -1,20 +1,20 @@
-# Timeweb shared-hosting deployment workflow
+# Порядок развёртывания на виртуальном хостинге Timeweb
 
-Use this workflow for static sites and frontend builds deployed to ordinary Timeweb virtual hosting. Adapt commands, build output, routes, mail providers, and DNS values to the current project. Never copy credentials, host keys, DNS values, or paths from another customer.
+Используй этот порядок для статических сайтов и фронтенд-сборок на обычном виртуальном хостинге Timeweb. Подстраивай команды, результат сборки, маршруты, почтовых провайдеров и значения DNS под текущий проект. Никогда не копируй учётные данные, ключи серверов, DNS-записи или пути другого клиента.
 
-## 1. Inspect the project and the live service
+## 1. Изучи проект и действующий сервис
 
-Before changing code or external configuration, establish:
+До изменения кода или внешней конфигурации выясни:
 
-- the production branch, package manager, build command, runtime version, and build directory;
-- whether the application is static, an SPA, or includes server-side files such as PHP handlers;
-- whether the build expects a subpath or the domain root `/`;
-- the complete set of public routes, legacy URLs, forms, APIs, uploads, and writable server data;
-- the current registrar, authoritative nameservers, A/AAAA, CNAME, MX, TXT, SPF, DKIM, DMARC, SRV, CAA, and relevant subdomain records;
-- whether addresses at the domain are displayed on the site, receive form submissions, or send mail;
-- the current HTTP redirects, canonical host, TLS coverage, `robots.txt`, `sitemap.xml`, canonical URLs, metadata, and 404 behavior.
+- рабочую ветку, менеджер пакетов, команду сборки, версию среды выполнения и каталог сборки;
+- является ли приложение статическим, одностраничным или содержит серверные файлы, например обработчики PHP;
+- ожидает ли сборка подкаталог или корень домена `/`;
+- полный набор публичных маршрутов, старых адресов, форм, API, загрузок и изменяемых данных на сервере;
+- текущего регистратора, авторитетные серверы имён и относящиеся к делу записи A/AAAA, CNAME, MX, TXT, SPF, DKIM, DMARC, SRV, CAA и поддоменов;
+- показываются ли адреса домена на сайте, принимают ли заявки из форм или отправляют письма;
+- текущие HTTP-перенаправления, основной хост, покрытие TLS, `robots.txt`, `sitemap.xml`, канонические адреса, метаданные и поведение 404.
 
-Query several record types explicitly. A typical read-only inventory is:
+Явно запроси несколько типов записей. Типичный перечень без изменений:
 
 ```sh
 dig +short NS example.com
@@ -28,18 +28,18 @@ dig +short TXT selector._domainkey.example.com
 dig +short TXT _dmarc.example.com
 ```
 
-Search the repository for domain mail and delivery integrations:
+Найди в репозитории доменную почту и интеграции доставки:
 
 ```sh
 rg -n -i '@example\.com|mailto:|smtp|mail\(|nodemailer|sendgrid|mailgun|postmark|resend|formspree|web3forms' . \
   --glob '!node_modules/**' --glob '!dist/**' --glob '!.git/**'
 ```
 
-Record the results before editing DNS. Public DNS is the recovery source when the previous hosting panel is unavailable, but it may not expose inactive or unqueried records. Ask the owner about business mail and special subdomains when evidence is incomplete.
+Запиши результаты до изменения DNS. Публичный DNS помогает восстановить настройки, если прежняя панель хостинга недоступна, но не показывает неактивные или не запрошенные записи. Если данных недостаточно, спроси владельца о рабочей почте и специальных поддоменах.
 
-## 2. Prepare the production build
+## 2. Подготовь рабочую сборку
 
-Make the production base path configurable when the same repository also deploys under a GitHub Pages subpath. For Vite, a common pattern is:
+Сделай базовый путь рабочей сборки настраиваемым, если тот же репозиторий развёртывается и в подкаталоге GitHub Pages. Для Vite распространённый вариант:
 
 ```js
 export default defineConfig({
@@ -47,15 +47,15 @@ export default defineConfig({
 })
 ```
 
-Build the Timeweb version with the domain root:
+Собери версию для Timeweb от корня домена:
 
 ```sh
 SITE_BASE=/ npm run build
 ```
 
-For an SPA on Apache, ship a `.htaccess` in the public assets so it enters the build output. Serve real files and directories directly. Rewrite only known application routes to `index.html`; return a real 404 for unknown URLs. Add explicit 301 redirects for legacy URLs and choose one canonical host.
+Для одностраничного приложения на Apache положи `.htaccess` в публичные ресурсы, чтобы он попал в результат сборки. Существующие файлы и каталоги отдавай напрямую. Перенаправляй на `index.html` только известные маршруты приложения; для неизвестных адресов возвращай настоящий 404. Добавь явные перенаправления 301 для старых адресов и выбери один основной хост.
 
-A route-aware structure is:
+Пример структуры, учитывающей маршруты:
 
 ```apache
 RewriteEngine On
@@ -63,7 +63,7 @@ RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.example\.com$ [NC]
 RewriteRule ^ https://example.com%{REQUEST_URI} [R=301,L,NE]
 
-# Add explicit legacy 301 redirects here.
+# Здесь добавь явные перенаправления 301 для старых адресов.
 
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
@@ -74,29 +74,29 @@ RewriteRule ^(?:known-route|another-route)/?$ index.html [L]
 RewriteRule ^ - [R=404,L]
 ```
 
-Avoid a catch-all rewrite that returns `index.html` with status 200 for arbitrary missing URLs. Verify that API and PHP files bypass the SPA rewrite.
+Избегай общего правила, которое возвращает `index.html` со статусом 200 для любого отсутствующего адреса. Убедись, что запросы API и файлов PHP обходят перенаправление одностраничного приложения.
 
-Run the repository's relevant nonvisual checks and a production build before configuring deployment.
+Перед настройкой развёртывания запусти относящиеся к делу невизуальные проверки репозитория и рабочую сборку.
 
-## 3. Prepare the Timeweb account
+## 3. Подготовь аккаунт Timeweb
 
-In the client-owned Timeweb account:
+В аккаунте Timeweb, принадлежащем клиенту:
 
-1. Enable SSH on the dashboard.
-2. Open the Timeweb web SSH console and confirm the prompt contains the intended account login.
-3. Determine the document root rather than guessing it:
+1. Включи SSH в панели управления.
+2. Открой веб-консоль SSH Timeweb и проверь, что приглашение показывает нужный логин аккаунта.
+3. Определи корневой каталог сайта, а не угадывай его:
 
    ```sh
    find ~ -maxdepth 3 -type d -name public_html -print
    ```
 
-4. Confirm the temporary Timeweb domain is bound to that site directory.
+4. Убедись, что временный домен Timeweb привязан к этому каталогу сайта.
 
-The account belongs to the client. The deployment design does not grant the client access to GitHub; it grants GitHub Actions write access to the published directory.
+Аккаунт принадлежит клиенту. Такая схема не даёт клиенту доступ к GitHub, а предоставляет GitHub Actions право записи в опубликованный каталог.
 
-## 4. Create one deployment key
+## 4. Создай отдельный ключ развёртывания
 
-Use an English, lowercase, project-specific filename, for example:
+Используй имя файла на английском языке, строчными буквами и с указанием проекта, например:
 
 ```sh
 ssh-keygen -t ed25519 \
@@ -107,7 +107,7 @@ chmod 600 ~/.ssh/timeweb-example-client-deploy
 chmod 644 ~/.ssh/timeweb-example-client-deploy.pub
 ```
 
-In the client's Timeweb web SSH console, append the public key and set strict permissions:
+В веб-консоли SSH Timeweb клиента добавь открытый ключ и задай строгие права:
 
 ```sh
 mkdir -p ~/.ssh
@@ -116,57 +116,57 @@ printf '%s\n' 'PUBLIC_KEY_LINE' >> ~/.ssh/authorized_keys
 chmod 600 ~/.ssh/authorized_keys
 ```
 
-Confirm the expected comment appears without printing unrelated authorized keys:
+Убедись, что нужный комментарий есть, не выводя другие разрешённые ключи:
 
 ```sh
 grep -n 'github-actions-timeweb-example-client$' ~/.ssh/authorized_keys
 ```
 
-Do not paste the private key into chat, issue text, logs, documentation, or the server. Transfer it directly to the GitHub secret input, for example through a local clipboard command:
+Не вставляй закрытый ключ в чат, задачи, журналы, документацию или на сервер. Передай его напрямую в поле секрета GitHub, например локальной командой копирования в буфер обмена:
 
 ```sh
 pbcopy < ~/.ssh/timeweb-example-client-deploy
 ```
 
-## 5. Verify the SSH host key
+## 5. Проверь ключ SSH-сервера
 
-Collect the Ed25519 host key from a trusted route and inspect its fingerprint:
+Получи ключ Ed25519 сервера по доверенному пути и проверь отпечаток:
 
 ```sh
 ssh-keyscan -T 5 -t ed25519 HOSTNAME 2>/dev/null | ssh-keygen -lf -
 ```
 
-Timeweb's web SSH console and a public GitHub runner can resolve the same hostname through different network paths. If a strict-checking failure shows a different fingerprint:
+Веб-консоль SSH Timeweb и публичный исполнитель GitHub могут обращаться к одному имени сервера по разным сетевым путям. Если строгая проверка показывает другой отпечаток:
 
-1. Do not disable `StrictHostKeyChecking` and do not blindly replace the key.
-2. In the Timeweb web console, inspect the address resolved for the hosting server.
-3. Scan that server endpoint, calculate its fingerprint, and compare it with the fingerprint reported by the GitHub runner.
-4. Only after the fingerprints match, store a `known_hosts` line whose first field is the public hostname used by the workflow.
+1. Не отключай `StrictHostKeyChecking` и не заменяй ключ вслепую.
+2. В веб-консоли Timeweb проверь адрес, в который разрешается имя сервера хостинга.
+3. Получи ключ с этого адреса, вычисли отпечаток и сравни с отпечатком исполнителя GitHub.
+4. Только после совпадения отпечатков сохрани строку `known_hosts`, где первое поле — публичное имя сервера, используемое процессом развёртывания.
 
-Keep spaces as ordinary ASCII spaces. Do not copy HTML entities such as `&nbsp;`. Validate the final line locally:
+Используй обычные пробелы ASCII. Не копируй HTML-сущности вроде `&nbsp;`. Проверь итоговую строку локально:
 
 ```sh
 printf '%s\n' 'HOSTNAME ssh-ed25519 PUBLIC_HOST_KEY' | ssh-keygen -lf -
 ```
 
-## 6. Configure GitHub Actions
+## 6. Настрой GitHub Actions
 
-Create repository secrets:
+Создай секреты репозитория:
 
-- `TIMEWEB_SSH_KEY`: the complete private deployment key;
-- `TIMEWEB_KNOWN_HOSTS`: the verified `known_hosts` line.
+- `TIMEWEB_SSH_KEY`: полный закрытый ключ развёртывания;
+- `TIMEWEB_KNOWN_HOSTS`: проверенная строка `known_hosts`.
 
-Create repository variables:
+Создай переменные репозитория:
 
-- `TIMEWEB_HOST`: Timeweb SSH hostname;
-- `TIMEWEB_USER`: client hosting login;
-- `TIMEWEB_PATH`: verified site document root, ending in `/public_html`;
-- `TIMEWEB_ENABLED`: `true` only when automated deployment should run.
+- `TIMEWEB_HOST`: имя SSH-сервера Timeweb;
+- `TIMEWEB_USER`: логин хостинга клиента;
+- `TIMEWEB_PATH`: проверенный корневой каталог сайта, заканчивающийся на `/public_html`;
+- `TIMEWEB_ENABLED`: `true` только когда автоматическое развёртывание должно запускаться.
 
-A conservative Node/Vite workflow is:
+Пример осторожного процесса для Node/Vite:
 
 ```yaml
-name: Deploy to Timeweb
+name: Развёртывание на Timeweb
 
 on:
   push:
@@ -185,96 +185,96 @@ jobs:
     if: ${{ vars.TIMEWEB_ENABLED == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
+      - name: Получить репозиторий
         uses: actions/checkout@PINNED_COMMIT
 
-      - name: Set up Node.js
+      - name: Настроить Node.js
         uses: actions/setup-node@PINNED_COMMIT
         with:
           node-version: '24'
           cache: npm
 
-      - name: Install dependencies
+      - name: Установить зависимости
         run: npm ci
 
-      - name: Build for domain root
+      - name: Собрать для корня домена
         run: npm run build
         env:
           SITE_BASE: /
 
-      - name: Configure SSH
+      - name: Настроить SSH
         env:
           TIMEWEB_SSH_KEY: ${{ secrets.TIMEWEB_SSH_KEY }}
           TIMEWEB_KNOWN_HOSTS: ${{ secrets.TIMEWEB_KNOWN_HOSTS }}
         run: |
-          test -n "$TIMEWEB_SSH_KEY" || { echo 'Missing TIMEWEB_SSH_KEY secret'; exit 1; }
-          test -n "$TIMEWEB_KNOWN_HOSTS" || { echo 'Missing TIMEWEB_KNOWN_HOSTS secret'; exit 1; }
+          test -n "$TIMEWEB_SSH_KEY" || { echo 'Отсутствует секрет TIMEWEB_SSH_KEY'; exit 1; }
+          test -n "$TIMEWEB_KNOWN_HOSTS" || { echo 'Отсутствует секрет TIMEWEB_KNOWN_HOSTS'; exit 1; }
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
           printf '%s\n' "$TIMEWEB_SSH_KEY" > ~/.ssh/id_ed25519
           printf '%s\n' "$TIMEWEB_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
 
-      - name: Upload site
+      - name: Загрузить сайт
         env:
           TIMEWEB_HOST: ${{ vars.TIMEWEB_HOST }}
           TIMEWEB_USER: ${{ vars.TIMEWEB_USER }}
           TIMEWEB_PATH: ${{ vars.TIMEWEB_PATH }}
         run: |
-          test -n "$TIMEWEB_HOST" || { echo 'Missing TIMEWEB_HOST variable'; exit 1; }
-          test -n "$TIMEWEB_USER" || { echo 'Missing TIMEWEB_USER variable'; exit 1; }
+          test -n "$TIMEWEB_HOST" || { echo 'Отсутствует переменная TIMEWEB_HOST'; exit 1; }
+          test -n "$TIMEWEB_USER" || { echo 'Отсутствует переменная TIMEWEB_USER'; exit 1; }
           case "$TIMEWEB_PATH" in
             */public_html) ;;
-            *) echo 'TIMEWEB_PATH must point to public_html'; exit 1 ;;
+            *) echo 'TIMEWEB_PATH должна указывать на public_html'; exit 1 ;;
           esac
           rsync -az --delay-updates \
             -e "ssh -i $HOME/.ssh/id_ed25519 -o StrictHostKeyChecking=yes" \
             dist/ "$TIMEWEB_USER@$TIMEWEB_HOST:$TIMEWEB_PATH/"
 ```
 
-Replace action placeholders with current commit SHAs from official action repositories. Match the Node version, package manager, build command, and output directory to the project. Do not add `--delete` until remote-only content and writable data are understood and a rollback exists.
+Замени заглушки действий актуальными SHA коммитов из официальных репозиториев. Подстрой версию Node, менеджер пакетов, команду сборки и каталог результата под проект. Не добавляй `--delete`, пока не изучены данные, существующие только на сервере, и изменяемые файлы и не подготовлен откат.
 
-Run the workflow manually first. Inspect the failing step rather than repeatedly changing secrets without evidence.
+Сначала запусти процесс вручную. При ошибке изучи проблемный шаг, а не меняй секреты многократно без доказательств.
 
-## 7. Activate the uploaded site safely
+## 7. Безопасно включи загруженный сайт
 
-A fresh Timeweb account may serve its placeholder `index.htm` before the uploaded `index.html`. Remove it only after confirming the real entry point exists:
+Новый аккаунт Timeweb может отдавать заглушку `index.htm` раньше загруженного `index.html`. Удаляй её только после подтверждения, что настоящая входная страница существует:
 
 ```sh
 cd /verified/path/public_html
 if [ -f index.html ]; then
   rm -f index.htm
-  echo 'Placeholder removed'
+  echo 'Заглушка удалена'
 else
-  echo 'index.html is missing; inspect the deployment run'
+  echo 'index.html отсутствует; проверь выполнение развёртывания'
   exit 1
 fi
 ```
 
-Verify the temporary Timeweb domain before moving production DNS. Check direct assets, known SPA routes, API handlers, forms, and a missing route.
+До переноса рабочего DNS проверь временный домен Timeweb. Проверь прямые ресурсы, известные маршруты одностраничного приложения, обработчики API, формы и несуществующий маршрут.
 
-## 8. Prepare DNS at Timeweb
+## 8. Подготовь DNS на Timeweb
 
-Add the production domain to the intended Timeweb site before changing nameservers. In Timeweb's DNS editor:
+До смены серверов имён привяжи рабочий домен к нужному сайту Timeweb. В редакторе DNS Timeweb:
 
-1. Keep or create the website A and, when supported by the hosting account, AAAA records generated for the site.
-2. Add `www` as a CNAME to the apex or configure the chosen canonical alternative.
-3. Replace default Timeweb MX records when mail is hosted elsewhere.
-4. Recreate the current external mail provider's MX, DKIM selector, DMARC, verification TXT, and useful mail CNAME records.
-5. Remove records that point only to the former hosting provider and are no longer required.
-6. Merge SPF senders into one TXT record. When domain mail remains at an external provider and a PHP form sends through Timeweb, a typical structure is:
+1. Сохрани или создай записи A сайта и, если аккаунт хостинга поддерживает, созданные для сайта AAAA.
+2. Добавь `www` как CNAME на корневой домен или настрой выбранную альтернативу основного адреса.
+3. Замени стандартные MX Timeweb, если почта размещена в другом месте.
+4. Воссоздай MX, селектор DKIM, DMARC, проверочные TXT и нужные почтовые CNAME действующего внешнего почтового провайдера.
+5. Удали записи, которые указывают только на прежний хостинг и больше не нужны.
+6. Объедини отправителей SPF в одной TXT-записи. Если доменная почта остаётся у внешнего провайдера, а форма PHP отправляет через Timeweb, типичная структура:
 
    ```text
    v=spf1 include:_spf.external-provider.example include:_spf.timeweb.ru ~all
    ```
 
-   Use the actual providers' current documented include mechanisms.
+   Используй актуальные механизмы `include`, описанные настоящими провайдерами.
 
-For PHP `mail()`, review the envelope sender as well as the visible `From` header. Timeweb documents the fifth `mail()` argument for setting the envelope sender. Test real delivery rather than inferring it from a successful PHP return value.
+Для PHP `mail()` проверь отправителя конверта и видимый заголовок `From`. Timeweb описывает пятый аргумент `mail()` для установки отправителя конверта. Проверяй реальную доставку, а не делай вывод по успешному значению возврата PHP.
 
-## 9. Cut over nameservers
+## 9. Переключи серверы имён
 
-At the registrar, replace the former provider's nameservers with the current Timeweb nameservers displayed by Timeweb. At the time this guide was written, Timeweb documented:
+У регистратора замени серверы имён прежнего провайдера актуальными серверами Timeweb, показанными в панели. На момент написания руководства Timeweb указывал:
 
 ```text
 ns1.timeweb.ru
@@ -283,39 +283,39 @@ ns3.timeweb.org
 ns4.timeweb.org
 ```
 
-Verify these values against current Timeweb documentation before mutation. Do not enter glue IPs unless the registrar specifically requires them for in-domain nameservers.
+Перед изменением сверь значения с актуальной документацией Timeweb. Не вводи служебные IP-адреса для серверов имён внутри домена, если регистратор прямо этого не требует.
 
-DNS propagation is not instantaneous. Different providers can temporarily return the old host and the new Timeweb host. Check authoritative nameservers and several public recursive resolvers separately. Do not describe the migration as complete while some required resolvers or record types still point to the former provider.
+Распространение DNS не мгновенно. Разные провайдеры могут временно возвращать и старый, и новый сервер Timeweb. Отдельно проверяй авторитетные серверы имён и несколько публичных рекурсивных DNS-серверов. Не объявляй миграцию завершённой, пока нужные серверы или типы записей всё ещё указывают на прежнего провайдера.
 
-## 10. Issue TLS certificates
+## 10. Выпусти сертификаты TLS
 
-After the domain resolves to Timeweb and is bound to the correct site:
+Когда домен начнёт указывать на Timeweb и будет привязан к нужному сайту:
 
-1. Order a free Let's Encrypt certificate in `Domains and SSL`.
-2. Leave optional paid configuration services disabled unless the user explicitly wants them.
-3. If Timeweb treats the apex and `www` as separate names, order and wait for both certificates separately.
-4. Do not order a Timeweb certificate for a mail CNAME that terminates at the external mail provider.
-5. Wait until the certificate status is installed or active before enabling a forced HTTPS redirect.
-6. Enable HTTPS redirect in the site settings and verify both canonical and alternate hosts.
+1. Закажи бесплатный сертификат Let's Encrypt в разделе доменов и SSL.
+2. Не включай необязательные платные услуги настройки, если пользователь явно их не хочет.
+3. Если Timeweb считает корневой домен и `www` отдельными именами, закажи и дождись оба сертификата по отдельности.
+4. Не заказывай сертификат Timeweb для почтовой CNAME-записи, ведущей к внешнему провайдеру.
+5. Дождись состояния «установлен» или «активен», прежде чем включать принудительное перенаправление на HTTPS.
+6. Включи перенаправление на HTTPS в настройках сайта и проверь основной и альтернативный хосты.
 
-A browser reaching the new Timeweb host before its certificate is installed can show `ERR_CERT_COMMON_NAME_INVALID`. Do not bypass the warning; finish certificate installation.
+Если браузер попадает на новый сервер Timeweb до установки сертификата, он может показать `ERR_CERT_COMMON_NAME_INVALID`. Не обходи предупреждение; заверши установку сертификата.
 
-## 11. Complete SEO and URL migration
+## 11. Заверши перенос SEO и адресов
 
-For a public site, treat these as deployment completion work rather than optional polish:
+Для публичного сайта считай это частью завершения развёртывания, а не необязательной полировкой:
 
-- Add or update `sitemap.xml` with only canonical production URLs and correct protocol/host.
-- Add or update `robots.txt`; include the absolute sitemap URL and preserve intentional crawl restrictions.
-- Give each indexable page an appropriate title, description, canonical URL, and relevant social metadata. Canonicals must use the final HTTPS canonical host.
-- Add explicit permanent redirects from known legacy URLs to their closest replacement. Preserve query strings when required.
-- Return an actual HTTP 404 status for unknown URLs. A branded not-found view with status 200 is not a correct replacement.
-- Ensure `www` and non-`www`, HTTP and HTTPS, and trailing-slash variants resolve to one canonical URL without redirect loops.
+- Добавь или обнови `sitemap.xml`, оставив только канонические рабочие адреса с правильными протоколом и хостом.
+- Добавь или обнови `robots.txt`; укажи абсолютный адрес карты сайта и сохрани намеренные ограничения индексации.
+- Для каждой индексируемой страницы укажи подходящие название, описание, канонический адрес и нужные метаданные соцсетей. Канонические адреса должны использовать окончательный основной хост по HTTPS.
+- Добавь явные постоянные перенаправления с известных старых адресов на ближайшие замены. При необходимости сохраняй параметры запроса.
+- Возвращай настоящий HTTP-статус 404 для неизвестных адресов. Фирменная страница «не найдено» со статусом 200 не заменяет его.
+- Убедись, что варианты с `www` и без него, HTTP и HTTPS, со завершающим слешем и без него сходятся к одному каноническому адресу без циклов.
 
-Do not invent redirects for unknown legacy URLs. Derive them from the old sitemap, analytics, search-console data, public indexes, access logs, or an approved mapping.
+Не выдумывай перенаправления для неизвестных старых адресов. Выводи их из прежней карты сайта, аналитики, данных поисковых консолей, публичных индексов, журналов доступа или одобренной схемы соответствия.
 
-## 12. Verify the completed migration
+## 12. Проверь завершённую миграцию
 
-Verify with DNS and HTTP tools in addition to browser checks:
+Помимо проверки в браузере используй инструменты DNS и HTTP:
 
 ```sh
 dig +short NS example.com
@@ -333,28 +333,28 @@ curl -I https://example.com/robots.txt
 curl -I https://example.com/sitemap.xml
 ```
 
-Confirm:
+Подтверди:
 
-- authoritative NS are Timeweb and common resolvers no longer return the former hosting IP;
-- apex and `www` reach the intended site and converge on the canonical HTTPS URL;
-- the certificate covers every public hostname and renews automatically;
-- old URLs return the intended 301 destination;
-- missing URLs return 404;
-- `robots.txt`, `sitemap.xml`, canonical tags, and metadata use the production domain;
-- contact forms deliver, replies go to the submitted address when intended, and messages pass expected SPF/DKIM/DMARC checks;
-- domain mail can both send and receive;
-- a new commit to the production branch completes the automatic deployment.
+- авторитетные NS принадлежат Timeweb, а распространённые DNS-серверы больше не возвращают IP прежнего хостинга;
+- корневой домен и `www` открывают нужный сайт и сходятся к каноническому адресу HTTPS;
+- сертификат покрывает каждое публичное имя и обновляется автоматически;
+- старые адреса возвращают намеченное перенаправление 301;
+- отсутствующие адреса возвращают 404;
+- `robots.txt`, `sitemap.xml`, канонические теги и метаданные используют рабочий домен;
+- контактные формы доставляют письма, ответы по замыслу идут на указанный отправителем адрес, а сообщения проходят ожидаемые проверки SPF/DKIM/DMARC;
+- доменная почта и отправляет, и принимает;
+- новый коммит в рабочую ветку успешно запускает автоматическое развёртывание.
 
-Only after these checks pass should the old hosting service be cancelled.
+Отключай старый хостинг только после прохождения этих проверок.
 
-## 13. Rotate or remove deployment access
+## 13. Смени или удали доступ для развёртывания
 
-For a new client account or project, generate a new key rather than moving the old private key. Update `TIMEWEB_USER`, `TIMEWEB_PATH`, and `TIMEWEB_SSH_KEY`, then run a manual deployment.
+Для нового клиентского аккаунта или проекта создай новый ключ, а не переноси старый закрытый. Обнови `TIMEWEB_USER`, `TIMEWEB_PATH` и `TIMEWEB_SSH_KEY`, затем запусти развёртывание вручную.
 
-Remove the obsolete public key by its exact unique comment:
+Удали устаревший открытый ключ по его точному уникальному комментарию:
 
 ```sh
 sed -i '/github-actions-timeweb-old-project$/d' ~/.ssh/authorized_keys
 ```
 
-Verify it is absent, then delete the corresponding local private/public key files. Do not delete keys with broad patterns that could match another project. Keep `TIMEWEB_HOST` and `TIMEWEB_KNOWN_HOSTS` only when the verified server host key is genuinely unchanged.
+Убедись, что ключ отсутствует, затем удали соответствующие локальные файлы открытого и закрытого ключей. Не удаляй ключи по широкому шаблону, который может захватить другой проект. Оставляй `TIMEWEB_HOST` и `TIMEWEB_KNOWN_HOSTS` без изменений, только если проверенный ключ сервера действительно прежний.

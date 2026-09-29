@@ -1,26 +1,26 @@
-# System Integrations
+# Системные интеграции
 
-Load this reference only for integrations the product actually uses.
+Загружай этот справочник только для интеграций, которые продукт действительно использует.
 
-## General Rules
+## Общие правила
 
-- Prefer the system framework and standard authorization, identity, picker, payment, sharing, and status surfaces.
-- Introduce an integration where it improves a real workflow, not only because the API exists.
-- Explain account, network, device, subscription, and permission prerequisites before a user reaches a dead end.
-- Define unavailable, offline, signed-out, denied, expired, and partial-sync states.
+- Предпочитай системный фреймворк и стандартные интерфейсы авторизации, идентификации, выбора, оплаты, общего доступа и состояния.
+- Добавляй интеграцию, когда она улучшает реальный сценарий, а не просто потому, что существует API.
+- Объясняй требования к аккаунту, сети, устройству, подписке и разрешениям до того, как пользователь зайдёт в тупик.
+- Определи состояния недоступности, отсутствия сети, выхода из аккаунта, отказа, истечения срока и частичной синхронизации.
 
-## Common macOS Integrations
+## Распространённые интеграции macOS
 
-- **iCloud:** Make sync state understandable without turning routine synchronization into persistent noise. Handle conflicts, offline edits, and account changes.
-- **Sign in with Apple:** Use the standard control and identity flow. Do not ask for data the feature does not need.
-- **Siri, App Shortcuts, and snippets:** Model concise, predictable actions with clear parameters and confirmation proportional to risk.
-- **Widgets and notifications:** Surface glanceable, timely information and deep-link to the relevant app context. Avoid duplicating the full app UI.
-- **SharePlay and collaboration:** Clarify participant identity, shared state, permissions, and what remains private.
-- **Apple Pay and in-app purchase:** Use standard purchase surfaces and clearly distinguish price, billing period, restoration, entitlement, and cancellation implications.
-- **Generative AI and machine learning:** Communicate capability and limitations, preserve user review for consequential output, identify data handling, and provide recovery from unavailable or incorrect results.
-- **Maps, media, and AirPlay:** Preserve familiar controls, destination state, privacy, and interruption behavior.
-- **Mac Catalyst:** Adapt the experience for Mac rather than shipping an enlarged iPad layout. Add menu commands, keyboard support, pointer behavior, window management, toolbar structure, and Mac-appropriate density.
+- **iCloud:** понятно показывай состояние синхронизации, не превращая обычный процесс в постоянный шум. Обрабатывай конфликты, правки без сети и смену аккаунта.
+- **Вход с Apple:** используй стандартный элемент и процесс идентификации. Не запрашивай данные, которые не нужны этой функции.
+- **Siri, App Shortcuts и фрагменты:** проектируй краткие предсказуемые действия с ясными параметрами и подтверждением, соразмерным риску.
+- **Виджеты и уведомления:** показывай своевременные сведения, понятные с первого взгляда, и веди прямо в нужный контекст приложения. Не копируй весь интерфейс приложения.
+- **SharePlay и совместная работа:** проясняй личности участников, общее состояние, разрешения и то, что остаётся приватным.
+- **Apple Pay и покупки внутри приложения:** используй стандартные экраны покупки и ясно различай цену, период оплаты, восстановление, получаемые права и последствия отмены.
+- **Генеративный ИИ и машинное обучение:** объясняй возможности и ограничения, оставляй пользователю проверку значимых результатов, раскрывай обработку данных и давай выход из недоступных или неверных результатов.
+- **Карты, медиа и AirPlay:** сохраняй привычное управление, состояние места назначения, приватность и поведение при прерываниях.
+- **Mac Catalyst:** адаптируй интерфейс для Mac, а не поставляй растянутый макет iPad. Добавь команды меню, поддержку клавиатуры, поведение указателя, управление окнами, структуру панели инструментов и подходящую для Mac плотность.
 
-## Verification
+## Проверка
 
-Open the exact topic under [Technologies](https://developer.apple.com/design/human-interface-guidelines/technologies) before specifying branding, control appearance, legal text, authorization flow, or recent platform capabilities.
+Перед требованиями к фирменному оформлению, виду элементов управления, юридическому тексту, процессу авторизации или новым возможностям платформы открой соответствующий раздел [«Технологии»](https://developer.apple.com/design/human-interface-guidelines/technologies).

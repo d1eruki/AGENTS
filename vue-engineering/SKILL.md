@@ -1,28 +1,28 @@
 ---
 name: vue-engineering
-description: Implement, review, or diagnose Vue application code, including Single-File Components, component boundaries, reactivity, composables, state ownership, and lifecycle behavior. Use only when the target project actually uses Vue.
+description: Реализуй, проверяй и диагностируй код приложений Vue, включая однофайловые компоненты, границы компонентов, реактивность, композиционные функции, владение состоянием и жизненный цикл. Используй только если проект действительно работает на Vue.
 ---
 
-# Vue Engineering
+# Разработка на Vue
 
-## Establish the Active Vue Conventions
+## Определи действующие правила Vue
 
-Inspect the installed Vue version, build integration, source files, and nearby components before editing. Identify whether the project uses Composition API or Options API, `<script setup>` or traditional component definitions, JavaScript or TypeScript, and which router, store, and localization patterns are already established.
+Перед правками изучи установленную версию Vue, интеграцию сборки, исходные файлы и соседние компоненты. Определи, используются ли Composition API или Options API, `<script setup>` или традиционное объявление компонентов, JavaScript или TypeScript, а также принятые подходы к маршрутизации, хранилищу и локализации.
 
-Follow the active local pattern unless the user explicitly requests a migration. Do not introduce a second component or state style merely because another Vue API is available.
+Следуй действующему подходу проекта, если пользователь явно не запросил миграцию. Не вводи второй стиль компонентов или состояния лишь потому, что доступен другой API Vue.
 
-## Keep Component Ownership Clear
+## Сохраняй понятные границы компонентов
 
-Keep a one-off element in its nearest semantic parent unless extraction creates a meaningfully reusable or independently owned component. Reuse or extend an existing component before creating a parallel implementation.
+Оставляй одноразовый элемент внутри ближайшего подходящего родительского компонента, если выделение не создаёт действительно повторно используемый или независимо управляемый компонент. Прежде чем создавать параллельную реализацию, используй или расширь существующий компонент.
 
-Keep state with the narrowest component or shared owner that controls its lifecycle. Use the project's established props, emits, model bindings, injection, router, or store boundaries; do not make parents depend on a child's private markup or mutate state across an unclear ownership boundary.
+Размещай состояние у самого узкого компонента или общего владельца, который управляет его жизненным циклом. Пользуйся принятыми в проекте границами свойств, событий, привязок модели, внедрения зависимостей, маршрутизатора или хранилища. Не привязывай родителя к внутренней разметке дочернего компонента и не меняй состояние через неясную границу владения.
 
-## Reuse Reactive and Shared Logic
+## Повторно используй реактивную и общую логику
 
-Before adding a composable, store, watcher, or lifecycle hook, search for an equivalent mechanism with the same contract and lifecycle. Reuse or extend it when it fits, and extract shared logic only when its consumers genuinely share ownership and cleanup requirements.
+Прежде чем добавлять композиционную функцию, хранилище, наблюдатель или хук жизненного цикла, найди механизм с тем же контрактом и жизненным циклом. Используй или расширь его, если он подходит; выделяй общую логику лишь тогда, когда её потребители действительно разделяют владение и требования к очистке.
 
-Use computed state for derived values and watchers for effects that must react to change. Keep browser subscriptions, observers, timers, and other effects in an explicit lifecycle, and clean them up when their owner is disposed.
+Используй вычисляемое состояние для производных значений, а наблюдатели — для эффектов, реагирующих на изменения. Явно управляй жизненным циклом браузерных подписок, наблюдателей, таймеров и других эффектов и очищай их при уничтожении владельца.
 
-## Preserve Observable Behavior
+## Сохраняй наблюдаемое поведение
 
-Diagnose rendered behavior through the active component tree, reactive state, emitted events, conditional rendering, and computed DOM state. Distinguish a Vue lifecycle or reactivity problem from CSS, browser, and third-party-library behavior before changing component structure.
+Диагностируй отображаемое поведение через действующее дерево компонентов, реактивное состояние, отправленные события, условный рендеринг и вычисленное состояние DOM. Прежде чем менять структуру компонентов, отличи проблему жизненного цикла или реактивности Vue от поведения CSS, браузера и сторонних библиотек.

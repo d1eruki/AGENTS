@@ -1,34 +1,34 @@
-# Accessibility, Localization, and Privacy
+# Доступность, локализация и приватность
 
-## Accessibility
+## Доступность
 
-- Expose a semantic role, accessible name, value, state, and action for every interactive element.
-- Maintain logical keyboard and VoiceOver order. Keep focus visible and restore it predictably after presentations close.
-- Support keyboard-only completion of primary workflows, including menus, toolbars, tables, dialogs, and drag alternatives.
-- Do not encode meaning with color, position, sound, or motion alone.
-- Test increased contrast, reduced transparency, reduced motion, VoiceOver, zoom, full keyboard access, and alternate pointer settings.
-- Provide labels or descriptions for meaningful images, charts, progress, and custom controls.
+- Предоставляй смысловую роль, доступное имя, значение, состояние и действие для каждого интерактивного элемента.
+- Сохраняй логичный порядок клавиатурной навигации и VoiceOver. Делай фокус видимым и предсказуемо восстанавливай его после закрытия временно показанных элементов интерфейса.
+- Обеспечь выполнение основных сценариев только с клавиатуры, включая меню, панели инструментов, таблицы, диалоги и альтернативы перетаскиванию.
+- Не передавай смысл одним лишь цветом, положением, звуком или движением.
+- Проверяй усиленный контраст, уменьшенную прозрачность и анимацию, VoiceOver, увеличение, полный клавиатурный доступ и альтернативные настройки указателя.
+- Давай подписи или описания значимым изображениям, диаграммам, прогрессу и собственным элементам управления.
 
-## Inclusion and Language
+## Инклюзивность и язык
 
-- Avoid assumptions about identity, ability, culture, family structure, and expertise.
-- Use plain, respectful, task-oriented language. Make error messages explain what happened and how to recover.
-- Localize all user-facing strings, formats, shortcuts shown in text, and accessibility labels.
-- Allow text expansion and avoid layouts dependent on a fixed character count.
-- Mirror directional layout and symbols for right-to-left languages when meaning is directional; do not mirror universally recognized or inherently oriented content.
+- Не делай предположений о личности, возможностях, культуре, составе семьи и опыте человека.
+- Пиши просто, уважительно и по делу. Сообщения об ошибках должны объяснять случившееся и способ восстановления.
+- Локализуй все видимые пользователю строки, форматы, показанные в тексте сочетания клавиш и подписи доступности.
+- Учитывай увеличение длины текста и избегай макетов, зависящих от фиксированного числа символов.
+- Для языков с письмом справа налево зеркаль направленную компоновку и символы, когда направление несёт смысл; не зеркаль общепринятое или по природе ориентированное содержимое.
 
-## Privacy and Permissions
+## Приватность и разрешения
 
-- Minimize data collection and retain only what the feature needs.
-- Explain the value before a system permission prompt and request access at the moment of need.
-- Avoid coercive permission screens and provide useful fallback behavior when access is denied.
-- Clearly separate local processing, cloud processing, sharing, analytics, and generative-AI data use.
-- Avoid exposing sensitive content in notifications, recent items, previews, logs, or shared screens without user intent.
+- Собирай минимум данных и храни только то, что нужно функции.
+- До системного запроса разрешения объясни пользу и запрашивай доступ в момент необходимости.
+- Не принуждай пользователя на экране разрешений и предоставь полезный запасной сценарий при отказе.
+- Чётко различай локальную и облачную обработку, обмен данными, аналитику и использование данных генеративным ИИ.
+- Не раскрывай конфиденциальное содержимое в уведомлениях, недавних объектах, предпросмотре, журналах или демонстрации экрана без намерения пользователя.
 
-## Review Evidence
+## Подтверждение проверки
 
-Record which assistive settings, languages, window sizes, and permission states were actually tested. Treat code inspection without assistive-technology testing as incomplete evidence.
+Запиши, какие специальные настройки, языки, размеры окон и состояния разрешений действительно проверены. Просмотр кода без проверки вспомогательных технологий считай неполным подтверждением.
 
-## Apple Topics
+## Разделы Apple
 
-[Accessibility](https://developer.apple.com/design/human-interface-guidelines/accessibility), [Inclusion](https://developer.apple.com/design/human-interface-guidelines/inclusion), [Right to left](https://developer.apple.com/design/human-interface-guidelines/right-to-left), [Privacy](https://developer.apple.com/design/human-interface-guidelines/privacy), and [VoiceOver](https://developer.apple.com/design/human-interface-guidelines/voiceover).
+[Доступность](https://developer.apple.com/design/human-interface-guidelines/accessibility), [инклюзивность](https://developer.apple.com/design/human-interface-guidelines/inclusion), [письмо справа налево](https://developer.apple.com/design/human-interface-guidelines/right-to-left), [приватность](https://developer.apple.com/design/human-interface-guidelines/privacy) и [VoiceOver](https://developer.apple.com/design/human-interface-guidelines/voiceover).

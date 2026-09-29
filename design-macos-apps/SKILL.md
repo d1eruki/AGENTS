@@ -1,82 +1,82 @@
 ---
 name: design-macos-apps
-description: Design, implement, and review native-feeling macOS app interfaces using Apple's Human Interface Guidelines. Use for macOS UX architecture, visual foundations, SwiftUI, AppKit, or Mac Catalyst decisions, windows, navigation, components, menus, keyboard and pointer interaction, files, settings, onboarding, accessibility, localization, privacy, system integrations, and HIG audits of designs, screenshots, specifications, prototypes, or code.
+description: Проектируй, реализуй и проверяй нативные интерфейсы приложений macOS по Apple Human Interface Guidelines. Используй для архитектуры UX macOS, визуальной основы, решений по SwiftUI, AppKit и Mac Catalyst, окон, навигации, компонентов, меню, клавиатуры и указателя, файлов, настроек, знакомства с приложением, доступности, локализации, приватности, системных интеграций и аудита макетов, снимков экрана, спецификаций, прототипов или кода по HIG.
 ---
 
-# Design macOS Apps
+# Дизайн приложений macOS
 
-Apply macOS conventions without turning the interface into a generic desktop template. Preserve the product's purpose while making behavior predictable to Mac users.
+Применяй правила macOS, не превращая интерфейс в безликий шаблон настольного приложения. Сохраняй назначение продукта и делай его поведение предсказуемым для пользователей Mac.
 
-## Workflow
+## Порядок работы
 
-1. Identify the task: create, implement, critique, or migrate a macOS experience.
-2. Establish the app's primary tasks, document model, expected session length, window model, and required input methods.
-3. Read only the references relevant to the task:
-   - Read [macos-foundations.md](references/macos-foundations.md) for every task.
-   - Read [visual-foundations.md](references/visual-foundations.md) for color, materials, Liquid Glass, typography, icons, imagery, motion, or writing.
-   - Read [windows-and-layout.md](references/windows-and-layout.md) for navigation, layout, windows, panels, toolbars, or full-screen behavior.
-   - Read [commands-and-input.md](references/commands-and-input.md) for menus, commands, keyboard, pointer, selection, or editing workflows.
-   - Read [patterns-and-workflows.md](references/patterns-and-workflows.md) for files, loading, search, settings, onboarding, accounts, help, notifications, sharing, printing, media, or undo.
-   - Read [components.md](references/components.md) when choosing or reviewing specific controls and presentation containers.
-   - Read [accessibility-localization-privacy.md](references/accessibility-localization-privacy.md) for accessibility, inclusion, localization, right-to-left layout, permissions, or sensitive data.
-   - Read [system-integrations.md](references/system-integrations.md) for iCloud, Sign in with Apple, Siri, App Shortcuts, widgets, notifications, payments, sharing, AI, or Mac Catalyst.
-   - Read [implementation.md](references/implementation.md) when translating design decisions into SwiftUI, AppKit, or Mac Catalyst.
-   - Read [review-checklist.md](references/review-checklist.md) when auditing an existing interface or before finalizing a design.
-4. Inspect existing product and code conventions before proposing changes. Prefer system components and established project patterns when they satisfy the requirement.
-5. Produce concrete decisions. Specify hierarchy, window behavior, command placement, shortcuts, states, accessibility behavior, and implementation implications where relevant.
-6. Verify current guidance on official Apple documentation when the answer depends on recently changed platform behavior or when delivering a formal compliance review.
+1. Определи задачу: создать, реализовать, оценить или перенести интерфейс macOS.
+2. Выясни основные задачи приложения, модель документов, ожидаемую длительность сеанса, модель окон и необходимые способы ввода.
+3. Прочитай только относящиеся к задаче справочники:
+   - [macos-foundations.md](references/macos-foundations.md) — для каждой задачи.
+   - [visual-foundations.md](references/visual-foundations.md) — для цветов, материалов, Liquid Glass, типографики, иконок, изображений, движения и текстов.
+   - [windows-and-layout.md](references/windows-and-layout.md) — для навигации, компоновки, окон, панелей, панелей инструментов и полноэкранного режима.
+   - [commands-and-input.md](references/commands-and-input.md) — для меню, команд, клавиатуры, указателя, выбора и редактирования.
+   - [patterns-and-workflows.md](references/patterns-and-workflows.md) — для файлов, загрузки, поиска, настроек, знакомства с приложением, учётных записей, справки, уведомлений, совместной работы, печати, медиа и отмены действий.
+   - [components.md](references/components.md) — при выборе или проверке элементов управления и контейнеров.
+   - [accessibility-localization-privacy.md](references/accessibility-localization-privacy.md) — для доступности, инклюзивности, локализации, письма справа налево, разрешений и конфиденциальных данных.
+   - [system-integrations.md](references/system-integrations.md) — для iCloud, «Входа с Apple», Siri, App Shortcuts, виджетов, уведомлений, платежей, общего доступа, ИИ и Mac Catalyst.
+   - [implementation.md](references/implementation.md) — при переносе решений в SwiftUI, AppKit или Mac Catalyst.
+   - [review-checklist.md](references/review-checklist.md) — при аудите существующего интерфейса или перед завершением дизайна.
+4. Перед предложением изменений изучи существующие правила продукта и кода. Предпочитай системные компоненты и принятые в проекте решения, если они выполняют задачу.
+5. Формулируй конкретные решения: при необходимости указывай иерархию, поведение окон, расположение команд, сочетания клавиш, состояния, доступность и последствия для реализации.
+6. Сверяйся с актуальной официальной документацией Apple, если ответ зависит от недавно изменившегося поведения платформы или нужен формальный аудит соответствия.
 
-## Scope Rules
+## Границы применения
 
-- Treat the references as a macOS-focused decision guide, not a substitute for the complete HIG.
-- Apply only guidance relevant to macOS and the technologies the product actually uses.
-- Follow links to the exact Apple topic before making a component-specific, version-specific, or compliance claim.
-- Distinguish a platform convention, an accessibility requirement, a product recommendation, and an optional refinement.
-- State which HIG areas were reviewed and which were not observable.
+- Считай справочники руководством по принятию решений для macOS, а не заменой полного HIG.
+- Применяй только рекомендации, относящиеся к macOS и реально используемым продуктом технологиям.
+- Прежде чем утверждать что-то о конкретном компоненте, версии или соответствии требованиям, открой ссылку на соответствующий раздел Apple.
+- Различай правило платформы, требование доступности, рекомендацию для продукта и необязательное улучшение.
+- Указывай, какие области HIG проверены, а какие нельзя было наблюдать.
 
-## Design Priorities
+## Приоритеты дизайна
 
-- Use the large display to expose useful context and reduce unnecessary navigation depth.
-- Keep information density comfortable; more visible content must not mean smaller, harder-to-scan content.
-- Treat windows as user-managed workspace objects. Support resizing and state restoration when appropriate.
-- Put the complete command set in the menu bar, even when common commands also appear in toolbars or contextual controls.
-- Make keyboard and precise pointer workflows first-class, not secondary adaptations.
-- Reduce modal interruptions. Prefer direct manipulation, inspectors, popovers, sheets, and modeless workflows when they preserve clarity.
-- Support personalization where it improves repeated work, including toolbar configuration, window arrangement, and view preferences.
-- Design active, inactive, focused, selected, disabled, loading, empty, and error states explicitly.
-- Preserve platform accessibility, localization, appearance, motion, and input settings.
+- Используй большой экран для полезного контекста и сокращения лишних переходов.
+- Сохраняй комфортную плотность информации: больше видимого содержимого не должно означать мелкий и трудный для просмотра текст.
+- Считай окна рабочими объектами под управлением пользователя. При необходимости поддерживай изменение размеров и восстановление состояния.
+- Размещай полный набор команд в строке меню, даже если часто используемые команды есть и на панели инструментов либо в контекстных элементах.
+- Считай работу с клавиатурой и точным указателем основными сценариями, а не вторичными адаптациями.
+- Сокращай модальные прерывания. Предпочитай непосредственное управление, инспекторы, всплывающие панели, листы и немодальные процессы, если это не вредит ясности.
+- Поддерживай настройку под пользователя там, где она облегчает повторяющуюся работу: панель инструментов, расположение окон и предпочтения просмотра.
+- Явно проектируй активное, неактивное, сфокусированное, выбранное, недоступное, загружающееся, пустое и ошибочное состояния.
+- Уважай настройки платформы для доступности, языка, оформления, движения и ввода.
 
-## Review Output
+## Результат проверки
 
-Lead with actionable findings, ordered by severity. For each finding include:
+Начинай с замечаний, по которым можно действовать, в порядке серьёзности. Для каждого укажи:
 
-- **Issue:** Describe the observable behavior or design decision.
-- **Impact:** Explain the user cost and affected workflow.
-- **Recommendation:** Give a specific macOS-native correction.
-- **Priority:** Use `critical`, `high`, `medium`, or `low`.
-- **Evidence:** Point to the relevant artifact and official Apple guidance when available.
+- **Проблема:** опиши наблюдаемое поведение или дизайнерское решение.
+- **Влияние:** объясни неудобство для пользователя и затронутый сценарий.
+- **Рекомендация:** предложи конкретное исправление в духе macOS.
+- **Приоритет:** используй `critical`, `high`, `medium` или `low`.
+- **Основание:** укажи соответствующий материал и официальную рекомендацию Apple, если она есть.
 
-Separate confirmed HIG conflicts from product tradeoffs and optional refinements. Do not claim formal Apple compliance when only a partial artifact was reviewed.
+Отделяй подтверждённые противоречия HIG от компромиссов продукта и необязательных улучшений. Не заявляй о формальном соответствии требованиям Apple, если проверена только часть материалов.
 
-## Implementation Guidance
+## Рекомендации по реализации
 
-- Translate recommendations into the framework already used by the project, typically SwiftUI or AppKit.
-- Prefer semantic system APIs and controls over custom replicas.
-- Do not invent exact dimensions when Apple provides no fixed requirement. Explain the layout relationship and adaptive behavior instead.
-- Avoid applying iPhone navigation patterns to macOS without a task-specific reason.
-- Keep destructive actions explicit, reversible where possible, and consistent across menus, toolbars, contextual menus, and shortcuts.
-- Test resizing, multiple windows, multiple displays, keyboard-only operation, pointer precision, VoiceOver, increased contrast, reduced motion, and light/dark appearances as relevant.
+- Переноси рекомендации в уже используемый проектом фреймворк, обычно SwiftUI или AppKit.
+- Предпочитай смысловые системные API и элементы управления собственным копиям.
+- Не выдумывай точные размеры, если Apple не задаёт фиксированного требования. Вместо этого опиши отношения элементов в макете и адаптивное поведение.
+- Не переноси навигационные решения iPhone в macOS без причины, связанной с задачей.
+- Делай разрушительные действия явными, по возможности обратимыми и согласованными в меню, панелях инструментов, контекстных меню и сочетаниях клавиш.
+- По необходимости проверяй изменение размера, несколько окон и экранов, работу только с клавиатуры, точность указателя, VoiceOver, усиленный контраст, уменьшенное движение и светлое/тёмное оформление.
 
-## Sources
+## Источники
 
-Use Apple's current documentation as the authority:
+Считай актуальную документацию Apple авторитетным источником:
 
-- [Designing for macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
-- [Foundations](https://developer.apple.com/design/human-interface-guidelines/foundations)
-- [Patterns](https://developer.apple.com/design/human-interface-guidelines/patterns)
-- [Components](https://developer.apple.com/design/human-interface-guidelines/components)
-- [Inputs](https://developer.apple.com/design/human-interface-guidelines/inputs)
-- [Technologies](https://developer.apple.com/design/human-interface-guidelines/technologies)
-- [Apple Design Resources](https://developer.apple.com/design/resources/#macos-apps)
+- [Дизайн для macOS](https://developer.apple.com/design/human-interface-guidelines/designing-for-macos)
+- [Основы](https://developer.apple.com/design/human-interface-guidelines/foundations)
+- [Паттерны](https://developer.apple.com/design/human-interface-guidelines/patterns)
+- [Компоненты](https://developer.apple.com/design/human-interface-guidelines/components)
+- [Способы ввода](https://developer.apple.com/design/human-interface-guidelines/inputs)
+- [Технологии](https://developer.apple.com/design/human-interface-guidelines/technologies)
+- [Ресурсы Apple для дизайнеров](https://developer.apple.com/design/resources/#macos-apps)
 
-Summarize and apply the guidance. Do not reproduce long passages from Apple documentation.
+Пересказывай и применяй рекомендации. Не воспроизводи длинные фрагменты документации Apple.

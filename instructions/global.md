@@ -1,57 +1,65 @@
-# Global Agent Instructions
+# Глобальные инструкции для агента
 
-These instructions apply to every task, regardless of the current repository.
+Эти инструкции действуют в каждой задаче независимо от текущего репозитория.
 
-## Plan Before File Changes
+## Как подключён этот файл
 
-Before editing, deleting, renaming, formatting, generating, or otherwise changing files:
+`instructions/global.md` хранится в репозитории рядом с тематическими инструкциями. Он называется `global.md`, потому что содержит правила для всех задач, а не только для этого репозитория; имя исходного файла не требуется менять на `AGENTS.md`. Скрипт `scripts/sync-skills.sh` создаёт симлинк `~/.codex/AGENTS.md` на этот файл — по этому пути Codex загружает глобальные инструкции. Тот же скрипт подключает репозиторий как `~/.codex/agent-guidance` и синхронизирует ссылки на скиллы в `~/.agents/skills`. После изменения структуры скиллов запускай скрипт и проверку, описанные ниже.
 
-1. Confirm that the resolved Git root is the repository intended for the task; if it differs, resolve the target before changing files. Inspect the current worktree state and treat existing changes as user-owned.
-2. Inspect enough relevant context to produce an evidence-based plan.
-3. Present a plan of at most five short bullets that states:
-   - every file that will be changed;
-   - every file that will be deleted, or that no files will be deleted;
-   - what will change in each file and why;
-   - the material advantages and disadvantages of the approach, without inventing a disadvantage when none is supported by the inspected context.
-4. Wait for the user's explicit approval of that plan before making any file change.
+## План перед изменением файлов
 
-Read-only inspection is allowed before approval. A general request to implement something is not approval of a plan that has not yet been shown. If the file list, deletions, or material scope changes after approval, stop and request approval for an updated plan. Implementation details within the approved files and intent do not require another approval; state that work continues under the approved plan.
+Прежде чем редактировать, удалять, переименовывать, форматировать, генерировать или иным образом менять файлы:
 
-After approval, change only the approved files and preserve unrelated user-owned worktree changes. Do not overwrite, delete, rename, or format unrelated files. Approval of this workflow does not authorize unrelated external actions.
+1. Убедись, что найденный корень Git — репозиторий, к которому относится задача. Если это не так, сначала найди нужный репозиторий. Проверь состояние рабочего дерева и считай существующие изменения работой пользователя.
+2. Изучи достаточно относящегося к задаче контекста, чтобы составить обоснованный план.
+3. Покажи план не более чем из пяти коротких пунктов. Укажи в нём:
+   - каждый файл, который будет изменён;
+   - каждый файл, который будет удалён, либо явно скажи, что удалений не будет;
+   - что и зачем изменится в каждом файле;
+   - существенные достоинства и недостатки подхода, не выдумывая недостатков, если изученный контекст их не подтверждает.
+4. Дождись явного одобрения плана пользователем, прежде чем менять любой файл.
 
-## Route To Relevant Guidance
+До одобрения разрешено изучать данные без изменений. Общая просьба реализовать задачу не считается одобрением ещё не показанного плана. Если после одобрения меняется список файлов, состав удалений или существенный объём работ, остановись и запроси одобрение обновлённого плана. Уточнение деталей реализации в пределах одобренных файлов и цели повторного одобрения не требует; сообщи, что работа продолжается в рамках плана.
 
-Before performing specialized work, read the matching router or skill below. Read only the relevant branch; do not load every instruction file.
+После одобрения меняй только согласованные файлы и сохраняй посторонние изменения пользователя в рабочем дереве. Не перезаписывай, не удаляй, не переименовывай и не форматируй посторонние файлы. Одобрение этого порядка работы не разрешает несвязанные внешние действия.
 
-- Frontend applications, websites, browser UI, frontend dependencies, or frontend testing: read `/Users/dieruki/.codex/agent-guidance/instructions/frontend.md`.
-- Figma design, wireframes, design systems, page structure, or Figma-to-code work: read `/Users/dieruki/.codex/agent-guidance/instructions/figma.md`.
-- Native macOS interface design or implementation: read `/Users/dieruki/.codex/agent-guidance/design-macos-apps/SKILL.md`.
-- Timeweb shared-hosting deployment, DNS, mail, SSL, or migration: read `/Users/dieruki/.codex/agent-guidance/timeweb-deployment/SKILL.md`.
-- Job application or cover-letter writing: read `/Users/dieruki/.codex/agent-guidance/job-application-writer/SKILL.md`.
+## Переход к подходящим инструкциям
 
-Follow a routed file only while it remains relevant to the user's request. The user's explicit instructions take precedence over reusable guidance.
+Перед специализированной работой прочитай соответствующий маршрутизатор или скилл ниже. Читай только нужную ветку, а не все инструкции подряд.
 
-## Keep The Skill Registry Synchronized
+- Фронтенд-приложения, сайты, браузерный интерфейс, зависимости фронтенда или его тестирование: прочитай `/Users/dieruki/.codex/agent-guidance/instructions/frontend.md`.
+- Дизайн в Figma, вайрфреймы, дизайн-системы, структура страниц или перенос Figma-макета в код: прочитай `/Users/dieruki/.codex/agent-guidance/instructions/figma.md`.
+- Проектирование или реализация нативного интерфейса macOS: прочитай `/Users/dieruki/.codex/agent-guidance/design-macos-apps/SKILL.md`.
+- Развёртывание на виртуальном хостинге Timeweb, DNS, почта, SSL или миграция: прочитай `/Users/dieruki/.codex/agent-guidance/timeweb-deployment/SKILL.md`.
+- Отклик на вакансию или сопроводительное письмо: прочитай `/Users/dieruki/.codex/agent-guidance/job-application-writer/SKILL.md`.
 
-When adding, deleting, renaming, or moving a skill directory in `/Users/dieruki/Projects/skills`:
+Следуй указаниям файла, на который выполнен переход, только пока он относится к запросу пользователя. Явные указания пользователя имеют приоритет над повторно используемыми рекомендациями.
 
-1. Include the affected skill files and registry synchronization in the change plan.
-2. After approval and the repository edit, run `/Users/dieruki/.codex/agent-guidance/scripts/sync-skills.sh`.
-3. Do not finish until `/Users/dieruki/.codex/agent-guidance/scripts/sync-skills.sh --check` succeeds.
+## Синхронизация реестра скиллов
 
-The synchronizer may manage only symlinks in `~/.agents/skills` whose targets are inside `/Users/dieruki/Projects/skills`. It must never overwrite regular files, regular directories, or symlinks owned by another repository.
+При добавлении, удалении, переименовании или перемещении каталога скилла в `/Users/dieruki/Projects/skills`:
 
-## Keep Documentation And Instructions Aligned
+1. Включи затрагиваемые файлы скилла и синхронизацию реестра в план изменений.
+2. После одобрения и правок в репозитории запусти `/Users/dieruki/.codex/agent-guidance/scripts/sync-skills.sh`.
+3. Не завершай работу, пока `/Users/dieruki/.codex/agent-guidance/scripts/sync-skills.sh --check` не выполнится успешно.
 
-- When adding a dependency, update the repository's relevant setup, usage, or dependency documentation. Use a repository-specific documentation target when one is named.
-- Add or change a repository instruction only for a recurring, repository-specific requirement not already covered by higher-level instructions, reusable skills, or project tooling. Before doing so, inspect the applicable instruction set for overlaps and conflicts; clarify an existing rule when possible.
-- Keep repository-specific rules local. Put reusable workflows in shared skills only when that skill change is part of the approved scope. Do not duplicate behavior already enforced by formatters, linters, tests, or other tooling. Include any material instruction conflict in the change plan and resolve it within the approved scope.
+Синхронизатор может управлять только симлинками в `~/.agents/skills`, ведущими внутрь `/Users/dieruki/Projects/skills`. Он не должен перезаписывать обычные файлы, каталоги или симлинки других репозиториев.
 
-## Verification And Communication
+## Язык инструкций и скиллов
 
-- Run checks that are relevant and proportional to the approved change.
-- Report failed or skipped checks accurately; do not claim unperformed verification.
-- Do not claim visual appearance has been verified when visual review belongs to the user.
-- Keep routine progress updates to two sentences and send another only when the state materially changes or work exceeds 60 seconds. Keep final handoffs to five short lines unless a risk, failure, or blocker requires more detail.
-- Present one coherent approach after inspection. Change it only when new evidence or a changed requirement invalidates it, and explain why. Do not narrate individual tool calls or repeat reported results.
-- Clearly distinguish confirmed facts from unverified hypotheses.
+В `/Users/dieruki/Projects/skills` пиши текст инструкций, скиллов, справочных материалов и их человекочитаемых описаний на русском. Названия скиллов, файлов и каталогов, пути и иерархию проекта, ключи форматов, имена команд, инструментов, переменных и другие технические идентификаторы оставляй на английском; не переводи собственные названия продуктов. Это правило не требует переименовывать существующие файлы или скиллы.
+
+## Согласованность документации и инструкций
+
+- При добавлении зависимости обнови относящуюся к ней документацию по настройке, использованию или зависимостям репозитория. Если для проекта указан конкретный файл документации, используй его.
+- Добавляй или меняй инструкцию репозитория только ради повторяющегося требования, специфичного для него и ещё не покрытого инструкциями более высокого уровня, повторно используемыми скиллами или инструментами проекта. Сначала проверь действующие инструкции на пересечения и противоречия; по возможности уточни существующее правило.
+- Держи правила проекта внутри проекта. Помещай повторно используемые процессы в общие скиллы только тогда, когда изменение скилла входит в одобренный объём работ. Не дублируй требования, которые уже обеспечивают форматтеры, линтеры, тесты или другие инструменты. Укажи существенные конфликты инструкций в плане и разреши их в одобренных пределах.
+
+## Проверка и общение
+
+- Выполняй проверки, относящиеся к одобренному изменению и соразмерные ему.
+- Точно сообщай о неудачных или пропущенных проверках; не утверждай, что выполнил проверку, которой не было.
+- Не утверждай, что внешний вид проверен, если визуальная оценка остаётся за пользователем.
+- Ограничивай обычные сообщения о ходе работы двумя предложениями; отправляй следующее только при существенном изменении состояния или если работа длится более 60 секунд. Итоговое сообщение ограничивай пятью короткими строками, кроме случаев, когда риск, ошибка или препятствие требуют подробностей.
+- После изучения контекста предложи один согласованный подход. Меняй его только если новые факты или изменившиеся требования делают прежний подход неверным, и объясняй причину. Не пересказывай отдельные вызовы инструментов и уже сообщённые результаты.
+- Чётко отделяй подтверждённые факты от непроверенных предположений.
