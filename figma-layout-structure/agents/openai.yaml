@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma Layout Structure"
+  short_description: "Build Figma blocks on a variable-driven grid"
+  default_prompt: "Use $figma-layout-structure to build this block in the currently open Figma file: full-width shell, centred container capped by the breakpoint variable, backgrounds bleeding to the canvas edges."

@@ -12,6 +12,7 @@ Skills помогают агентам работать предсказуемо
 | ------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
 | [`design-macos-apps`](./design-macos-apps/SKILL.md)                       | Проектирует, реализует и проверяет нативные интерфейсы macOS по Apple Human Interface Guidelines.                      |
 | [`figma-design-system-refactor`](./figma-design-system-refactor/SKILL.md) | Аудирует, рефакторит и внедряет дизайн-системы в существующих Figma-файлах.                                            |
+| [`figma-layout-structure`](./figma-layout-structure/SKILL.md)             | Собирает блоки и страницы в Figma на сетке из переменных: блок во всю ширину, контейнер по центру, фоны навылет.        |
 | [`figma-wireframes-generator`](./figma-wireframes-generator/SKILL.md)     | Генерирует desktop low-fidelity wireframes для landing pages и связанных страниц в текущем Figma-файле.                |
 | [`frontend-engineering`](./frontend-engineering/SKILL.md)                 | Применяет общие подходы к реализации и диагностике frontend-интерфейсов и подключает доступные технологические skills. |
 | [`frontend-maintenance`](./frontend-maintenance/SKILL.md)                 | Аудирует и безопасно обновляет runtime, зависимости и frontend-tooling как совместимую систему.                        |
@@ -19,6 +20,7 @@ Skills помогают агентам работать предсказуемо
 | [`job-application-writer`](./job-application-writer/SKILL.md)             | Создаёт краткие персонализированные отклики на вакансии на основе резюме и требований работодателя.                    |
 | [`repository-workflow`](./repository-workflow/SKILL.md)                   | Задаёт проверку репозитория, согласование scope, краткую коммуникацию и поддержку инструкций.                          |
 | [`tailwind-engineering`](./tailwind-engineering/SKILL.md)                 | Реализует и диагностирует Tailwind CSS через utilities, tokens, variants и обоснованные расширения.                    |
+| [`timeweb-deployment`](./timeweb-deployment/SKILL.md)                 | Пошагово разворачивает сайты на обычном Timeweb через GitHub Actions и безопасно переносит DNS, почту и HTTPS.          |
 | [`vue-engineering`](./vue-engineering/SKILL.md)                           | Реализует и диагностирует Vue-компоненты, реактивность, composables и владение состоянием.                             |
 
 ## Формат Skill
