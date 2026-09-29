@@ -1,4 +1,0 @@
-interface:
-  display_name: "Repository Workflow"
-  short_description: "Plan scoped repository changes with clear approval"
-  default_prompt: "Use $repository-workflow to plan and carry out this repository change with explicit scope approval and concise communication."
