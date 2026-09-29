@@ -1,4 +1,0 @@
-interface:
-  display_name: "Frontend Verification"
-  short_description: "Надёжные тесты и проверка изменений"
-  default_prompt: "Используй $frontend-verification, чтобы спланировать или проверить это изменение фронтенда соразмерными поведенческими проверками."

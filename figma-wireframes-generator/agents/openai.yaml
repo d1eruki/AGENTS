@@ -1,4 +1,0 @@
-interface:
-  display_name: "Figma Wireframes Generator"
-  short_description: "Вайрфреймы лендингов в Figma"
-  default_prompt: "Используй $figma-wireframes-generator, чтобы создать в открытом файле Figma десктопный вайрфрейм лендинга по предоставленному мной тексту."

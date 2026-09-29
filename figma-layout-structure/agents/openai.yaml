@@ -1,4 +1,0 @@
-interface:
-  display_name: "Figma Layout Structure"
-  short_description: "Блоки Figma на сетке с переменными"
-  default_prompt: "Используй $figma-layout-structure, чтобы собрать этот блок в открытом файле Figma: оболочка на всю ширину, центрированный контейнер с ограничением переменной брейкпоинта и фон до краёв холста."

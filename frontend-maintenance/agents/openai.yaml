@@ -1,4 +1,0 @@
-interface:
-  display_name: "Frontend Maintenance"
-  short_description: "Аудит и безопасное обновление зависимостей"
-  default_prompt: "Используй $frontend-maintenance, чтобы проверить этот фронтенд-стек и определить совместимые обновления."

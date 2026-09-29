@@ -1,4 +1,0 @@
-interface:
-  display_name: "Tailwind Engineering"
-  short_description: "Согласованные интерфейсы на Tailwind CSS"
-  default_prompt: "Используй $tailwind-engineering, чтобы реализовать, проверить или диагностировать это изменение Tailwind CSS с учётом настроек проекта."

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Frontend Engineering"
-  short_description: "Планирование и диагностика фронтенд-систем"
-  default_prompt: "Используй $frontend-engineering, чтобы спланировать или диагностировать это сквозное изменение фронтенд-системы на всех затронутых уровнях."

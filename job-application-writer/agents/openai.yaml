@@ -1,4 +1,0 @@
-interface:
-  display_name: "Job Application Writer"
-  short_description: "Краткие персонализированные сопроводительные письма"
-  default_prompt: "Используй $job-application-writer, чтобы написать краткое сопроводительное письмо на эту вакансию на основе моего резюме."

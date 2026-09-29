@@ -1,4 +1,0 @@
-interface:
-  display_name: "Timeweb Deployment"
-  short_description: "Безопасное развёртывание сайтов на Timeweb"
-  default_prompt: "Используй $timeweb-deployment, чтобы развернуть этот сайт через GitHub Actions на виртуальном хостинге Timeweb."

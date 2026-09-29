@@ -1,4 +1,0 @@
-interface:
-  display_name: "Vue Engineering"
-  short_description: "Разработка и диагностика приложений Vue"
-  default_prompt: "Используй $vue-engineering, чтобы реализовать, проверить или диагностировать это изменение Vue по принятым в проекте правилам."

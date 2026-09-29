@@ -1,4 +1,0 @@
-interface:
-  display_name: "Design macOS Apps"
-  short_description: "Проектирование и проверка интерфейсов macOS"
-  default_prompt: "Используй $design-macos-apps, чтобы спроектировать или проверить этот интерфейс macOS по рекомендациям Apple Human Interface Guidelines."
