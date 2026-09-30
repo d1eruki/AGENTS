@@ -5,26 +5,10 @@ set -euo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 repo_root="$(cd "${script_dir}/.." && pwd -P)"
 codex_home="${CODEX_HOME:-${HOME}/.codex}"
-skill_home="${AGENT_SKILLS_HOME:-${HOME}/.agents/skills}"
-legacy_skill_home="${codex_home}/skills"
 guidance_link="${codex_home}/agent-guidance"
 global_agents_link="${codex_home}/AGENTS.md"
 global_agents_source="${repo_root}/global.md"
 mode="${1:-sync}"
-
-former_skill_names=(
-  design-macos-apps
-  figma-design-system-refactor
-  figma-layout-structure
-  figma-wireframes-generator
-  frontend-engineering
-  frontend-maintenance
-  frontend-verification
-  job-application-writer
-  tailwind-engineering
-  timeweb-deployment
-  vue-engineering
-)
 
 if [[ "${mode}" != "sync" && "${mode}" != "--check" ]]; then
   echo "Использование: $0 [--check]" >&2
@@ -75,31 +59,8 @@ ensure_link() {
   fi
 }
 
-remove_former_links() {
-  local directory="$1"
-  local name link_path existing_target
-  [[ -d "${directory}" ]] || return
-
-  for name in "${former_skill_names[@]}"; do
-    link_path="${directory}/${name}"
-    [[ -L "${link_path}" ]] || continue
-    existing_target="$(readlink "${link_path}")"
-    [[ "${existing_target}" == "${repo_root}/${name}" ]] || continue
-
-    if [[ "${mode}" == "--check" ]]; then
-      echo "Устаревшая ссылка: ${link_path}" >&2
-      drift=1
-    else
-      rm "${link_path}"
-      echo "Удалена ссылка ${link_path}"
-    fi
-  done
-}
-
 ensure_link "${repo_root}" "${guidance_link}"
 ensure_link "${global_agents_source}" "${global_agents_link}"
-remove_former_links "${skill_home}"
-remove_former_links "${legacy_skill_home}"
 
 if [[ "${drift}" -ne 0 ]]; then
   exit 1
