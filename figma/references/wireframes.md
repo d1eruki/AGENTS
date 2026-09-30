@@ -10,7 +10,11 @@
 - Если инструмент записи Figma MCP недоступен, попроси пользователя подключить или настроить его, а не создавай результат вне Figma.
 - Не вызывай `generate_diagram`, `generate_deck` или `generate_figma_design` для этого процесса.
 - Работай в открытом или предоставленном пользователем файле Figma. Не создавай новый файл без явной просьбы.
-- Читай `references/figma-wireframe-api.md` только при подготовке JavaScript для инструмента записи Figma MCP.
+- Перед созданием текста вызови `await figma.loadFontAsync({ family: "Inter", style: "Regular" })`. Стили `Medium` и `Semi Bold` загружай тем же способом только при необходимости.
+- Не присваивай `figma.currentPage` напрямую; для смены страницы вызывай `await figma.setCurrentPageAsync(page)`.
+- Предпочитай устойчивые названия: `Wireframes`, `Components`, `Landing`, `Pricing`, `Thank You`.
+- При подготовке JavaScript для инструмента записи Figma MCP читай [wireframes-grid.md](wireframes-grid.md) для сетки, [wireframes-sizing.md](wireframes-sizing.md) для размеров и автоматической компоновки, [wireframes-text.md](wireframes-text.md) для текста, [wireframes-components.md](wireframes-components.md) для компонентов и итоговой проверки.
+- При работе по образцу также читай [wireframes-style.md](wireframes-style.md).
 - Если пользователь просит страницу «в стиле», «как», «в соответствии с», «как главная» или «на основе» существующей, считай её строгим визуальным образцом. Измерь её визуальные параметры до создания; не используй её лишь как свободное вдохновение.
 
 ## Сбор исходных данных
