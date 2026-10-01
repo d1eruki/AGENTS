@@ -18,6 +18,8 @@
 ```text
 .
 ├── global.md
+├── image-generation/
+│   └── index.md
 ├── diagnostics/
 │   ├── index.md
 │   └── references/
@@ -76,6 +78,7 @@
 | Инструкция | Назначение |
 | --- | --- |
 | [`global.md`](./global.md) | Общие правила, план перед правками, маршрутизация и поддержание документации. |
+| [`image-generation/index.md`](./image-generation/index.md) | Сохранение пропорций и границ содержимого, отсутствие свечения на прозрачных изображениях. |
 | [`diagnostics/index.md`](./diagnostics/index.md) | Выбор этапов диагностики неисправностей в приложениях, системе, сети и оборудовании. |
 | [`diagnostics/references/investigation.md`](./diagnostics/references/investigation.md) | Симптомы, исходное состояние, логи и проверяемые гипотезы. |
 | [`diagnostics/references/experiments.md`](./diagnostics/references/experiments.md) | Минимальные тесты, безопасные исправления, откат и условия остановки. |
