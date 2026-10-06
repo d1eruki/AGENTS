@@ -30,6 +30,7 @@
 │   ├── index.md
 │   └── references/
 │       ├── engineering.md
+│       ├── 3d-scenes.md
 │       ├── maintenance.md
 │       ├── verification.md
 │       ├── tailwind.md
@@ -85,6 +86,7 @@
 | [`diagnostics/references/reporting.md`](./diagnostics/references/reporting.md) | Промежуточные и итоговые диагностические отчёты. |
 | [`frontend/index.md`](./frontend/index.md) | Выбор ветки по задаче и стеку фронтенда. |
 | [`frontend/references/engineering.md`](./frontend/references/engineering.md) | Сквозная архитектура и диагностика интерфейса. |
+| [`frontend/references/3d-scenes.md`](./frontend/references/3d-scenes.md) | Масштаб моделей, владение 3D-сценой, оптика, диагностика артефактов и производительность рендера. |
 | [`frontend/references/maintenance.md`](./frontend/references/maintenance.md) | Совместимое обновление среды, зависимостей и инструментов. |
 | [`frontend/references/verification.md`](./frontend/references/verification.md) | Устойчивые тесты и соразмерная проверка изменений. |
 | [`frontend/references/tailwind.md`](./frontend/references/tailwind.md) | Оформление с Tailwind CSS, токенами и вариантами. |
